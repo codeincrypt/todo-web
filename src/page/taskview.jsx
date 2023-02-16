@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../assets/import.css";
 import { GET_PROFILE } from "../request/apirequest";
 
-const Tasks = (props) => {
+const Tasksview = (props) => {
   // eslint-disable-next-line
   const [profile, setProfile] = useState("");
 
@@ -20,33 +20,19 @@ const Tasks = (props) => {
 
   return (
     <>
+      <body class="hold-transition login-page">
         <section class="content-header">
           <div class="container-fluid">
             <div class="row mb-2">
               <div class="col-sm-6">
-                <h1>To Do List</h1>
+                <h1>Task</h1>
               </div>
             </div>
           </div>
         </section>
-        <section class="content-header">
-        <div class="card">
-          <div class="container-fluid">
-            <table class="table table-bordered table-striped">
-              <thead class="">
-                <th>ID</th>
-                <th>TASK</th>
-                <th>TYPE</th>
-                <th>TEAM</th>
-                <th>STATUS</th>
-                <th>ACTION</th>
-              </thead>
-            </table>
-          </div>
-        </div>
-        </section>
+      </body>
     </>
   );
 };
 
-export default Tasks;
+export default Tasksview;
