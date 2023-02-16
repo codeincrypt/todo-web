@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import { UserContext } from "../../App";
 import "../../assets/import.css";
+import { Link } from "react-router-dom";
 
 const Header = (props) => {
   const { dispatch } = useContext(UserContext);
@@ -21,7 +22,7 @@ const Header = (props) => {
       <nav class="main-header navbar navbar-expand navbar-white navbar-light">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+            <Link class="nav-link" data-widget="pushmenu" to="/" role="button"><i class="fas fa-bars"></i></Link>
           </li>
           {/* <li class="nav-item d-none d-sm-inline-block">
             <a href="index3.html" class="nav-link">Home</a>
@@ -33,14 +34,14 @@ const Header = (props) => {
 
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+            <Link to="/profile" class="nav-link" data-widget="fullscreen" role="button">
               <i class="fas fa-user mr-2"></i> PROFILE
-            </a>
+            </Link>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#" role="button" onClick={expireSession}>
+            <button class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" role="button" onClick={expireSession}>
               <i class="fas fa-signout mr-2"></i> LOGOUT
-            </a>
+            </button>
           </li>
         </ul>
       </nav>

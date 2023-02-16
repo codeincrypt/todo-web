@@ -11,10 +11,10 @@ const Header = (props) => {
 
 	return (
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
-			<a href="/" class="brand-link">
-				<img src="https://www.hashcashconsultants.com/img/hashcash-logo.png" alt="AdminLTE Logo" class="brand-image"/>
+			<Link to="/" class="brand-link">
+				<img src="https://www.seekpng.com/png/full/865-8659253_microsoft-white-logo-microsoft-logo-transparent-white.png" alt="AdminLTE Logo" class="brand-image"/>
 				<span class="brand-text font-weight-light">ADMIN</span>
-			</a>
+			</Link>
 			<div class="sidebar">
 
 				<div class="user-panel mt-3 pb-3 mb-3 d-flex">
@@ -22,7 +22,7 @@ const Header = (props) => {
 						<img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" class="img-circle elevation-2" alt="User Image" />
 					</div>
 					<div class="info">
-						<a href="#" class="d-block">Raj</a>
+						<Link to="/" class="d-block">Employee</Link>
 					</div>
 				</div>
 
@@ -36,9 +36,9 @@ const Header = (props) => {
 							</Link>
 						</li>
 						<li class="nav-item menu-open">
-							<Link to="/newsletter" class="nav-link">
+							<Link to="/tasks" class="nav-link">
 								<i class="far fa-circle nav-icon"></i>
-								<p>Newsletter</p>
+								<p>Tasks</p>
 							</Link>
 						</li>
 					</ul>
