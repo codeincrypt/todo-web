@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "../assets/import.css";
-import { GET_PROFILE } from "../request/apirequest";
+import { GET_TODOLIST } from "../request/apirequest";
 
 const Tasks = (props) => {
   // eslint-disable-next-line
   const [profile, setProfile] = useState("");
 
   const fetchProfile = async () => {
-    GET_PROFILE().then(async (res) => {
+    GET_TODOLIST().then(async (res) => {
       if (res.statuscode === 1) {
+        setProfile(res.data);
       }
     });
   };
@@ -29,7 +30,7 @@ const Tasks = (props) => {
             </div>
           </div>
         </section>
-        <section class="content-header">
+        <section class="content">
         <div class="card">
           <div class="container-fluid">
             <table class="table table-bordered table-striped">

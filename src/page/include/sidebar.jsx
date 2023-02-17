@@ -46,21 +46,21 @@ const Header = (props) => {
                 <p>Dashboard</p>
               </Link>
             </li>
-            <li class="nav-item menu-open">
+            <li class="nav-item">
               <Link to="/tasks" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
+                <i class="fa fa-address-card nav-icon"></i>
                 <p>Projects</p>
               </Link>
             </li>
-            <li class="nav-item menu-open">
+            <li class="nav-item">
               <Link to="/tasks" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
+                <i class="fa fa-tasks nav-icon"></i>
                 <p>Tasks</p>
               </Link>
             </li>
-            <li class="nav-item menu-open">
+            <li class="nav-item">
               <Link to="/tasks" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
+                <i class="fa fa-bug nav-icon"></i>
                 <p>Bugs</p>
               </Link>
             </li>
