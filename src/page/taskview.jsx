@@ -20,11 +20,11 @@ const Tasksview = (props) => {
 
   return (
     <>
-      <body class="hold-transition login-page">
-        <section class="content-header">
-          <div class="container-fluid">
-            <div class="row mb-2">
-              <div class="col-sm-6">
+      <body className="hold-transition login-page">
+        <section className="content-header">
+          <div className="container-fluid">
+            <div className="row mb-2">
+              <div className="col-sm-6">
                 <h1>Task</h1>
               </div>
             </div>

@@ -1,48 +1,66 @@
 import React, { useState, useEffect } from "react";
 import "../assets/import.css";
 import { GET_TODOLIST } from "../request/apirequest";
+import TasksTable from "./component/task";
 
 const Tasks = (props) => {
   // eslint-disable-next-line
-  const [profile, setProfile] = useState("");
+  const [todolist, setTodolist] = useState([]);
 
-  const fetchProfile = async () => {
+  const fetchTodo = async () => {
     GET_TODOLIST().then(async (res) => {
       if (res.statuscode === 1) {
-        setProfile(res.data);
+        setTodolist(res.data);
       }
     });
   };
 
+  const RedirectLink = ( id) => {
+    console.log("Redirect", id)
+  }
+
   useEffect(() => {
-    fetchProfile();
+    fetchTodo();
     // eslint-disable-next-line
   }, []);
 
   return (
     <>
-        <section class="content-header">
-          <div class="container-fluid">
-            <div class="row mb-2">
-              <div class="col-sm-6">
+        <section className="content-header">
+          <div className="container-fluid">
+            <div className="row mb-2">
+              <div className="col-sm-6">
                 <h1>To Do List</h1>
               </div>
             </div>
           </div>
         </section>
-        <section class="content">
-        <div class="card">
-          <div class="container-fluid">
-            <table class="table table-bordered table-striped">
-              <thead class="">
-                <th>ID</th>
-                <th>TASK</th>
-                <th>TYPE</th>
-                <th>TEAM</th>
-                <th>STATUS</th>
-                <th>ACTION</th>
-              </thead>
-            </table>
+        <section className="content">
+        <div className="container-fluid">
+        <div className="card card-success card-outline">
+            {/* <div className="card-header">
+              <h3 className="card-title">To Do Tasks</h3>
+            </div> */}
+
+            <div className="card-body table-responsive p-0">
+              <table className="table table-hover text-nowrap">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>TASK</th>
+                    <th>TAG</th>
+                    <th>COMMENTS</th>
+                    <th className="text-center">PRIORITY</th>
+                    <th className="text-center">STATUS</th>
+                    <th className="text-center">ASSIGNEE</th>
+                    <th className="text-center">DATE</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <TasksTable todolist={todolist} openLink={RedirectLink} />
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
         </section>

@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { UserContext } from "../App";
 import "../assets/import.css";
 import { GET_LOGIN, GET_VERIFYOTP } from "../request/auth";
+import { showAlert } from "../page/common/alert";
 
 const Login = (props) => {
   const { dispatch } = useContext(UserContext);
@@ -14,22 +15,14 @@ const Login = (props) => {
   const [loadingbtn, setLoadingbtn] = useState(false);
 
 
-  const showError = (type, message) => {
-    function leftur() {
-      document.getElementById('error').innerHTML = '';
-    }
-    document.getElementById('error').innerHTML = `<div class="bs-component"><div class="alert alert-dismissible alert-${type}"><button class="close" type="button" data-dismiss="alert">×</button> ${message} </div></div>`;
-    setTimeout(leftur, 3000);
-  }
-
   const getLogin = async () => {
     setLoadingbtn(true);
     GET_LOGIN(email, password).then(async (res) => {
       if (res.statuscode === 1) {
-        showError('success', res.message)
+        showAlert('success', res.message)
         setLoginpage(false)
       } else {
-        showError('danger', res.message)
+        showAlert('danger', res.message)
         setLoadingbtn(false);
       }
     })
@@ -39,12 +32,13 @@ const Login = (props) => {
     setOtpbtn(true);
     GET_VERIFYOTP(email, password, otp).then(async (res) => {
       if (res.statuscode === 1) {
-        showError('success', res.message)
+        showAlert('success', res.message)
         localStorage.setItem('todoemployee', res.data.token);
+        localStorage.setItem('todoemployeedetails', res.data);
         dispatch({ type: 'TODOUSER', payload: res.data.token });
         window.location.replace('/home')
       } else {
-        showError('danger', res.message)
+        showAlert('danger', res.message)
         setOtpbtn(false);
       }
     })

@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
 import "../assets/import.css";
-import { GET_PROFILE } from "../request/apirequest";
+import { GET_DASHTODOLIST, GET_PROFILE } from "../request/apirequest";
+import TasksTable from "./component/task";
 
 moment().format();
 
 const Home = (props) => {
   const [profile, setProfile] = useState("");
-
-  const datenow = moment();
+  const [todolist, setTodolist] = useState([]);
 
   const fetchProfile = async () => {
     GET_PROFILE().then(async (res) => {
@@ -18,54 +18,62 @@ const Home = (props) => {
     });
   };
 
+  const fetchTodo = async () => {
+    GET_DASHTODOLIST().then(async (res) => {
+      if (res.statuscode === 1) {
+        setTodolist(res.data);
+      }
+    });
+  };
+
   useEffect(() => {
     fetchProfile();
+    fetchTodo()
     // eslint-disable-next-line
   }, []);
   return (
     <>
-      <section class="content-header">
-        <div class="container-fluid">
-          <div class="row mb-2">
-            <div class="col-sm-6">
+      <section className="content-header">
+        <div className="container-fluid">
+          <div className="row mb-2">
+            <div className="col-sm-6">
               <h1>Dashboard </h1>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="content">
-        <div class="container-fluid">
-          <div class="card card-primary ">
-            <div class="card-body p-4">
-              <h3>Good Morning, {profile.name}</h3>
-              <h5 className="text-muted">
-                {" "}
+      <section className="content">
+        <div className="container-fluid">
+          <div className="card card-primary ">
+            <div className="card-body p-4">
+              <h4>Good Morning, {profile.name}</h4>
+              <h6 className="text-muted">
                 {moment(new Date()).format("DD MMMM YYYY")}{" "}
-              </h5>
+              </h6>
             </div>
           </div>
-          <div class="row">
-            <div class="col-lg-3">
-              <div class="callout callout-danger p-4">
+          <div className="row">
+            <div className="col-lg-3">
+              <div className="callout callout-danger p-4">
+                <h1>1</h1>
+                <h5>Pending Tasks</h5>
+              </div>
+            </div>
+            <div className="col-lg-3">
+              <div className="callout callout-danger p-4">
+                <h1>2</h1>
+                <h5>High Priority</h5>
+              </div>
+            </div>
+            <div className="col-lg-3">
+              <div className="callout callout-danger p-4">
                 <h1>100</h1>
                 <h5>Tasks</h5>
               </div>
             </div>
-            <div class="col-lg-3">
-              <div class="callout callout-danger p-4">
-                <h1>100</h1>
-                <h5>Tasks</h5>
-              </div>
-            </div>
-            <div class="col-lg-3">
-              <div class="callout callout-danger p-4">
-                <h1>100</h1>
-                <h5>Tasks</h5>
-              </div>
-            </div>
-            <div class="col-lg-3">
-              <div class="callout callout-danger p-4">
+            <div className="col-lg-3">
+              <div className="callout callout-danger p-4">
                 <h1>100</h1>
                 <h5>Tasks</h5>
               </div>
@@ -73,86 +81,70 @@ const Home = (props) => {
           </div>
         </div>
 
-        <div class="container-fluid">
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">To Do Tasks</h3>
+        <div className="container-fluid">
+          <div className="card">
+            <div className="card-header">
+              <h3 className="card-title">To Do Tasks</h3>
             </div>
 
-            <div class="card-body table-responsive p-0">
-              <table class="table table-hover text-nowrap">
+            <div className="card-body table-responsive p-0">
+              <table className="table table-hover text-nowrap">
                 <thead>
                   <tr>
                     <th>ID</th>
-                    <th>User</th>
-                    <th>Date</th>
-                    <th>Status</th>
-                    <th>Reason</th>
+                    <th>TASK</th>
+                    <th>TAG</th>
+                    <th>COMMENTS</th>
+                    <th className="text-center">PRIORITY</th>
+                    <th className="text-center">STATUS</th>
+                    <th className="text-center">ASSIGNEE</th>
+                    <th className="text-center">DATE</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>183</td>
-                    <td>John Doe</td>
-                    <td>11-7-2014</td>
-                    <td>
-                      <span class="tag tag-success">Approved</span>
-                    </td>
-                    <td>
-                      Bacon ipsum dolor sit amet salami venison chicken flank
-                      fatback doner.
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>219</td>
-                    <td>Alexander Pierce</td>
-                    <td>11-7-2014</td>
-                    <td>
-                      <span class="tag tag-warning">Pending</span>
-                    </td>
-                    <td>
-                      Bacon ipsum dolor sit amet salami venison chicken flank
-                      fatback doner.
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>657</td>
-                    <td>Bob Doe</td>
-                    <td>11-7-2014</td>
-                    <td>
-                      <span class="tag tag-primary">Approved</span>
-                    </td>
-                    <td>
-                      Bacon ipsum dolor sit amet salami venison chicken flank
-                      fatback doner.
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>175</td>
-                    <td>Mike Doe</td>
-                    <td>11-7-2014</td>
-                    <td>
-                      <span class="tag tag-danger">Denied</span>
-                    </td>
-                    <td>
-                      Bacon ipsum dolor sit amet salami venison chicken flank
-                      fatback doner.
-                    </td>
-                  </tr>
+                  <TasksTable todolist={todolist}  />
+                  {/* {todolist.map((item, index) => (
+                    <tr>
+                      <td>{item.id}</td>
+                      <td>{item.tasks}</td>
+                      <td>{item.tag}</td>
+                      <td className="text-center">0</td>
+                      <td className="text-center">
+                        {item.workpriority === 'Critical' ? (
+                          <span className="font-weight-bold text-danger"><i className="fa fa-fire-alt"></i> {item.workpriority}</span>
+                        ) : item.workpriority === 'Very High' ? (
+                          <span className="font-weight-bold text-warning"><i className="fa fa-arrow-up"></i> {item.workpriority}</span>
+                        ) : (
+                          <span className="font-weight-bold text-dark"><i className="fa fa-arrow-down"></i> {item.workpriority}</span>
+                        )}
+                        </td>
+                      <td className="text-center">
+                        {item.taskstatus === 0 ? (
+                          <span className="badge bg-warning">Working</span>
+                        ) : item.taskstatus === 2 ? (
+                          <span className="badge bg-danger">Pending</span>
+                        ) : (
+                          <span className="badge bg-success">Completed</span>
+                        )}
+                      </td>
+                      <td className="text-center">{item.assignby}</td>
+                      <td className="text-center">{item.date} <br /> {item.time}</td>
+                    </tr>
+                    ))} */}
                 </tbody>
               </table>
             </div>
           </div>
         </div>
 
-        <div class="container-fluid">
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">Responsive Hover Table</h3>
+        <div className="container-fluid">
+          <div className="card">
+            <div className="card-header">
+              <h3 className="card-title">Portfolio Summary</h3>
             </div>
 
-            <div class="card-body table-responsive p-0">
-              <table class="table table-hover text-nowrap">
+            <div className="card-body table-responsive p-0">
+              <table className="table table-hover text-nowrap">
                 <thead>
                   <tr>
                     <th>ID</th>
@@ -168,7 +160,7 @@ const Home = (props) => {
                     <td>John Doe</td>
                     <td>11-7-2014</td>
                     <td>
-                      <span class="tag tag-success">Approved</span>
+                      <span className="tag tag-success">Approved</span>
                     </td>
                     <td>
                       Bacon ipsum dolor sit amet salami venison chicken flank
@@ -180,7 +172,7 @@ const Home = (props) => {
                     <td>Alexander Pierce</td>
                     <td>11-7-2014</td>
                     <td>
-                      <span class="tag tag-warning">Pending</span>
+                      <span className="tag tag-warning">Pending</span>
                     </td>
                     <td>
                       Bacon ipsum dolor sit amet salami venison chicken flank
@@ -192,7 +184,7 @@ const Home = (props) => {
                     <td>Bob Doe</td>
                     <td>11-7-2014</td>
                     <td>
-                      <span class="tag tag-primary">Approved</span>
+                      <span className="tag tag-primary">Approved</span>
                     </td>
                     <td>
                       Bacon ipsum dolor sit amet salami venison chicken flank
@@ -204,7 +196,7 @@ const Home = (props) => {
                     <td>Mike Doe</td>
                     <td>11-7-2014</td>
                     <td>
-                      <span class="tag tag-danger">Denied</span>
+                      <span className="tag tag-danger">Denied</span>
                     </td>
                     <td>
                       Bacon ipsum dolor sit amet salami venison chicken flank

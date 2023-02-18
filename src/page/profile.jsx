@@ -35,43 +35,43 @@ const Profile = (props) => {
         <section className="content">
           <div className="container-fluid">
             <div className="row">
-              <div class="col-md-3">
-                <div class="card card-primary card-outline">
-                  <div class="card-body box-profile">
-                    <div class="text-center">
+              <div className="col-md-3">
+                <div className="card card-success card-outline">
+                  <div className="card-body box-profile">
+                    <div className="text-center">
                       <img
-                        class="profile-user-img img-fluid img-circle"
+                        className="profile-user-img img-fluid img-circle"
                         src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
                         alt="User profile picture"
                       />
                     </div>
-                    <h3 class="profile-username text-center">{profile.name}</h3>
-                    <p class="text-muted text-center">{profile.employeeid}</p>
-                    <ul class="list-group list-group-unbordered mb-3">
-                      <li class="list-group-item">
+                    <h3 className="profile-username text-center">{profile.name}</h3>
+                    <p className="text-muted text-center">{profile.employeeid}</p>
+                    <ul className="list-group list-group-unbordered mb-3">
+                      <li className="list-group-item">
                         <b>Contact</b>
-                        <span class="float-right"> {profile.mobile} </span>
+                        <span className="float-right"> {profile.mobile} </span>
                       </li>
-                      <li class="list-group-item">
+                      <li className="list-group-item">
                         <b>Email</b>
-                        <span class="float-right"> {profile.email} </span>
+                        <span className="float-right"> {profile.email} </span>
                       </li>
-                      <li class="list-group-item">
+                      <li className="list-group-item">
                         <b>Email</b>
-                        <span class="float-right"> {profile.email} </span>
+                        <span className="float-right"> {profile.email} </span>
                       </li>
                     </ul>
                   </div>
                 </div>
               </div>
 
-              <div class="col-md-9">
-                <div class="card card-primary card-outline">
-                <div class="card-header">
-                    <h3 class="card-title text-uppercase font-weight-bold">Personal Details</h3>
+              <div className="col-md-9">
+                <div className="card card-success card-outline">
+                <div className="card-header">
+                    <h3 className="card-title text-uppercase font-weight-bold">Personal Details</h3>
                   </div>
-                  <div class="card-body">
-                  <div class="row">
+                  <div className="card-body">
+                  <div className="row">
                     <div className="col-md-4 mt-4">
                       <div className="title">Blood Group</div>
                       <div className="title-value">-</div>
@@ -100,12 +100,12 @@ const Profile = (props) => {
                   </div>
                 </div>
 
-                <div class="card card-primary card-outline">
-                  <div class="card-header">
-                    <h3 class="card-title text-uppercase font-weight-bold">Address</h3>
+                <div className="card card-success card-outline">
+                  <div className="card-header">
+                    <h3 className="card-title text-uppercase font-weight-bold">Address</h3>
                   </div>
-                  <div class="card-body">
-                    <div class="row">
+                  <div className="card-body">
+                    <div className="row">
                       <div className="col-md-12 mt-4">
                         <div className="title">Address</div>
                         <div className="title-value">-</div>

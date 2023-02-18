@@ -1,12 +1,27 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { UserContext } from "../../App";
 import "../../assets/import.css";
 import { Link } from "react-router-dom";
+import { GET_PROFILE } from "../../request/apirequest";
 
 const Header = (props) => {
   const { dispatch } = useContext(UserContext);
 
+  const [profile, setProfile] = useState("");
+
+  const fetchProfile = async () => {
+    GET_PROFILE().then(async (res) => {
+      if (res.statuscode === 1) {
+        setProfile(res.data);
+      }
+      if (res.statuscode === 2) {
+        expireSession()
+      }
+    });
+  };
+
   useEffect(() => {
+    fetchProfile();
     // eslint-disable-next-line
   }, []);
 
