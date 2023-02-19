@@ -1,0 +1,78 @@
+
+.content {
+  padding: 0 0.5rem;
+}
+
+.page-error {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-height: calc(50vh - 130px);
+  margin-bottom: 0;
+}
+
+.page-error h1 {
+  margin: 10px;
+  color: #dc3545;
+  font-size: 42px;
+}
+
+
+.line {
+  height: 4px;
+  width: 100px;
+  background: #e8e8e8;
+  margin-top: 20%;
+}
+.line .inner {
+  width: 100px;
+  height: inherit;
+  background: #5be300;
+  animation: slider 2s ease-in-out infinite;
+}
+
+
+@keyframes slider {
+  0% {
+    transform-origin: left;
+    transform: scalex(0.3);
+  }
+  25% {
+    transform-origin: left;
+    transform: scalex(1);
+  }
+  26% {
+    transform-origin: right;
+    transform: scalex(1);
+  }
+  50% {
+    transform-origin: right;
+    transform: scalex(0.3);
+  }
+  75% {
+    transform-origin: right;
+    transform: scalex(1);
+  }
+  76% {
+    transform-origin: left;
+    transform: scalex(1);
+  }
+  100% {
+    transform-origin: left;
+    transform: scalex(0.3);
+  }
+}
+
+body > iframe[style*='2147483647']{
+  display: none;
+}

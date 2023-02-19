@@ -17,22 +17,21 @@ export const GET_PROFILE = async () => {
   return data;
 }
 
-export const GET_DASHTODOLIST = async (fromdate, todate, page, limit) => {
-    const response = await fetch(`${URL_STRING}/api/employee/dashboardtasks`, {
+export const GET_DASHTODOLIST = async () => {
+    const response = await fetch(`${URL_STRING}/api/employee/dashboardtodo`, {
         headers,
         method: 'GET',
-        // body: JSON.stringify({fromdate, todate, page, limit}),
       }
     );
     const data = await response.json();
     return data;
 };
 
-export const GET_TODOLIST = async (fromdate, todate, page, limit) => {
-    const response = await fetch(`${URL_STRING}/api/employee/dashboardtasks`, {
+export const GET_TODOLIST = async (page, limit) => {
+    const response = await fetch(`${URL_STRING}/api/employee/listtodo`, {
         headers,
-        method: 'GET',
-        // body: JSON.stringify({fromdate, todate, page, limit}),
+        method: 'POST',
+        body: JSON.stringify({page, limit}),
       }
     );
     const data = await response.json();

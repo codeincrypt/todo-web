@@ -2,12 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 // import Logo from '../assets/image/loader.jpg';
 
-
-const TasksTable = ({todolist}) => (
+const TasksTable = ({ todolist }) => (
   <React.Fragment>
     {todolist.map((item, index) => (
-      <tr key={index}>
-        <td> <Link to={`/taskview/${item.id}`}>{item.id}</Link> </td>
+      <tr key={index} style={{cursor: 'pointer'}} onClick={() => window.location.replace(`/taskview/${item.id}`) }>
+        <td>{item.id}
+          {/* <Link to={`/taskview/${item.id}`}>{item.id}</Link>{" "} */}
+        </td>
         <td>{item.tasks}</td>
         <td>{item.tag}</td>
         <td className="text-center">0</td>
@@ -26,6 +27,20 @@ const TasksTable = ({todolist}) => (
             </span>
           )}
         </td>
+
+        <td className="text-center">
+          <div className="progress progress-xs" title={`Task done ${item.progress}%`}>
+          <div className={`progress-bar ${item.taskstatus === 0 ? 'bg-warning' : item.taskstatus === 2 ? 'bg-danger' : 'bg-success'}`} style={{width: `${item.progress}%`}}></div>
+          {/* {item.progress === 0 ? (
+            <div className="progress-bar bg-warning" style={{width: `${item.progress}%`}}></div>
+          ) : item.progress === 2 ? (
+            <div className="progress-bar bg-danger" style={{width: "20%"}}></div>
+          ) : (
+            <div className="progress-bar bg-success" style={{width: "30%"}}></div>
+          )} */}
+          </div>
+        </td>
+
         <td className="text-center">
           {item.taskstatus === 0 ? (
             <span className="badge bg-warning">Working</span>

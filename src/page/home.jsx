@@ -3,6 +3,7 @@ import moment from "moment";
 import "../assets/import.css";
 import { GET_DASHTODOLIST, GET_PROFILE } from "../request/apirequest";
 import TasksTable from "./component/task";
+import Nodata from "./common/nodata";
 
 moment().format();
 
@@ -28,7 +29,7 @@ const Home = (props) => {
 
   useEffect(() => {
     fetchProfile();
-    fetchTodo()
+    fetchTodo();
     // eslint-disable-next-line
   }, []);
   return (
@@ -88,51 +89,27 @@ const Home = (props) => {
             </div>
 
             <div className="card-body table-responsive p-0">
-              <table className="table table-hover text-nowrap">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>TASK</th>
-                    <th>TAG</th>
-                    <th>COMMENTS</th>
-                    <th className="text-center">PRIORITY</th>
-                    <th className="text-center">STATUS</th>
-                    <th className="text-center">ASSIGNEE</th>
-                    <th className="text-center">DATE</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <TasksTable todolist={todolist}  />
-                  {/* {todolist.map((item, index) => (
+              {Array.isArray(todolist) && todolist.length > 0 ? (
+                <table className="table table-hover text-nowrap">
+                  <thead>
                     <tr>
-                      <td>{item.id}</td>
-                      <td>{item.tasks}</td>
-                      <td>{item.tag}</td>
-                      <td className="text-center">0</td>
-                      <td className="text-center">
-                        {item.workpriority === 'Critical' ? (
-                          <span className="font-weight-bold text-danger"><i className="fa fa-fire-alt"></i> {item.workpriority}</span>
-                        ) : item.workpriority === 'Very High' ? (
-                          <span className="font-weight-bold text-warning"><i className="fa fa-arrow-up"></i> {item.workpriority}</span>
-                        ) : (
-                          <span className="font-weight-bold text-dark"><i className="fa fa-arrow-down"></i> {item.workpriority}</span>
-                        )}
-                        </td>
-                      <td className="text-center">
-                        {item.taskstatus === 0 ? (
-                          <span className="badge bg-warning">Working</span>
-                        ) : item.taskstatus === 2 ? (
-                          <span className="badge bg-danger">Pending</span>
-                        ) : (
-                          <span className="badge bg-success">Completed</span>
-                        )}
-                      </td>
-                      <td className="text-center">{item.assignby}</td>
-                      <td className="text-center">{item.date} <br /> {item.time}</td>
+                      <th>ID</th>
+                      <th>TASK</th>
+                      <th>TAG</th>
+                      <th>COMMENTS</th>
+                      <th className="text-center">PRIORITY</th>
+                      <th className="text-center">STATUS</th>
+                      <th className="text-center">ASSIGNEE</th>
+                      <th className="text-center">DATE</th>
                     </tr>
-                    ))} */}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    <TasksTable todolist={todolist} />
+                  </tbody>
+                </table>
+              ) : (
+                <Nodata />
+              )}
             </div>
           </div>
         </div>

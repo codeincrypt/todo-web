@@ -1,29 +1,14 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { UserContext } from "../../App";
 import "../../assets/import.css";
 import { Link } from "react-router-dom";
-import { GET_PROFILE } from "../../request/apirequest";
 
 const Header = (props) => {
   const { dispatch } = useContext(UserContext);
 
-  const [profile, setProfile] = useState("");
+  console.log('header', props.profile)
 
-  const fetchProfile = async () => {
-    GET_PROFILE().then(async (res) => {
-      if (res.statuscode === 1) {
-        setProfile(res.data);
-      }
-      if (res.statuscode === 2) {
-        expireSession()
-      }
-    });
-  };
-
-  useEffect(() => {
-    fetchProfile();
-    // eslint-disable-next-line
-  }, []);
+  const [classActive, setClassActive] = useState('hold-transition sidebar-mini layout-fixed');
 
   const expireSession = () => {
     // console.log("redirect to login page");
@@ -32,30 +17,41 @@ const Header = (props) => {
     window.location.replace('/login')
   };
 
+  const hideSidebar = () => {
+    if (classActive === 'hold-transition sidebar-mini layout-fixed') {
+      document.getElementById('body').className = 'hold-transition sidebar-mini layout-fixed sidebar-collapse';
+      setClassActive('hold-transition sidebar-mini layout-fixed sidebar-collapse');
+    } else {
+      document.getElementById('body').className = 'hold-transition sidebar-mini layout-fixed';
+      setClassActive('hold-transition sidebar-mini layout-fixed');
+    }
+  };
+
   return (
     <>
-      <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <Link class="nav-link" data-widget="pushmenu" to="/" role="button"><i class="fas fa-bars"></i></Link>
+      <nav className="main-header navbar navbar-expand navbar-white navbar-light">
+        <ul className="navbar-nav">
+          <li className="nav-item">
+            <button className="nav-link" data-widget="pushmenu" onClick={hideSidebar} role="button"><i className="fas fa-bars"></i></button>
+            {/* <Link className="nav-link" data-widget="pushmenu" to="/" role="button"><i className="fas fa-bars"></i></Link> */}
           </li>
-          {/* <li class="nav-item d-none d-sm-inline-block">
-            <a href="index3.html" class="nav-link">Home</a>
+          {/* <li className="nav-item d-none d-sm-inline-block">
+            <a href="index3.html" className="nav-link">Home</a>
           </li>
-          <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link">Contact</a>
+          <li className="nav-item d-none d-sm-inline-block">
+            <a href="#" className="nav-link">Contact</a>
           </li> */}
         </ul>
 
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <Link to="/profile" class="nav-link" data-widget="fullscreen" role="button">
-              <i class="fas fa-user mr-2"></i> PROFILE
+        <ul className="navbar-nav ml-auto">
+          <li className="nav-item">
+            <Link to="/profile" className="nav-link" data-widget="fullscreen" role="button">
+              <i className="fas fa-user mr-2"></i> PROFILE
             </Link>
           </li>
-          <li class="nav-item">
-            <button class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" role="button" onClick={expireSession}>
-              <i class="fas fa-signout mr-2"></i> LOGOUT
+          <li className="nav-item">
+            <button className="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" role="button" onClick={expireSession}>
+              <i className="fas fa-signout mr-2"></i> LOGOUT
             </button>
           </li>
         </ul>

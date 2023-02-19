@@ -53,15 +53,15 @@ const Login = (props) => {
 
   return (
     <>
-      <body class="hold-transition login-page">
-        <div class="login-box">
-          <div class="login-logo">
+      <body className="hold-transition login-page">
+        <div className="login-box">
+          <div className="login-logo">
             <b>Admin </b> <br /> 
           </div>
 
-          <div class="card">
-            <div class="card-body login-card-body">
-              <p class="login-box-msg">Sign in to start your session</p>
+          <div className="card">
+            <div className="card-body login-card-body">
+              <p className="login-box-msg">Sign in to start your session</p>
               <div id="error"></div>
 
               {loginpage ? (

@@ -4,6 +4,7 @@ import Login from './auth/login';
 // USERS
 import Home from './page/home';
 import Profile from './page/profile';
+import Projects from './page/projects';
 import Tasks from './page/tasks';
 
 export const MainRouter = [
@@ -28,6 +29,11 @@ export const UserRouter = [
   {
     path: '/tasks',
     component: Tasks,
+    exact: true,
+  },
+  {
+    path: '/projects',
+    component: Projects,
     exact: true,
   },
   {
