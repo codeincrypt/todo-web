@@ -55,7 +55,13 @@ const Header = (props) => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/tasks" className="nav-link">
+              <Link to="/add-task" className="nav-link">
+                <i className="fa fa-tasks nav-icon"></i>
+                <p>Add Tasks</p>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/task" className="nav-link">
                 <i className="fa fa-tasks nav-icon"></i>
                 <p>Tasks</p>
               </Link>

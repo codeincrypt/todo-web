@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import "../assets/import.css";
-import { GET_TODOLIST } from "../request/apirequest";
-import TasksTable from "./component/task";
-import Loader from "./common/loader";
-import Nodata from "./common/nodata";
+import "../../assets/import.css";
+import { GET_TODOLIST } from "../../request/apirequest";
+import TasksTable from "../component/task";
+import Loader from "../common/loader";
+import Nodata from "../common/nodata";
 
 const Tasks = (props) => {
   const [loading, setLoading] = useState(true);

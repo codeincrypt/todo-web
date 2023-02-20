@@ -5,7 +5,9 @@ import Login from './auth/login';
 import Home from './page/home';
 import Profile from './page/profile';
 import Projects from './page/projects';
-import Tasks from './page/tasks';
+import AddTask from './page/todo/add-task';
+import Tasks from './page/todo/tasks';
+import Tasksview from './page/todo/taskview';
 
 export const MainRouter = [
   {
@@ -27,8 +29,18 @@ export const UserRouter = [
     exact: true,
   },
   {
-    path: '/tasks',
+    path: '/add-task',
+    component: AddTask,
+    exact: true,
+  },
+  {
+    path: '/task',
     component: Tasks,
+    exact: true,
+  },
+  {
+    path: '/task/:taskid',
+    component: Tasksview,
     exact: true,
   },
   {

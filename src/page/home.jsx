@@ -22,7 +22,7 @@ const Home = (props) => {
   const fetchTodo = async () => {
     GET_DASHTODOLIST().then(async (res) => {
       if (res.statuscode === 1) {
-        setTodolist(res.data);
+        setTodolist(res.data.data);
       }
     });
   };
@@ -98,6 +98,7 @@ const Home = (props) => {
                       <th>TAG</th>
                       <th>COMMENTS</th>
                       <th className="text-center">PRIORITY</th>
+                      <th className="text-center">PROGRESS</th>
                       <th className="text-center">STATUS</th>
                       <th className="text-center">ASSIGNEE</th>
                       <th className="text-center">DATE</th>
