@@ -3,12 +3,6 @@ import { Link } from "react-router-dom";
 import "../../assets/import.css";
 
 const Header = (props) => {
-  useEffect(() => {
-    // eslint-disable-next-line
-  }, []);
-
-  console.log('sidebar', props.profile)
-
   return (
     <aside className="main-sidebar sidebar-dark-primary elevation-4">
       <Link to="/" className="brand-link">

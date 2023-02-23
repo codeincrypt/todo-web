@@ -23,7 +23,6 @@ const Tasks = (props) => {
       if (result.statuscode === 1) {
         setData_count(result.data.data_count);
         setTodolist(result.data.data);
-        console.log(result.data.data);
         setNumberOfButoons(Math.ceil(result.data.data_count / showPerPage));
         setLoading(false);
       }

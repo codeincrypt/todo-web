@@ -76,3 +76,7 @@
 body > iframe[style*='2147483647']{
   display: none;
 }
+
+.transparent {
+  background-color: #00000000;
+}

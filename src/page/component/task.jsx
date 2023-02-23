@@ -47,8 +47,8 @@ const TasksTable = ({ todolist }) => (
           )}
         </td>
         <td className="text-center align-middle">{item.assignby}</td>
-        <td className="text-center align-middle">
-          {item.date} <br /> {item.time}
+        <td className="text-center align-middle" title={`${item.date} | ${item.time}`} >
+          {item.date}
         </td>
       </tr>
     ))}
