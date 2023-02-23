@@ -73,7 +73,100 @@ const AddTask = (props) => {
         <section className="content">
           <div className="container-fluid">
             <div className="card card-success card-outline">
-              <form>
+
+            <table id='addCom' className='table'>
+                    <tr>
+                      <td width={'38%'}>Task </td>
+                      <td width={'13%'}>Tag</td>
+                      <td width={'13%'}>Work Type</td>
+                      <td width={'13%'}>Start Date</td>
+                      <td width={'13%'}>End Date</td>
+                      <td width={'10%'}>Action </td>
+                    </tr>
+                    {inputList.map((x, i) => {
+                      return (
+                        <tr>
+                          <td>
+                            <textarea
+                              className='form-control'
+                              name='tasks'
+                              value={x.tasks}
+                              onChange={(e) =>
+                                handleInputChange(e, i)
+                              }></textarea>
+                          </td>
+                          <td>
+                            {/* <select
+                              className='form-control'
+                              name='tag'
+                              value={x.tag}
+                              onChange={(e) => handleInputChange(e, i)}>
+                              <option value=''>Select Tag</option>
+                              {Array.isArray(tasktag) && tasktag.length > 0 ? (
+                                tasktag.map((tagitem, index) => (
+                                  <option value={tagitem.tagname}>
+                                    {tagitem.tagname}
+                                  </option>
+                                ))
+                              ) : (
+                                <option value=''>No Tag</option>
+                              )}
+                            </select> */}
+                          </td>
+                          <td>
+                            <select
+                              type='text'
+                              className='form-control'
+                              name='worktype'
+                              value={x.worktype}
+                              onChange={(e) => handleInputChange(e, i)}>
+                              <option value=''>Work Type</option>
+                              <option value='NEW'>NEW WORK</option>
+                              <option value='MODIFY'>MODIFY</option>
+                            </select>
+                          </td>
+                          <td>
+                            <input
+                              type='text'
+                              className='form-control'
+                              name='startdate'
+                              value={x.startdate}
+                              onChange={(e) => handleInputChange(e, i)}
+                              placeholder='Start date'
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type='text'
+                              className='form-control'
+                              name='enddate'
+                              value={x.enddate}
+                              onChange={(e) => handleInputChange(e, i)}
+                              placeholder='End date'
+                            />
+                          </td>
+                          <td>
+                            {inputList.length !== 1 && (
+                              <button
+                                className='btn btn-sm btn-danger'
+                                onClick={() => handleRemoveClick(i)}>
+                                <i className='fa fa-minus '></i>
+                              </button>
+                            )}
+                            {inputList.length - 1 === i && (
+                              <button
+                                className='btn btn-sm btn-success ml-2'
+                                onClick={handleAddClick}>
+                                <i className='fa fa-plus'></i>
+                              </button>
+                            )}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </table>
+
+              {/* <form>
                 <div class="card-body">
                   <div class="form-group">
                     <label for="exampleInputEmail1">Task</label>
@@ -115,7 +208,7 @@ const AddTask = (props) => {
                 </button>
                 </div>
 
-              </form>
+              </form> */}
             </div>
           </div>
         </section>

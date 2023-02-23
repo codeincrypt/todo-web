@@ -17,29 +17,35 @@ const Header = (props) => {
   };
 
   const changeMode = () => {
-    // if (classActive === 'hold-transition sidebar-mini layout-fixed') {
-    //   document.getElementById('body').className = 'hold-transition sidebar-mini layout-fixed dark-mode';
-    //   setClassActive('hold-transition sidebar-mini layout-fixed dark-mode');
-    // } else {
-    //   document.getElementById('body').className = 'hold-transition sidebar-mini layout-fixed';
-    //   setClassActive('hold-transition sidebar-mini layout-fixed');
-    // }
+    var element = document.getElementById("body");
+    if (element.classList.contains('dark-mode')) {
+      element.classList.remove('dark-mode');
+    } else {
+      element.classList.add('dark-mode');
+    }
   }
 
   const hideSidebar = () => {
-    if (classActive === 'hold-transition sidebar-mini layout-fixed') {
-      document.getElementById('body').className = 'hold-transition sidebar-mini layout-fixed sidebar-collapse';
-      setClassActive('hold-transition sidebar-mini layout-fixed sidebar-collapse');
-      setColorMode('hold-transition sidebar-mini layout-fixed dark-mode');
+    // if (classActive === 'hold-transition sidebar-mini layout-fixed') {
+    //   document.getElementById('body').className = 'hold-transition sidebar-mini layout-fixed sidebar-collapse';
+    //   setClassActive('hold-transition sidebar-mini layout-fixed sidebar-collapse');
+    //   setColorMode('hold-transition sidebar-mini layout-fixed dark-mode');
+    // } else {
+    //   document.getElementById('body').className = 'hold-transition sidebar-mini layout-fixed';
+    //   setClassActive('hold-transition sidebar-mini layout-fixed');
+    // }    
+
+    var element = document.getElementById("body");
+    if (element.classList.contains('sidebar-collapse')) {
+      element.classList.remove('sidebar-collapse');
     } else {
-      document.getElementById('body').className = 'hold-transition sidebar-mini layout-fixed';
-      setClassActive('hold-transition sidebar-mini layout-fixed');
+      element.classList.add('sidebar-collapse');
     }
   };
 
   return (
     <>
-      <nav className="main-header navbar navbar-expand navbar-white navbar-light">
+      <nav className="main-header navbar navbar-expand">
         <ul className="navbar-nav">
           <li className="nav-item">
             <button className="nav-link border-0 transparent" data-widget="pushmenu" onClick={hideSidebar} role="button"><i className="fas fa-bars"></i></button>
@@ -59,7 +65,7 @@ const Header = (props) => {
             </Link>
           </li>
           <li className="nav-item">
-            <button className="nav-link border-0 transparent" title="Change Mode" data-widget="control-sidebar" data-controlsidebar-slide="true" role="button" onClick={changeMode}>
+            <button className="nav-link border-0 transparent" id="changeMode" title="Change Mode" data-widget="control-sidebar" data-controlsidebar-slide="true" role="button" onClick={changeMode}>
               <i className="fa fa-sun"></i>
             </button>
           </li>
