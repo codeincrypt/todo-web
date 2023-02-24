@@ -7,11 +7,10 @@ const Profile = (props) => {
   const [profile, setProfile] = useState("");
 
   const fetchProfile = async () => {
-    GET_PROFILE().then(async (res) => {
-      if (res.statuscode === 1) {
-        setProfile(res.data);
-      }
-    });
+    const res = await GET_PROFILE()
+    if (res.statuscode === 1) {
+      setProfile(res.data);
+    }
   };
 
   useEffect(() => {
@@ -42,7 +41,7 @@ const Profile = (props) => {
                       <img
                         className="profile-user-img img-fluid img-circle"
                         src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
-                        alt="User profile picture"
+                        alt="User profile"
                       />
                     </div>
                     <h3 className="profile-username text-center">{profile.name}</h3>

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "../assets/import.css";
 
-import Loader from "./common/loader";
 import Nodata from "./common/nodata";
 import { GET_PROJECTLIST } from "../request/apirequest";
+import Loader from "./common/loader";
 
 const Projects = (props) => {
   const [loading, setLoading] = useState(true);
@@ -11,7 +11,8 @@ const Projects = (props) => {
 
   const [page, setPage] = useState(1);
   const [data_count, setData_count] = useState(1);
-  const [showPerPage, setShowPerPage] = useState(2);
+  // eslint-disable-next-line
+  const [showPerPage, setShowPerPage] = useState(10);
   const [counter, setCounter] = useState(1);
   const [numberOfButtons, setNumberOfButoons] = useState(
     Math.ceil(data_count / showPerPage)
@@ -56,6 +57,14 @@ const Projects = (props) => {
     fetchData(page, showPerPage);
     // eslint-disable-next-line
   }, []);
+
+  if (loading === true) {
+    return (
+      <div className="col-lg-12 mt-3">
+        <Loader />
+      </div>
+    );
+  }
 
   return (
     <>

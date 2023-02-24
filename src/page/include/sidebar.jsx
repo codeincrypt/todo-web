@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import "../../assets/import.css";
 
@@ -8,7 +8,7 @@ const Header = (props) => {
       <Link to="/" className="brand-link">
         <img
           src="https://www.seekpng.com/png/full/865-8659253_microsoft-white-logo-microsoft-logo-transparent-white.png"
-          alt="AdminLTE Logo"
+          alt="AdminPanel"
           className="brand-image"
         />
         <span className="brand-text font-weight-light">ADMIN</span>
@@ -19,7 +19,7 @@ const Header = (props) => {
             <img
               src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
               className="img-circle elevation-2"
-              alt="User Image"
+              alt="AdminPanel"
             />
           </div>
           <div className="info">

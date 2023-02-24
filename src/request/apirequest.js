@@ -28,6 +28,16 @@ export const GET_TODOLIST = async (page, limit) => {
     return data;
 };
 
+export const GET_TODOVIEW = async (todoid) => {
+    const response = await fetch(`${URL_STRING}/api/employee/viewtodo/${todoid}`, {
+        headers,
+        method: 'GET',
+      }
+    );
+    const data = await response.json();
+    return data;
+};
+
 export const GET_PROJECTLIST = async (page, limit) => {
   const response = await fetch(`${URL_STRING}/api/employee/projects`, {
       headers,

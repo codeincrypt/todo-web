@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import "../../assets/import.css";
 
 const AddTask = (props) => {
-  // eslint-disable-next-line
-
+  
   const sdate = new Date()
-  // eslint-disable-next-line
   const edate = new Date()
+  var sdate2 = (sdate.getDate() < 10 ? '0' : '') + sdate.getDate() + '-' + (sdate.getMonth() + 1 < 10 ? '0' : '') + (sdate.getMonth() + 1) + '-' + sdate.getFullYear();
+  var edate2 = (edate.getDate() < 10 ? '0' : '') + edate.getDate() + '-' + (edate.getMonth() + 1 < 10 ? '0' : '') + (edate.getMonth() + 1) + '-' + edate.getFullYear();
+
 
   const [inputList, setInputList] = useState([
     {
@@ -17,12 +18,6 @@ const AddTask = (props) => {
       enddate: edate2,
     },
   ]);
-
-  var sdate2 = (sdate.getDate() < 10 ? '0' : '') + sdate.getDate() + '-' + (sdate.getMonth() + 1 < 10 ? '0' : '') + (sdate.getMonth() + 1) + '-' + sdate.getFullYear();
-
-  var edate2 = (edate.getDate() < 10 ? '0' : '') + edate.getDate() + '-' + (edate.getMonth() + 1 < 10 ? '0' : '') + (edate.getMonth() + 1) + '-' + edate.getFullYear();
-
-
   // handle input change
   const handleInputChange = (e, index) => {
     const { name, value } = e.target;
