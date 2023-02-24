@@ -7,16 +7,6 @@ const headers = {
   Authorization: 'Bearer ' + localStorage.getItem('todoemployee'),
 }
 
-export const GET_PROFILE = async () => {
-  const response = await  fetch(`${URL_STRING}/api/employee/profile`, {
-    method : "GET",
-    headers
-  })
-
-  const data = await response.json();
-  return data;
-}
-
 export const GET_DASHTODOLIST = async () => {
     const response = await fetch(`${URL_STRING}/api/employee/dashboardtodo`, {
         headers,
@@ -36,4 +26,15 @@ export const GET_TODOLIST = async (page, limit) => {
     );
     const data = await response.json();
     return data;
+};
+
+export const GET_PROJECTLIST = async (page, limit) => {
+  const response = await fetch(`${URL_STRING}/api/employee/projects`, {
+      headers,
+      method: 'POST',
+      body: JSON.stringify({page, limit}),
+    }
+  );
+  const data = await response.json();
+  return data;
 };

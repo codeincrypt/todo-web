@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "../../assets/import.css";
 import { GET_TODOLIST } from "../../request/apirequest";
 import TasksTable from "../component/task";
@@ -11,7 +12,7 @@ const Tasks = (props) => {
 
   const [page, setPage] = useState(1);
   const [data_count, setData_count] = useState(1);
-  const [showPerPage, setShowPerPage] = useState(2);
+  const [showPerPage, setShowPerPage] = useState(10);
   const [counter, setCounter] = useState(1);
   const [numberOfButtons, setNumberOfButoons] = useState(
     Math.ceil(data_count / showPerPage)
@@ -93,14 +94,22 @@ const Tasks = (props) => {
               <div className="card-body table-responsive p-0">
                 <div className="col-lg-12 mt-3">
                   <div className="row">
-                    <div className="col-lg-3">
+                    {/* <div className="col-lg-3">
                       <input
                         type="search"
                         className="form-control"
                         placeholder="Search here..."
                       />
+                    </div> */}
+                    <div className="col-lg-10 form-inline">
+                      <Link to="/add-task" title="Add new To-Do" className="btn btn-default">
+                        <i className="fa fa-plus-circle mr-1"></i> Add To Do
+                      </Link>
+                      <button className="btn btn-muted"> <i className="fa fa-search"></i> Search</button>
+                      <button className="btn btn-muted"> <i className="fa fa-user"></i> Person</button>
+                      <button className="btn btn-muted"> <i className="fa fa-filter"></i> Filter</button>
+                      <button className="btn btn-muted"> <i className="fa fa-sort"></i> Sort</button>
                     </div>
-                    <div className="col-lg-7"></div>
                     <div className="col-lg-2">
                       <select
                         className="form-control"

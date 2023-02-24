@@ -15,7 +15,7 @@ const Header = (props) => {
       </Link>
       <div className="sidebar">
         <div className="user-panel mt-3 pb-3 mb-3 d-flex">
-          <div className="image">
+          <div className="image mt-2">
             <img
               src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
               className="img-circle elevation-2"
@@ -23,8 +23,9 @@ const Header = (props) => {
             />
           </div>
           <div className="info">
-            <Link to="/" className="d-block">
+            <Link to="/profile" className="d-block">
               {props.profile.name} <br />
+              {props.profile.emptype}
             </Link>
           </div>
         </div>

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
 import "../assets/import.css";
-import { GET_DASHTODOLIST, GET_PROFILE } from "../request/apirequest";
+import { GET_DASHTODOLIST } from "../request/apirequest";
+import { GET_PROFILE } from "../request/userrequest";
 import TasksTable from "./component/task";
 import Nodata from "./common/nodata";
 
@@ -48,35 +49,47 @@ const Home = (props) => {
         <div className="container-fluid">
           <div className="card card-primary ">
             <div className="card-body p-4">
-              <h4>Good Morning, {profile.name}</h4>
+              <h4>Hi, {profile.name}</h4>
               <h6 className="text-muted">
                 {moment(new Date()).format("DD MMMM YYYY")}{" "}
               </h6>
             </div>
           </div>
           <div className="row">
-            <div className="col-lg-3">
+            <div className="col-lg-2">
               <div className="callout callout-danger p-4">
                 <h1>1</h1>
                 <h5>Pending Tasks</h5>
               </div>
             </div>
-            <div className="col-lg-3">
+            <div className="col-lg-2">
               <div className="callout callout-danger p-4">
                 <h1>2</h1>
-                <h5>High Priority</h5>
+                <h5>Priority Tasks</h5>
               </div>
             </div>
-            <div className="col-lg-3">
+            <div className="col-lg-2">
               <div className="callout callout-danger p-4">
                 <h1>100</h1>
-                <h5>Tasks</h5>
+                <h5>Total Tasks</h5>
               </div>
             </div>
-            <div className="col-lg-3">
+            <div className="col-lg-2">
               <div className="callout callout-danger p-4">
                 <h1>100</h1>
-                <h5>Tasks</h5>
+                <h5>Bugs</h5>
+              </div>
+            </div>
+            <div className="col-lg-2">
+              <div className="callout callout-danger p-4">
+                <h1>100</h1>
+                <h5>Bugs</h5>
+              </div>
+            </div>
+            <div className="col-lg-2">
+              <div className="callout callout-danger p-4">
+                <h1>100</h1>
+                <h5>Bugs</h5>
               </div>
             </div>
           </div>

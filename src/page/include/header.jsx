@@ -20,8 +20,10 @@ const Header = (props) => {
     var element = document.getElementById("body");
     if (element.classList.contains('dark-mode')) {
       element.classList.remove('dark-mode');
+      localStorage.setItem('darkmode', "")
     } else {
       element.classList.add('dark-mode');
+      localStorage.setItem('darkmode', "darkmode")
     }
   }
 

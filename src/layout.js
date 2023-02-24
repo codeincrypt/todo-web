@@ -5,7 +5,7 @@ import SIDEBAR from "./page/include/sidebar";
 
 import { useHistory } from "react-router-dom";
 import { UserContext } from "./App";
-import { GET_PROFILE } from "./request/apirequest";
+import { GET_PROFILE } from "./request/userrequest";
 
 const Layout = ({ children }) => {
   const history = useHistory();
@@ -39,6 +39,12 @@ const Layout = ({ children }) => {
     } else {
       history.push("/login");
       localStorage.clear();
+    }
+    
+    let localdata = localStorage.getItem('darkmode')
+    var element = document.getElementById("body");
+    if(localdata){
+      element.classList.add('dark-mode');
     }
     // eslint-disable-next-line
   }, []);
