@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../../assets/import.css";
+import { Modal } from 'react-bootstrap';
 
 import Nodata from "../common/nodata";
 import { GET_PROJECTLIST } from "../../request/apirequest";
@@ -11,6 +12,9 @@ const Manageproject = (props) => {
   const [loading, setLoading] = useState(true);
   const [datalist, setDatalist] = useState([]);
 
+  const [modeldata, setModeldata] = useState('');
+  const [show, setShow] = useState(false);
+
   const [page, setPage] = useState(1);
   const [data_count, setData_count] = useState(1);
   // eslint-disable-next-line
@@ -20,17 +24,28 @@ const Manageproject = (props) => {
     Math.ceil(data_count / showPerPage)
   );
 
+  const handleClose = () => setShow(false);
+
+  const openModel = (e) => {
+    // setShow(true);
+    // var result = leavelist?.output.find((leavelist2) => {
+    //   return leavelist2.id === e;
+    // });
+    // setModeldata(result);
+    // setAttid(e);
+  };
+
   const fetchData = async (page, showPerPage) => {
     setCounter(page);
     const response = await GET_PROJECTLIST(page, showPerPage);
     if (response.statuscode === 1 && response.permission === 1) {
-      setEmptype(1)
+      setEmptype(1);
       setData_count(response.data.data_count);
       setDatalist(response.data.data);
       setNumberOfButoons(Math.ceil(response.data.data_count / showPerPage));
       setLoading(false);
     } else {
-      setEmptype(0)
+      setEmptype(0);
       setLoading(false);
     }
   };
@@ -99,49 +114,46 @@ const Manageproject = (props) => {
               {Array.isArray(datalist) && datalist.length > 0 ? (
                 <div className="card-body">
                   <div className="row">
-                  {/* <div className="col-lg-3">
+                    {/* <div className="col-lg-3">
                       <input
                         type="search"
                         className="form-control"
                         placeholder="Search here..."
                       />
                     </div> */}
-                  <div className="col-lg-10 form-inline">
-                    <button
-                      title="Add new Project"
-                      className="btn btn-default"
-                    >
-                      <i className="fa fa-plus-circle mr-1"></i> Add To Do
-                    </button>
-                    <button className="btn btn-muted">
-                      <i className="fa fa-search"></i> Search
-                    </button>
-                    <button className="btn btn-muted">
-                      <i className="fa fa-user"></i> Person
-                    </button>
-                    <button className="btn btn-muted">
-                      <i className="fa fa-filter"></i> Filter
-                    </button>
-                    <button className="btn btn-muted">
-                      <i className="fa fa-sort"></i> Sort
-                    </button>
+                    <div className="col-lg-10 form-inline">
+                      <button
+                        title="Add new Project"
+                        className="btn btn-default"
+                      >
+                        <i className="fa fa-plus-circle mr-1"></i> Add Project
+                      </button>
+                      <button className="btn btn-muted">
+                        <i className="fa fa-search"></i> Search
+                      </button>
+                      <button className="btn btn-muted">
+                        <i className="fa fa-filter"></i> Filter
+                      </button>
+                      <button className="btn btn-muted">
+                        <i className="fa fa-sort"></i> Sort
+                      </button>
+                    </div>
                   </div>
-                </div>
 
-                    <table className="table table-hover text-nowrap mt-3">
-                      <thead>
+                  <table className="table table-hover text-nowrap mt-3">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>PROJECT NAME</th>
+                        <th>PROJECT ID</th>
+                        <th className="text-center">STATUS</th>
+                        <th className="text-center">CREATED BY</th>
+                        <th className="text-center">ACTION</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {datalist.map((item, index) => (
                         <tr>
-                          <th>ID</th>
-                          <th>PROJECT NAME</th>
-                          <th>PROJECT ID</th>
-                          <th className="text-center">STATUS</th>
-                          <th className="text-center">CREATED BY</th>
-                          <th className="text-center">ACTION</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {datalist.map((item, index) => (
-                          <tr>
                           <td>{item.id}</td>
                           <td>{item.projectname}</td>
                           <td>{item.projectid}</td>
@@ -150,33 +162,49 @@ const Manageproject = (props) => {
                               <span className="badge bg-danger">INACTIVE</span>
                             ) : (
                               <span className="badge bg-success">ACTIVE</span>
-                            )}  
+                            )}
                           </td>
-                          <td className="text-center">{item.createdby}</td>
+                          <td className="text-center">{item.createdby} - {item.createdbyname} </td>
                           <td className="text-center">
-                            <button type="button" className="btn btn-sm btn-warning mr-2">Edit</button>
-                            <button type="button" className="btn btn-sm btn-danger mr-2">Delete</button>
+                            <button
+                              type="button"
+                              className="btn btn-sm btn-warning mr-2"
+                            >
+                              Edit
+                            </button>
+                            <button
+                              type="button"
+                              className="btn btn-sm btn-danger mr-2"
+                            >
+                              Delete
+                            </button>
                           </td>
                         </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                      ))}
+                    </tbody>
+                  </table>
 
-                    <div className="row mt-4">
-                      <div className="col-lg-8">
-                        <nav aria-label="Page navigation example float-left">
-                          <ul className="pagination">
-                            <li className="page-item">
-                              <button
-                                className="page-link"
-                                onClick={() => onButtonClick("prev")}
+                  <div className="row mt-4">
+                    <div className="col-lg-8">
+                      <nav aria-label="Page navigation example float-left">
+                        <ul className="pagination">
+                          <li className="page-item">
+                            <button
+                              className="page-link"
+                              onClick={() => onButtonClick("prev")}
+                            >
+                              Previous
+                            </button>
+                          </li>
+
+                          {new Array(numberOfButtons)
+                            .fill("")
+                            .map((el, index) => (
+                              <li
+                                className={`page-item ${
+                                  index + 1 === counter ? "active" : null
+                                }`}
                               >
-                                Previous
-                              </button>
-                            </li>
-
-                            {new Array(numberOfButtons).fill("").map((el, index) => (
-                              <li className={`page-item ${index + 1 === counter ? "active" : null}`}>
                                 <button
                                   className="page-link"
                                   onClick={() =>
@@ -188,24 +216,29 @@ const Manageproject = (props) => {
                               </li>
                             ))}
 
-                            <li className="page-item">
-                              <button className="page-link" onClick={() => onButtonClick("next")}>
-                                Next
-                              </button>
-                            </li>
-                          </ul>
-                        </nav>
-                      </div>
-                      <div className="col-lg-4">
-                        <p className="text-right pr-3">
-                          Showing
-                          <b>
-                            {showPerPage * counter > data_count ? data_count : showPerPage * counter}
-                          </b>
-                          of <b> {data_count} </b> data
-                        </p>
-                      </div>
+                          <li className="page-item">
+                            <button
+                              className="page-link"
+                              onClick={() => onButtonClick("next")}
+                            >
+                              Next
+                            </button>
+                          </li>
+                        </ul>
+                      </nav>
                     </div>
+                    <div className="col-lg-4">
+                      <p className="text-right pr-3">
+                        Showing
+                        <b>
+                          {showPerPage * counter > data_count
+                            ? data_count
+                            : showPerPage * counter}
+                        </b>
+                        of <b> {data_count} </b> data
+                      </p>
+                    </div>
+                  </div>
                 </div>
               ) : (
                 <Nodata />
@@ -214,6 +247,117 @@ const Manageproject = (props) => {
           </div>
         </section>
       </div>
+
+
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop='static'
+        keyboard={false}
+        centered>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            <span style={{ color: '#1d1346', fontSize: 20 }}>
+              Employee Attendance
+            </span>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{ height: 400 }}>
+          <div className='form-group mt-4'>
+            <span>
+              <h2
+                className='text-center'
+                style={{ color: '#1d1346', fontSize: 20, lineHeight: 0.7 }}>
+                <b>Are You Sure</b>
+              </h2>
+              <h4
+                className='text-center'
+                style={{ color: '#1d1346', fontSize: 16, lineHeight: 0.7 }}>
+                Do you want to Accept / Reject Attendance
+              </h4>
+            </span>
+          </div>
+          <div className='mt-5 px-2'>
+            <div className='row mb-3'>
+              <div className='col-lg-3 col-3'>
+                <span className='invoicelabel font-weight-bold text-muted'>
+                  Date :
+                </span>
+              </div>
+              <div className='col-lg-3 col-3'>
+                <span className='invoicefont'>{modeldata.date}</span>
+              </div>
+              <div className='col-lg-3 col-3'>
+                <span className='invoicelabel font-weight-bold text-muted'>
+                  Employee :
+                </span>
+              </div>
+              <div className='col-lg-3 col-3'>
+                <span className='invoicefont'>{modeldata.name}</span>
+              </div>
+              <div className='col-lg-3 col-3'>
+                <span className='invoicelabel font-weight-bold text-muted'>
+                  Start Time :
+                </span>
+              </div>
+              <div className='col-lg-3 col-3'>
+                <span className='invoicefont'>{modeldata.starttime}</span>
+              </div>
+              <div className='col-lg-3 col-3'>
+                <span className='invoicelabel font-weight-bold text-muted'>
+                  Employee Id :
+                </span>
+              </div>
+              <div className='col-lg-3 col-3'>
+                <span className='invoicefont'>{modeldata.empid}</span>
+              </div>
+            </div>
+          </div>
+          {/* <div
+            className='form-group text-center mt-3 row justify-content-center'
+            style={{ verticalAlign: 'bottom' }}>
+            {acceptbtn === true ? (
+              <>
+                <button
+                  className='btn col-lg-5 mr-2'
+                  name='reject'
+                  style={{
+                    borderRadius: '2rem',
+                    color: '#fff',
+                    backgroundColor: '#9f384d',
+                  }}
+                  onClick={(e) => approveAttendance(2)}>
+                  Reject
+                </button>
+
+                <button
+                  className='btn col-lg-5'
+                  name='accept'
+                  style={{
+                    borderRadius: '2rem',
+                    color: '#fff',
+                    backgroundColor: '#1d1346',
+                  }}
+                  onClick={(e) => approveAttendance(1)}>
+                  Accept
+                </button>
+              </>
+            ) : (
+              <button
+                className='btn col-lg-5'
+                disabled
+                name='accept'
+                style={{
+                  borderRadius: '2rem',
+                  color: '#fff',
+                  backgroundColor: '#1d1346',
+                }}>
+                <i className='fa fa-spin fa-spinner'></i> Please Wait
+              </button>
+            )} 
+          </div>*/}
+        </Modal.Body>
+      </Modal>
     </>
   );
 };
