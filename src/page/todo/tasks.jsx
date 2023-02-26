@@ -66,13 +66,13 @@ const Tasks = (props) => {
     // eslint-disable-next-line
   }, []);
 
-    if (loading === true) {
-      return (
-        <div className="col-lg-12 mt-3">
-          <Loader />
-        </div>
-      );
-    }
+  if (loading === true) {
+    return (
+      <div className="col-lg-12 mt-3">
+        <Loader />
+      </div>
+    );
+  }
 
   return (
     <>
@@ -210,6 +210,8 @@ const Tasks = (props) => {
           </div>
         </div>
       </section>
+
+      
     </>
   );
 };
