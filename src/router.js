@@ -4,7 +4,8 @@ import Login from './auth/login';
 // USERS
 import Home from './page/home';
 import Profile from './page/profile';
-import Projects from './page/projects';
+import Manageproject from './page/project/manageproject';
+import Project from './page/project/project';
 import AddTask from './page/todo/add-task';
 import Tasks from './page/todo/tasks';
 import Tasksview from './page/todo/taskview';
@@ -44,8 +45,8 @@ export const UserRouter = [
     exact: true,
   },
   {
-    path: '/projects',
-    component: Projects,
+    path: '/manageproject',
+    component: Manageproject,
     exact: true,
   },
   {

@@ -10,22 +10,22 @@ const TasksTable = ({ todolist }) => (
         <td className="align-middle">{item.tasks}</td>
         <td className="align-middle">{item.tag}</td>
         <td className="text-center align-middle">0</td>
-        <td className="align-middle">
+        <td className="align-middle ">
           {item.workpriority === "Critical" ? (
             <span className="font-weight-bold text-danger">
-              <i className="fa fa-fire-alt"></i> {item.workpriority}
-            </span>
-          ) : item.workpriority === "Very High" ? (
-            <span className="font-weight-bold text-warning">
-              <i className="fa fa-arrow-up"></i> {item.workpriority}
+              <i className="mr-2 fa fa-fire-alt"></i> {item.workpriority}
             </span>
           ) : item.workpriority === "High" ? (
+            <span className="font-weight-bold text-warning">
+              <i className="mr-2 fa fa-arrow-up"></i> {item.workpriority}
+            </span>
+          ) : item.workpriority === "Medium" ? (
             <span className="font-weight-bold text-dark">
-              <i className="fa fa-arrow-up"></i> {item.workpriority}
+              <i className="mr-2 fa fa-minus"></i> {item.workpriority}
             </span>
           ) : (
             <span className="font-weight-bold text-dark">
-              <i className="fa fa-arrow-down"></i> {item.workpriority}
+              <i className="mr-2 fa fa-arrow-down"></i> {item.workpriority}
             </span>
           )}
         </td>

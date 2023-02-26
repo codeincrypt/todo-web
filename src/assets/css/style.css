@@ -82,3 +82,15 @@ body > iframe[style*='2147483647']{
 }
 .dark-mode .btn-muted{background-color:transparent;color:#fff;border: 0;padding-left: 15px;padding-right: 15px;}
 .btn-muted{background-color:transparent;color:#333;border: 0;padding-left: 15px;padding-right: 15px;}
+
+.title {
+  font-weight: 400;
+  color: #939393;
+  font-size: 14px;
+}
+
+.dark-mode .title {
+  font-weight: 400;
+  color: #a7a7a7;
+  font-size: 14px;
+}

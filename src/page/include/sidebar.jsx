@@ -44,9 +44,9 @@ const Header = (props) => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/projects" className="nav-link">
+              <Link to="/project" className="nav-link">
                 <i className="fa fa-address-card nav-icon"></i>
-                <p>Projects</p>
+                <p>Project</p>
               </Link>
             </li>
             <li className="nav-item">

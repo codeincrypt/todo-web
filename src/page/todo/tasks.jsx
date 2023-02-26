@@ -89,118 +89,127 @@ const Tasks = (props) => {
         <div className="container-fluid">
           <div className="card card-success card-outline">
             {Array.isArray(todolist) && todolist.length > 0 ? (
-              <div className="card-body table-responsive p-0">
-                <div className="col-lg-12 mt-3">
-                  <div className="row">
-                    {/* <div className="col-lg-3">
+              <div className="card-body">
+                <div className="row">
+                  {/* <div className="col-lg-3">
                       <input
                         type="search"
                         className="form-control"
                         placeholder="Search here..."
                       />
                     </div> */}
-                    <div className="col-lg-10 form-inline">
-                      <Link to="/add-task" title="Add new To-Do" className="btn btn-default">
-                        <i className="fa fa-plus-circle mr-1"></i> Add To Do
-                      </Link>
-                      <button className="btn btn-muted"> <i className="fa fa-search"></i> Search</button>
-                      <button className="btn btn-muted"> <i className="fa fa-user"></i> Person</button>
-                      <button className="btn btn-muted"> <i className="fa fa-filter"></i> Filter</button>
-                      <button className="btn btn-muted"> <i className="fa fa-sort"></i> Sort</button>
-                    </div>
-                    <div className="col-lg-2">
-                      <select
-                        className="form-control"
-                        onChange={(e) => changeLimit(e.target.value)}
-                      >
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                      </select>
-                    </div>
+                  <div className="col-lg-10 form-inline">
+                    <Link
+                      to="/add-task"
+                      title="Add new To-Do"
+                      className="btn btn-default"
+                    >
+                      <i className="fa fa-plus-circle mr-1"></i> Add To Do
+                    </Link>
+                    <button className="btn btn-muted">
+                      {" "}
+                      <i className="fa fa-search"></i> Search
+                    </button>
+                    <button className="btn btn-muted">
+                      {" "}
+                      <i className="fa fa-user"></i> Person
+                    </button>
+                    <button className="btn btn-muted">
+                      {" "}
+                      <i className="fa fa-filter"></i> Filter
+                    </button>
+                    <button className="btn btn-muted">
+                      {" "}
+                      <i className="fa fa-sort"></i> Sort
+                    </button>
+                  </div>
+                  <div className="col-lg-2">
+                    <select
+                      className="form-control"
+                      onChange={(e) => changeLimit(e.target.value)}
+                    >
+                      <option value="10">10</option>
+                      <option value="25">25</option>
+                      <option value="50">50</option>
+                      <option value="100">100</option>
+                    </select>
                   </div>
                 </div>
 
-                <div className="col-lg-12 mt-3">
-                  <div className="card-body table-responsive p-0">
-                    <table className="table table-hover text-nowrap">
-                      <thead>
-                        <tr>
-                          <th>ID</th>
-                          <th>TASK</th>
-                          <th>TAG</th>
-                          <th>COMMENTS</th>
-                          <th className="text-center">PRIORITY</th>
-                          <th className="text-center">STATUS</th>
-                          <th className="text-center">ASSIGNEE</th>
-                          <th className="text-center">DATE</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <TasksTable todolist={todolist} />
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
+                <table className="table table-hover text-nowrap mt-3">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>TASK</th>
+                      <th>TAG</th>
+                      <th>COMMENTS</th>
+                      <th>PRIORITY</th>
+                      <th className="text-center">PROGRESS</th>
+                      <th className="text-center">STATUS</th>
+                      <th className="text-center">ASSIGNEE</th>
+                      <th className="text-center">DATE</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <TasksTable todolist={todolist} />
+                  </tbody>
+                </table>
 
-                <div className="col-lg-12 mt-4">
-                  <div className="row">
-                    <div className="col-lg-8">
-                      <nav aria-label="Page navigation example float-left">
-                        <ul className="pagination">
-                          <li className="page-item">
-                            <button
-                              className="page-link"
-                              onClick={() => onButtonClick("prev")}
+                <div className="row mt-4">
+                  <div className="col-lg-8">
+                    <nav aria-label="Page navigation example float-left">
+                      <ul className="pagination">
+                        <li className="page-item">
+                          <button
+                            className="page-link"
+                            onClick={() => onButtonClick("prev")}
+                          >
+                            Previous
+                          </button>
+                        </li>
+
+                        {new Array(numberOfButtons)
+                          .fill("")
+                          .map((el, index) => (
+                            <li
+                              className={`page-item ${
+                                index + 1 === counter ? "active" : null
+                              }`}
                             >
-                              Previous
-                            </button>
-                          </li>
-
-                          {new Array(numberOfButtons)
-                            .fill("")
-                            .map((el, index) => (
-                              <li
-                                className={`page-item ${
-                                  index + 1 === counter ? "active" : null
-                                }`}
+                              <button
+                                className="page-link"
+                                onClick={() =>
+                                  fetchTodo(index + 1, showPerPage)
+                                }
                               >
-                                <button
-                                  className="page-link"
-                                  onClick={() =>
-                                    fetchTodo(index + 1, showPerPage)
-                                  }
-                                >
-                                  {index + 1}
-                                </button>
-                              </li>
-                            ))}
+                                {index + 1}
+                              </button>
+                            </li>
+                          ))}
 
-                          <li className="page-item">
-                            <button
-                              className="page-link"
-                              onClick={() => onButtonClick("next")}
-                            >
-                              Next
-                            </button>
-                          </li>
-                        </ul>
-                      </nav>
-                    </div>
-                    <div className="col-lg-4">
-                      <p className="text-right pr-3">
+                        <li className="page-item">
+                          <button
+                            className="page-link"
+                            onClick={() => onButtonClick("next")}
+                          >
+                            Next
+                          </button>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>
+                  <div className="col-lg-4">
+                    <p className="text-right pr-3">
+                      {" "}
+                      Showing
+                      <b>
                         {" "}
-                        Showing
-                        <b>
-                          {" "}
-                          {showPerPage * counter > data_count
-                            ? data_count
-                            : showPerPage * counter}{" "}
-                        </b>
-                        of <b> {data_count} </b> data
-                      </p>
-                    </div>
+                        {showPerPage * counter > data_count
+                          ? data_count
+                          : showPerPage * counter}{" "}
+                      </b>
+                      of <b> {data_count} </b> data
+                    </p>
                   </div>
                 </div>
               </div>
@@ -210,8 +219,6 @@ const Tasks = (props) => {
           </div>
         </div>
       </section>
-
-      
     </>
   );
 };

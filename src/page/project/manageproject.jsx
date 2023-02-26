@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import "../assets/import.css";
+import "../../assets/import.css";
 
-import Nodata from "./common/nodata";
-import { GET_PROJECTLIST } from "../request/apirequest";
-import Loader from "./common/loader";
+import Nodata from "../common/nodata";
+import { GET_PROJECTLIST } from "../../request/apirequest";
+import Loader from "../common/loader";
+import AccessDenied from "../common/noaccess";
 
-const Projects = (props) => {
+const Manageproject = (props) => {
+  const [emptype, setEmptype] = useState(0);
   const [loading, setLoading] = useState(true);
   const [datalist, setDatalist] = useState([]);
 
@@ -21,10 +23,14 @@ const Projects = (props) => {
   const fetchData = async (page, showPerPage) => {
     setCounter(page);
     const response = await GET_PROJECTLIST(page, showPerPage);
-    if (response.statuscode === 1) {
+    if (response.statuscode === 1 && response.permission === 1) {
+      setEmptype(1)
       setData_count(response.data.data_count);
       setDatalist(response.data.data);
       setNumberOfButoons(Math.ceil(response.data.data_count / showPerPage));
+      setLoading(false);
+    } else {
+      setEmptype(0)
       setLoading(false);
     }
   };
@@ -66,6 +72,14 @@ const Projects = (props) => {
     );
   }
 
+  if (emptype === 0) {
+    return (
+      <div className="col-lg-12 mt-3">
+        <AccessDenied />
+      </div>
+    );
+  }
+
   return (
     <>
       <div className="">
@@ -83,9 +97,38 @@ const Projects = (props) => {
           <div className="container-fluid">
             <div className="card card-success card-outline">
               {Array.isArray(datalist) && datalist.length > 0 ? (
-                <div className="col-lg-12 mt-3">
-                  <div className="card-body table-responsive p-0">
-                    <table className="table table-hover text-nowrap">
+                <div className="card-body">
+                  <div className="row">
+                  {/* <div className="col-lg-3">
+                      <input
+                        type="search"
+                        className="form-control"
+                        placeholder="Search here..."
+                      />
+                    </div> */}
+                  <div className="col-lg-10 form-inline">
+                    <button
+                      title="Add new Project"
+                      className="btn btn-default"
+                    >
+                      <i className="fa fa-plus-circle mr-1"></i> Add To Do
+                    </button>
+                    <button className="btn btn-muted">
+                      <i className="fa fa-search"></i> Search
+                    </button>
+                    <button className="btn btn-muted">
+                      <i className="fa fa-user"></i> Person
+                    </button>
+                    <button className="btn btn-muted">
+                      <i className="fa fa-filter"></i> Filter
+                    </button>
+                    <button className="btn btn-muted">
+                      <i className="fa fa-sort"></i> Sort
+                    </button>
+                  </div>
+                </div>
+
+                    <table className="table table-hover text-nowrap mt-3">
                       <thead>
                         <tr>
                           <th>ID</th>
@@ -118,10 +161,8 @@ const Projects = (props) => {
                         ))}
                       </tbody>
                     </table>
-                  </div>
 
-                  <div className="col-lg-12 mt-4">
-                    <div className="row">
+                    <div className="row mt-4">
                       <div className="col-lg-8">
                         <nav aria-label="Page navigation example float-left">
                           <ul className="pagination">
@@ -165,7 +206,6 @@ const Projects = (props) => {
                         </p>
                       </div>
                     </div>
-                  </div>
                 </div>
               ) : (
                 <Nodata />
@@ -178,4 +218,4 @@ const Projects = (props) => {
   );
 };
 
-export default Projects;
+export default Manageproject;

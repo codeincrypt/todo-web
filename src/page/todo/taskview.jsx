@@ -62,7 +62,15 @@ const Tasksview = (props) => {
           <div className="card card-success card-outline">
             <div className="card-header">
               <div className="row">
-                <div className="col-lg-12 form-inline ">
+                <div className="col-lg-6 form-inline ">
+                  <button className="btn btn-muted mr-3">
+                    <i className="fa fa-tasks"></i> Mark As Done
+                  </button>
+                  <button className="btn btn-muted mr-3">
+                    <i className="fa fa-comment"></i> Update Progress
+                  </button>
+                </div>
+                <div className="col-lg-6 form-inline ">
                   <button className="btn btn-muted mr-3">
                     <i className="fa fa-tasks"></i> Tasks
                   </button>
@@ -76,65 +84,90 @@ const Tasksview = (props) => {
               </div>
             </div>
             <div className="card-body">
-              <div className="col-lg-12">
-                <div className="row">
-                  <div className="col-2">
-                    <p className="font-weight-bold text-muted">Task</p>
+              <div className="row">
+                <div className="col-md-8">
+                  <div className="title">Tasks</div>
+                  <div className="title-value">{datalist.tasks}</div>
+                </div>
+                <div className="col-md-4">
+                  <div className="title">Status</div>
+                  <div className="title-value">
+                  {datalist.taskstatus === 0 ? (
+                      <span className="badge bg-warning">Working</span>
+                    ) : datalist.taskstatus === 2 ? (
+                      <span className="badge bg-danger">Pending</span>
+                    ) : (
+                      <span className="badge bg-success">Completed</span>
+                    )}  
                   </div>
-                  <div className="col-10">
-                    <p>
-                      {datalist.tasks}
-                    </p>
+                </div>
+                <div className="col-md-4 mt-4">
+                  <div className="title">Task Id</div>
+                  <div className="title-value">{datalist.tasksid}</div>
+                </div>
+
+                <div className="col-md-4 mt-4">
+                  <div className="title">Assign Date</div>
+                  <div className="title-value">
+                    {datalist.date} - {datalist.time}
+                  </div>
+                </div>
+                <div className="col-md-4 mt-4">
+                  <div className="title">Complete Date</div>
+                  <div className="title-value">
+                    {datalist.completedate} - {datalist.completetime}
+                  </div>
+                </div>
+                
+                <div className="col-md-4 mt-4">
+                  <div className="title">Priority</div>
+                  <div className="title-value">
+                    {datalist.workpriority === "Critical" ? (
+                      <span className="font-weight-bold text-danger">
+                        <i className="mr-2 fa fa-fire-alt"></i>{" "}
+                        {datalist.workpriority}
+                      </span>
+                    ) : datalist.workpriority === "High" ? (
+                      <span className="font-weight-bold text-warning">
+                        <i className="mr-2 fa fa-arrow-up"></i>{" "}
+                        {datalist.workpriority}
+                      </span>
+                    ) : datalist.workpriority === "Medium" ? (
+                      <span className="font-weight-bold text-dark">
+                        <i className="mr-2 fa fa-minus"></i>{" "}
+                        {datalist.workpriority}
+                      </span>
+                    ) : (
+                      <span className="font-weight-bold text-dark">
+                        <i className="mr-2 fa fa-arrow-down"></i>{" "}
+                        {datalist.workpriority}
+                      </span>
+                    )}
                   </div>
                 </div>
 
-                <div className="row mt-3">
-                  <div className="col-2">
-                    <p className="font-weight-bold text-muted">Task ID</p>
-                  </div>
-                  <div className="col-2">
-                    <p>{datalist.tasksid}</p>
-                  </div>
-
-                  <div className="col-2">
-                    <p className="font-weight-bold text-muted">Assign Date</p>
-                  </div>
-                  <div className="col-2">
-                    <p>
-                      {datalist.date} - {datalist.time}
-                    </p>
+                <div className="col-md-4 mt-4">
+                  <div className="title">Work Progress</div>
+                  <div className="title-value mt-2">
+                    <div className="progress progress-xs" title={`Task done ${datalist.progress}%`}>
+                      <div className={`progress-bar ${datalist.taskstatus === 0 ? 'bg-warning' : datalist.taskstatus === 2 ? 'bg-danger' : 'bg-success'}`} style={{width: `${datalist.progress}%`}}></div>
+                    </div>
                   </div>
                 </div>
+                <div className="col-md-4 mt-4"></div>
 
-                <div className="row mt-3">
-                  <div className="col-2">
-                    <p  className="font-weight-bold text-muted">Priority</p>
-                  </div>
-                  <div className="col-2">
-                    <h6>{datalist.workpriority}</h6>
-                  </div>
-
-                  <div className="col-2">
-                    <p  className="font-weight-bold text-muted">Priority</p>
-                  </div>
-                  <div className="col-2">
-                    <h6>{datalist.workpriority}</h6>
-                  </div>
+                <div className="col-md-12 mt-4">
+                  <div className="title">Assign By</div>
+                  <div className="title-value">{datalist.assignbyname}</div>
                 </div>
-
-                <div className="row mt-3">
-                  <div className="col-2">
-                    <h6>Assign By</h6>
-                  </div>
-                  <div className="col-4">
-                    <h6>{datalist.assignby}</h6>
-                  </div>
-
-                  <div className="col-2">
-                    <h6>Assign By</h6>
-                  </div>
-                  <div className="col-4">
-                    <h6>{datalist.assignbyname}</h6>
+                {/* <div className="col-md-4 mt-4">
+                  <div className="title">Assign By</div>
+                  <div className="title-value">{datalist.assignby}</div>
+                </div> */}
+                <div className="col-md-12 mt-4">
+                  <div className="title">Co-Workers</div>
+                  <div className="title-value">
+                    -
                   </div>
                 </div>
               </div>
