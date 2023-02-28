@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import "../../assets/import.css";
-import { GET_TODOVIEW } from "../../request/apirequest";
+import { GET_TODOVIEW, UPDATE_MARKASDONE } from "../../request/apirequest";
 import Loader from "../common/loader";
 import Nodata from "../common/nodata";
+import Swal from "sweetalert2";
+// import 'sweetalert2/src/sweetalert2.scss'
 
 const Tasksview = (props) => {
   const { taskid } = useParams();
@@ -22,6 +24,28 @@ const Tasksview = (props) => {
       setNoData(true);
       setLoading(false);
     }
+  };
+
+  const markasdone = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to mark this as done. You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Update",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const result = await UPDATE_MARKASDONE(taskid);
+        if (result.statuscode === 1) {
+          fetchData()
+          Swal.fire("success!", `${result.message}`, "success");
+        } else {
+          Swal.fire("Fail !", `${result.message}`, "error");
+        }
+      }
+    });
   };
 
   useEffect(() => {
@@ -63,12 +87,27 @@ const Tasksview = (props) => {
             <div className="card-header">
               <div className="row">
                 <div className="col-lg-6 form-inline ">
-                  <button className="btn btn-muted mr-3">
-                    <i className="fa fa-tasks"></i> Mark As Done
-                  </button>
-                  <button className="btn btn-muted mr-3">
-                    <i className="fa fa-comment"></i> Update Progress
-                  </button>
+                  {datalist.taskstatus === 1 ? (
+                    <React.Fragment>
+                      <button className="btn btn-muted mr-3 disabled" title="Already updated">
+                        <i className="fa fa-tasks"></i> Mark As Done
+                      </button>
+                      <button className="btn btn-muted mr-3 disabled" title="Already updated">
+                        <i className="fa fa-comment"></i> Update Progress
+                      </button>
+                    </React.Fragment>
+                  ) : (
+                    <React.Fragment>
+                      <button className="btn btn-muted mr-3" onClick={markasdone}>
+                        <i className="fa fa-tasks"></i> Mark As Done
+                      </button>
+                        <button className="btn btn-muted mr-3">
+                        <i className="fa fa-comment"></i> Update Progress
+                      </button>
+                    </React.Fragment>
+                  )}
+
+                  
                 </div>
                 <div className="col-lg-6 form-inline ">
                   <button className="btn btn-muted mr-3">
@@ -92,13 +131,13 @@ const Tasksview = (props) => {
                 <div className="col-md-4">
                   <div className="title">Status</div>
                   <div className="title-value">
-                  {datalist.taskstatus === 0 ? (
+                    {datalist.taskstatus === 0 ? (
                       <span className="badge bg-warning">Working</span>
                     ) : datalist.taskstatus === 2 ? (
                       <span className="badge bg-danger">Pending</span>
                     ) : (
                       <span className="badge bg-success">Completed</span>
-                    )}  
+                    )}
                   </div>
                 </div>
                 <div className="col-md-4 mt-4">
@@ -118,7 +157,7 @@ const Tasksview = (props) => {
                     {datalist.completedate} - {datalist.completetime}
                   </div>
                 </div>
-                
+
                 <div className="col-md-4 mt-4">
                   <div className="title">Priority</div>
                   <div className="title-value">
@@ -149,8 +188,20 @@ const Tasksview = (props) => {
                 <div className="col-md-4 mt-4">
                   <div className="title">Work Progress</div>
                   <div className="title-value mt-2">
-                    <div className="progress progress-xs" title={`Task done ${datalist.progress}%`}>
-                      <div className={`progress-bar ${datalist.taskstatus === 0 ? 'bg-warning' : datalist.taskstatus === 2 ? 'bg-danger' : 'bg-success'}`} style={{width: `${datalist.progress}%`}}></div>
+                    <div
+                      className="progress progress-xs"
+                      title={`Task done ${datalist.progress}%`}
+                    >
+                      <div
+                        className={`progress-bar ${
+                          datalist.taskstatus === 0
+                            ? "bg-warning"
+                            : datalist.taskstatus === 2
+                            ? "bg-danger"
+                            : "bg-success"
+                        }`}
+                        style={{ width: `${datalist.progress}%` }}
+                      ></div>
                     </div>
                   </div>
                 </div>
@@ -166,9 +217,7 @@ const Tasksview = (props) => {
                 </div> */}
                 <div className="col-md-12 mt-4">
                   <div className="title">Co-Workers</div>
-                  <div className="title-value">
-                    -
-                  </div>
+                  <div className="title-value">-</div>
                 </div>
               </div>
             </div>

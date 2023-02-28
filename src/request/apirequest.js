@@ -38,6 +38,17 @@ export const GET_TODOVIEW = async (todoid) => {
     return data;
 };
 
+export const UPDATE_MARKASDONE = async (taskid) => {
+    const response = await fetch(`${URL_STRING}/api/employee/markasdone`, {
+        headers,
+        method: 'POST',
+        body: JSON.stringify({taskid}),
+      }
+    );
+    const data = await response.json();
+    return data;
+};
+
 export const GET_PROJECTLIST = async (page, limit) => {
   const response = await fetch(`${URL_STRING}/api/employee/projects`, {
       headers,
