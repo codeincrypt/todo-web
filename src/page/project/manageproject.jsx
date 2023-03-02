@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "../../assets/import.css";
-import { Modal } from 'react-bootstrap';
+import { Modal } from "react-bootstrap";
 
 import Nodata from "../common/nodata";
-import { GET_PROJECTLIST } from "../../request/apirequest";
+import { GET_MANAGEPROJECTLIST } from "../../request/apirequest";
 import Loader from "../common/loader";
 import AccessDenied from "../common/noaccess";
 
@@ -12,8 +12,10 @@ const Manageproject = (props) => {
   const [loading, setLoading] = useState(true);
   const [datalist, setDatalist] = useState([]);
 
-  const [modeldata, setModeldata] = useState('');
+  // eslint-disable-next-line
+  const [modeldata, setModeldata] = useState("");
   const [show, setShow] = useState(false);
+  const [showedit, setShowedit] = useState(false);
 
   const [page, setPage] = useState(1);
   const [data_count, setData_count] = useState(1);
@@ -24,24 +26,51 @@ const Manageproject = (props) => {
     Math.ceil(data_count / showPerPage)
   );
 
-  const handleClose = () => setShow(false);
+  // ADD PROJECT
+  const [projectname, setProjectname] = useState("");
+  const [projectcode, setProjectcode] = useState("");
+  const [projectstatus, setProjectstatus] = useState("");
+  const [modalloadingbtn, setModalloadingbtn] = useState(true);
 
-  const openModel = (e) => {
-    // setShow(true);
-    // var result = leavelist?.output.find((leavelist2) => {
-    //   return leavelist2.id === e;
-    // });
-    // setModeldata(result);
-    // setAttid(e);
+  // EDIT PROJECT
+  const [editprojectname, setEditProjectname] = useState("");
+  const [editprojectcode, setEditProjectcode] = useState("");
+  const [editprojectstatus, setEditProjectstatus] = useState("");
+  const [editmodalloadingbtn, setEditModalloadingbtn] = useState(true);
+
+  const handleClose = () => setShow(false);
+  const handleOpen = () => setShow(true);
+
+  const handleCloseedit = () => setShowedit(false);
+  const handleOpenedit = () => setShowedit(true);
+
+  const insertProject = () => {
+    console.log("projectname", projectname);
+    console.log("projectcode", projectcode);
+    setModalloadingbtn(false);
+  };
+
+  const openEditModel = (e) => {
+    handleOpenedit()
+    setEditProjectname(e);
+    setEditProjectcode(e);
+    setEditProjectstatus(e);
+  };
+
+  const updateProject = () => {
+    console.log("projectname", projectname);
+    console.log("projectcode", projectcode);
+    setEditModalloadingbtn(false);
   };
 
   const fetchData = async (page, showPerPage) => {
     setCounter(page);
-    const response = await GET_PROJECTLIST(page, showPerPage);
+    const response = await GET_MANAGEPROJECTLIST(page, showPerPage);
     if (response.statuscode === 1 && response.permission === 1) {
       setEmptype(1);
       setData_count(response.data.data_count);
       setDatalist(response.data.data);
+
       setNumberOfButoons(Math.ceil(response.data.data_count / showPerPage));
       setLoading(false);
     } else {
@@ -125,6 +154,7 @@ const Manageproject = (props) => {
                       <button
                         title="Add new Project"
                         className="btn btn-default"
+                        onClick={handleOpen}
                       >
                         <i className="fa fa-plus-circle mr-1"></i> Add Project
                       </button>
@@ -145,9 +175,9 @@ const Manageproject = (props) => {
                       <tr>
                         <th>ID</th>
                         <th>PROJECT NAME</th>
-                        <th>PROJECT ID</th>
+                        <th className="text-center">PROJECT ID</th>
                         <th className="text-center">STATUS</th>
-                        <th className="text-center">CREATED BY</th>
+                        <th>CREATED BY</th>
                         <th className="text-center">ACTION</th>
                       </tr>
                     </thead>
@@ -156,7 +186,7 @@ const Manageproject = (props) => {
                         <tr>
                           <td>{item.id}</td>
                           <td>{item.projectname}</td>
-                          <td>{item.projectid}</td>
+                          <td className="text-center">{item.projectid}</td>
                           <td className="text-center">
                             {item.status === 0 ? (
                               <span className="badge bg-danger">INACTIVE</span>
@@ -164,11 +194,14 @@ const Manageproject = (props) => {
                               <span className="badge bg-success">ACTIVE</span>
                             )}
                           </td>
-                          <td className="text-center">{item.createdby} - {item.createdbyname} </td>
+                          <td>
+                            {item.createdby} - {item.createdbyname}{" "}
+                          </td>
                           <td className="text-center">
                             <button
                               type="button"
                               className="btn btn-sm btn-warning mr-2"
+                              onClick={(e) => openEditModel(item.id)}
                             >
                               Edit
                             </button>
@@ -229,13 +262,11 @@ const Manageproject = (props) => {
                     </div>
                     <div className="col-lg-4">
                       <p className="text-right pr-3">
-                        Showing
-                        <b>
-                          {showPerPage * counter > data_count
+                        {`Showing ${
+                          showPerPage * counter > data_count
                             ? data_count
-                            : showPerPage * counter}
-                        </b>
-                        of <b> {data_count} </b> data
+                            : showPerPage * counter
+                        } of ${data_count} data`}
                       </p>
                     </div>
                   </div>
@@ -248,8 +279,68 @@ const Manageproject = (props) => {
         </section>
       </div>
 
-
       <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>
+            <span style={{ color: "#1d1346", fontSize: 20 }}>
+              Add New Project
+            </span>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{ height: 400 }}>
+          <div className="form-group mt-4">
+            <label>Project Name</label>
+            <input
+              type="text"
+              onChange={(e) => setProjectname(e.target.value)}
+              className="form-control p_input"
+            />
+          </div>
+          <div className="form-group">
+            <label>Project Code</label>
+            <input
+              type="text"
+              max={4}
+              onChange={(e) => setProjectcode(e.target.value)}
+              className="form-control p_input"
+            />
+          </div>
+          <div className="form-group">
+            <label>Project Status</label>
+            <select
+              className="form-control"
+              defaultValue={projectstatus}
+              onChange={(e) => setProjectstatus(e.target.value)}
+            >
+              <option value="1">Active</option>
+              <option value="0">Inactive</option>
+            </select>
+          </div>
+
+          <div className="form-group mt-3">
+            {modalloadingbtn === true ? (
+              <button
+                className="btn btn-success col-lg-4"
+                onClick={insertProject}
+              >
+                Add New
+              </button>
+            ) : (
+              <button className="btn btn-secondary col-lg-4" disabled>
+                <i className="fa fa-spin fa-spinner"></i> Please Wait
+              </button>
+            )}
+          </div>
+        </Modal.Body>
+      </Modal>
+
+      {/* <Modal
         show={show}
         onHide={handleClose}
         backdrop='static'
@@ -313,7 +404,7 @@ const Manageproject = (props) => {
               </div>
             </div>
           </div>
-          {/* <div
+          <div
             className='form-group text-center mt-3 row justify-content-center'
             style={{ verticalAlign: 'bottom' }}>
             {acceptbtn === true ? (
@@ -355,7 +446,70 @@ const Manageproject = (props) => {
                 <i className='fa fa-spin fa-spinner'></i> Please Wait
               </button>
             )} 
-          </div>*/}
+          </div>
+        </Modal.Body>
+      </Modal> */}
+
+      <Modal
+        show={showedit}
+        onHide={handleCloseedit}
+        backdrop="static"
+        keyboard={false}
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>
+            <span style={{ color: "#1d1346", fontSize: 20 }}>
+              Update Project
+            </span>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{ height: 400 }}>
+          <div className="form-group mt-4">
+            <label>Project Name</label>
+            <input
+              type="text"
+              defaultValue={editprojectname}
+              onChange={(e) => setEditProjectname(e.target.value)}
+              className="form-control p_input"
+            />
+          </div>
+          <div className="form-group">
+            <label>Project Code</label>
+            <input
+              type="text"
+              defaultValue={editprojectcode}
+              max={4}
+              onChange={(e) => setEditProjectcode(e.target.value)}
+              className="form-control p_input"
+            />
+          </div>
+          <div className="form-group">
+            <label>Project Status</label>
+            <select
+              className="form-control"
+              defaultValue={editprojectstatus}
+              onChange={(e) => setEditProjectstatus(e.target.value)}
+            >
+              <option value="1">Active</option>
+              <option value="0">Inactive</option>
+            </select>
+          </div>
+
+          <div className="form-group mt-3">
+            {editmodalloadingbtn === true ? (
+              <button
+                className="btn btn-success col-lg-4"
+                onClick={updateProject}
+              >
+                Update
+              </button>
+            ) : (
+              <button className="btn btn-secondary col-lg-4" disabled>
+                <i className="fa fa-spin fa-spinner"></i> Please Wait
+              </button>
+            )}
+          </div>
         </Modal.Body>
       </Modal>
     </>

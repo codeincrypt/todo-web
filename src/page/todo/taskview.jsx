@@ -13,13 +13,21 @@ const Tasksview = (props) => {
 
   const [loading, setLoading] = useState(true);
   const [datalist, setDatalist] = useState([]);
+  const [commentlist, setCommentlist] = useState([]);
   const [nodata, setNoData] = useState(false);
+  // eslint-disable-next-line
+  const [markasdon, setMarkasdone] = useState(0);
+  // eslint-disable-next-line
+  const [updateprogress, setUpdateprogress] = useState(0);
 
   const fetchData = async () => {
-    const result = await GET_TODOVIEW(taskid);
-    if (result.statuscode === 1) {
-      setDatalist(result.data.todo);
+    const response = await GET_TODOVIEW(taskid);
+    if (response.statuscode === 1) {
+      setDatalist(response.data.todo);
+      setCommentlist(response.data.comment);
       setLoading(false);
+      setMarkasdone(response.data.markasdone);
+      setUpdateprogress(response.data.updateprogress);
     } else {
       setNoData(true);
       setLoading(false);
@@ -39,7 +47,7 @@ const Tasksview = (props) => {
       if (result.isConfirmed) {
         const result = await UPDATE_MARKASDONE(taskid);
         if (result.statuscode === 1) {
-          fetchData()
+          fetchData();
           Swal.fire("success!", `${result.message}`, "success");
         } else {
           Swal.fire("Fail !", `${result.message}`, "error");
@@ -89,36 +97,45 @@ const Tasksview = (props) => {
                 <div className="col-lg-6 form-inline ">
                   {datalist.taskstatus === 1 ? (
                     <React.Fragment>
-                      <button className="btn btn-muted mr-3 disabled" title="Already updated">
+                      <button
+                        className="btn btn-muted mr-3 disabled"
+                        title="Already updated"
+                      >
                         <i className="fa fa-tasks"></i> Mark As Done
                       </button>
-                      <button className="btn btn-muted mr-3 disabled" title="Already updated">
+                      <button
+                        className="btn btn-muted mr-3 disabled"
+                        title="Already updated"
+                      >
                         <i className="fa fa-comment"></i> Update Progress
                       </button>
                     </React.Fragment>
                   ) : (
                     <React.Fragment>
-                      <button className="btn btn-muted mr-3" onClick={markasdone}>
+                      <button
+                        className="btn btn-muted mr-3"
+                        onClick={markasdone}
+                      >
                         <i className="fa fa-tasks"></i> Mark As Done
                       </button>
-                        <button className="btn btn-muted mr-3">
+                      <button className="btn btn-muted mr-3">
                         <i className="fa fa-comment"></i> Update Progress
                       </button>
                     </React.Fragment>
                   )}
-
-                  
                 </div>
-                <div className="col-lg-6 form-inline ">
-                  <button className="btn btn-muted mr-3">
-                    <i className="fa fa-tasks"></i> Tasks
-                  </button>
-                  <button className="btn btn-muted mr-3">
-                    <i className="fa fa-comment"></i> Comments
-                  </button>
-                  <button className="btn btn-muted mr-3">
-                    <i className="fa fa-bug"></i> Bugs
-                  </button>
+                <div className="col-lg-6">
+                  <div className="float-right">
+                    <button className="btn btn-muted mr-3">
+                      <i className="fa fa-tasks"></i> Tasks
+                    </button>
+                    <button className="btn btn-muted mr-3">
+                      <i className="fa fa-comment"></i> Comments
+                    </button>
+                    {/* <button className="btn btn-muted mr-3">
+                      <i className="fa fa-bug"></i> Bugs
+                    </button> */}
+                  </div>
                 </div>
               </div>
             </div>
@@ -221,6 +238,38 @@ const Tasksview = (props) => {
                 </div>
               </div>
             </div>
+          </div>
+
+          <div className="card card-success card-outline">
+          {/* <div className="card-header">
+              <h6>COMMENTS</h6>
+            </div> */}
+          <div className="card-body">
+            {Array.isArray(commentlist) && commentlist.length > 0 ? (
+              <React.Fragment>
+                {commentlist.map((item, index) => (
+                  <div className="card">
+                    <div className="row card-header">
+                      <div className="col-lg-6 form-inline">
+                        <div className="mediaicon mr-3">
+                          {item.empname.substring(0, 1)}
+                        </div>{" "}
+                        <span>{item.empname}</span>
+                      </div>
+                      <div className="col-lg-6 text-right">
+                      <p>{item.date} - {item.time}</p>
+                      </div>
+                    </div>
+                    <div className="card-body">
+                      <p>{item.comments}</p>
+                    </div>
+                  </div>
+                ))}
+              </React.Fragment>
+            ) : (
+              <p>No Data </p>
+            )}
+          </div>
           </div>
         </div>
       </section>

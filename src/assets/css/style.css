@@ -94,3 +94,13 @@ body > iframe[style*='2147483647']{
   color: #a7a7a7;
   font-size: 14px;
 }
+
+.mediaicon {
+  width: 35px;
+  height: 35px;
+  border-radius: 50px;
+  text-align: center;
+  display: grid;
+  align-content: center;
+  background-color: #00bc8c;
+}
