@@ -144,7 +144,6 @@ const Tasks = (props) => {
                       <th>TAG</th>
                       <th>COMMENTS</th>
                       <th>PRIORITY</th>
-                      <th className="text-center">PROGRESS</th>
                       <th className="text-center">STATUS</th>
                       <th className="text-center">ASSIGNEE</th>
                       <th className="text-center">DATE</th>

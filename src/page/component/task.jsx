@@ -30,11 +30,11 @@ const TasksTable = ({ todolist }) => (
           )}
         </td>
 
-        <td className="text-center align-middle">
+        {/* <td className="text-center align-middle">
           <div className="progress progress-xs" title={`Task done ${item.progress}%`}>
           <div className={`progress-bar ${item.taskstatus === 0 ? 'bg-warning' : item.taskstatus === 2 ? 'bg-danger' : 'bg-success'}`} style={{width: `${item.progress}%`}}></div>
           </div>
-        </td>
+        </td> */}
 
         <td className="text-center align-middle">
           {item.taskstatus === 0 ? (
