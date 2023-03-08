@@ -59,6 +59,18 @@ export const GET_PROJECTLIST = async (page, limit) => {
   const data = await response.json();
   return data;
 };
+
+export const ADD_PROJECT = async (projectname, projectid, status) => {
+  const response = await fetch(`${URL_STRING}/api/employee/addproject`, {
+      headers,
+      method: 'POST',
+      body: JSON.stringify({projectname, projectid, status}),
+    }
+  );
+  const data = await response.json();
+  return data;
+};
+
 export const GET_MANAGEPROJECTLIST = async (page, limit) => {
   const response = await fetch(`${URL_STRING}/api/employee/manageproject`, {
       headers,
