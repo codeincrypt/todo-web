@@ -91,9 +91,10 @@ const Project = (props) => {
                       <thead>
                         <tr>
                           <th width="5%">ID</th>
-                          <th width="20%">PROJECT NAME</th>
-                          <th width="20%">PROJECT ID</th>
-                          <th width="60%">TEAM</th>
+                          <th width="40%">PROJECT NAME</th>
+                          <th width="20%">TEAM</th>
+                          <th width="20%" className="text-center">PENDING TASKS</th>
+                          <th width="10%" className="text-center">ACTION</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -101,8 +102,11 @@ const Project = (props) => {
                           <tr>
                             <td>{item.id}</td>
                             <td>{item.projectname}</td>
-                            <td>{item.projectid}</td>
-                            <td>{item.projectid}</td>
+                            <td>A,B,C,D</td>
+                            <td className="text-center">4</td>
+                            <td className="text-center">
+                            <button className="btn btn-success" onClick={console.log('hello')}>View</button>
+                            </td>
                           </tr>
                         ))}
                       </tbody>

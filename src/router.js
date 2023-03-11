@@ -50,6 +50,11 @@ export const UserRouter = [
     exact: true,
   },
   {
+    path: '/project/:projectid',
+    component: Project,
+    exact: true,
+  },
+  {
     path: '/manageproject',
     component: Manageproject,
     exact: true,

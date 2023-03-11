@@ -57,38 +57,38 @@ const Home = (props) => {
           </div>
           <div className="row">
             <div className="col-lg-2">
-              <div className="callout callout-danger p-4">
-                <h1>1</h1>
+              <div className="callout callout-success p-4">
+                <h1>0</h1>
                 <h5>Pending Tasks</h5>
               </div>
             </div>
             <div className="col-lg-2">
-              <div className="callout callout-danger p-4">
-                <h1>2</h1>
+              <div className="callout callout-success p-4">
+                <h1>0</h1>
                 <h5>Priority Tasks</h5>
               </div>
             </div>
             <div className="col-lg-2">
-              <div className="callout callout-danger p-4">
-                <h1>100</h1>
+              <div className="callout callout-success p-4">
+                <h1>0</h1>
                 <h5>Total Tasks</h5>
               </div>
             </div>
             <div className="col-lg-2">
-              <div className="callout callout-danger p-4">
-                <h1>100</h1>
-                <h5>Bugs</h5>
+              <div className="callout callout-success p-4">
+                <h1>0</h1>
+                <h5>This Month</h5>
               </div>
             </div>
             <div className="col-lg-2">
-              <div className="callout callout-danger p-4">
-                <h1>100</h1>
-                <h5>Bugs</h5>
+              <div className="callout callout-info p-4">
+                <h1>0</h1>
+                <h5>Comments</h5>
               </div>
             </div>
             <div className="col-lg-2">
-              <div className="callout callout-danger p-4">
-                <h1>100</h1>
+              <div className="callout callout-info p-4">
+                <h1>0</h1>
                 <h5>Bugs</h5>
               </div>
             </div>

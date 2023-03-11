@@ -48,12 +48,16 @@ const Profile = (props) => {
                     <p className="text-muted text-center">{profile.employeeid}</p>
                     <ul className="list-group list-group-unbordered mb-3">
                       <li className="list-group-item">
-                        <b>Contact</b>
-                        <span className="float-right"> {profile.mobile} </span>
+                        <b>Department</b>
+                        <span className="float-right"> {profile.department} </span>
                       </li>
                       <li className="list-group-item">
-                        <b>Email</b>
-                        <span className="float-right"> {profile.email} </span>
+                        <b>Designation</b>
+                        <span className="float-right"> {profile.designation} </span>
+                      </li>
+                      <li className="list-group-item">
+                        <b>Contact</b>
+                        <span className="float-right"> {profile.mobile} </span>
                       </li>
                       <li className="list-group-item">
                         <b>Email</b>
