@@ -28,6 +28,17 @@ export const GET_TODOLIST = async (page, limit) => {
     return data;
 };
 
+export const GET_PROJECTTODOLIST = async (projectcode, page, limit) => {
+    const response = await fetch(`${URL_STRING}/api/employee/projecttasklist`, {
+        headers,
+        method: 'POST',
+        body: JSON.stringify({projectcode, page, limit}),
+      }
+    );
+    const data = await response.json();
+    return data;
+};
+
 export const GET_TODOVIEW = async (todoid) => {
     const response = await fetch(`${URL_STRING}/api/employee/viewtodo/${todoid}`, {
         headers,
@@ -60,11 +71,22 @@ export const GET_PROJECTLIST = async (page, limit) => {
   return data;
 };
 
-export const ADD_PROJECT = async (projectname, projectid, status) => {
+export const ADD_PROJECT = async (projectname, projectcode, status) => {
   const response = await fetch(`${URL_STRING}/api/employee/addproject`, {
       headers,
       method: 'POST',
-      body: JSON.stringify({projectname, projectid, status}),
+      body: JSON.stringify({projectname, projectcode, status}),
+    }
+  );
+  const data = await response.json();
+  return data;
+};
+
+export const UPDATE_PROJECT = async (projectname, projectcode, status, id) => {
+  const response = await fetch(`${URL_STRING}/api/employee/editproject`, {
+      headers,
+      method: 'POST',
+      body: JSON.stringify({projectname, projectcode, status, id}),
     }
   );
   const data = await response.json();

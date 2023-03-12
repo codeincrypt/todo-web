@@ -7,6 +7,7 @@ import Profile from './page/profile';
 import Manageproject from './page/project/manageproject';
 import Project from './page/project/project';
 import AddTask from './page/todo/add-task';
+import TaskProject from './page/todo/taskproject';
 import Tasks from './page/todo/tasks';
 import Tasksview from './page/todo/taskview';
 
@@ -50,8 +51,8 @@ export const UserRouter = [
     exact: true,
   },
   {
-    path: '/project/:projectid',
-    component: Project,
+    path: '/project/:projectcode',
+    component: TaskProject,
     exact: true,
   },
   {

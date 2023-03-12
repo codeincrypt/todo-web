@@ -3,9 +3,11 @@ import "../../assets/import.css";
 import { Modal } from "react-bootstrap";
 
 import Nodata from "../common/nodata";
-import { GET_MANAGEPROJECTLIST } from "../../request/apirequest";
 import Loader from "../common/loader";
 import AccessDenied from "../common/noaccess";
+import { dynamicShowAlert } from "../common/alert";
+
+import { ADD_PROJECT, UPDATE_PROJECT, GET_MANAGEPROJECTLIST } from "../../request/apirequest";
 
 const Manageproject = (props) => {
   const [emptype, setEmptype] = useState(0);
@@ -22,17 +24,16 @@ const Manageproject = (props) => {
   // eslint-disable-next-line
   const [showPerPage, setShowPerPage] = useState(10);
   const [counter, setCounter] = useState(1);
-  const [numberOfButtons, setNumberOfButoons] = useState(
-    Math.ceil(data_count / showPerPage)
-  );
+  const [numberOfButtons, setNumberOfButoons] = useState(Math.ceil(data_count / showPerPage));
 
   // ADD PROJECT
   const [projectname, setProjectname] = useState("");
   const [projectcode, setProjectcode] = useState("");
-  const [projectstatus, setProjectstatus] = useState("");
+  const [projectstatus, setProjectstatus] = useState(1);
   const [modalloadingbtn, setModalloadingbtn] = useState(true);
 
   // EDIT PROJECT
+  const [editprojectid, setEditProjectid] = useState("");
   const [editprojectname, setEditProjectname] = useState("");
   const [editprojectcode, setEditProjectcode] = useState("");
   const [editprojectstatus, setEditProjectstatus] = useState("");
@@ -44,23 +45,66 @@ const Manageproject = (props) => {
   const handleCloseedit = () => setShowedit(false);
   const handleOpenedit = () => setShowedit(true);
 
-  const insertProject = () => {
-    console.log("projectname", projectname);
-    console.log("projectcode", projectcode);
+  const insertProject = async () => {
+    if(!projectname){
+      return dynamicShowAlert("inserterror", "danger", "Please enter project name")
+    }
+    if(!projectcode && projectcode.length < 3 && projectcode > 10){
+      return dynamicShowAlert("inserterror", "danger", "Please enter project code")
+    }
     setModalloadingbtn(false);
+    const response = await ADD_PROJECT(projectname, projectcode, projectstatus)
+    if(response.statuscode === 1){
+      dynamicShowAlert("inserterror", "success", response.message)
+      fetchData(page, showPerPage);
+      handleClose()
+    } else {
+      dynamicShowAlert("inserterror", "danger", response.message)
+      setModalloadingbtn(true);
+    }
   };
+
+  const setProjectname1 = (e) => {
+    setProjectname(e)
+    let trimval = e.toString().replace(/\s/g, "")
+    let newval = trimval.toString().length > 8 ? trimval.toUpperCase().substr(0,8) : trimval.toUpperCase()
+    setProjectcode(newval)
+  }
 
   const openEditModel = (e) => {
     handleOpenedit()
-    setEditProjectname(e);
-    setEditProjectcode(e);
-    setEditProjectstatus(e);
+    const getdata = datalist.find(elem => elem.id === e)
+    setEditProjectname(getdata.projectname);
+    setEditProjectcode(getdata.projectid);
+    setEditProjectstatus(getdata.status);
+    setEditProjectid(getdata.id);
   };
 
-  const updateProject = () => {
-    console.log("projectname", projectname);
-    console.log("projectcode", projectcode);
+  const setEditProjectname1 = (e) => {
+    setEditProjectname(e)
+    let trimval = e.toString().replace(/\s/g, "")
+    let newval = trimval.toString().length > 8 ? trimval.toUpperCase().substr(0,8) : trimval.toUpperCase()
+    setEditProjectcode(newval)
+  }
+
+  const updateProject = async () => {
+    if(!editprojectname){
+      return dynamicShowAlert("updateerror", "danger", "Please enter project name")
+    }
+    if(!editprojectcode && editprojectcode.length < 3 && editprojectcode > 10){
+      return dynamicShowAlert("updateerror", "danger", "Please enter project code")
+    }
     setEditModalloadingbtn(false);
+    const response = await UPDATE_PROJECT(editprojectname, editprojectcode, editprojectstatus, editprojectid)
+    if(response.statuscode === 1){
+      dynamicShowAlert("updateerror", "success", response.message)
+      fetchData(page, showPerPage);
+      setEditModalloadingbtn(true);
+      handleCloseedit()
+    } else {
+      dynamicShowAlert("updateerror", "danger", response.message)
+      setEditModalloadingbtn(true);
+    }
   };
 
   const fetchData = async (page, showPerPage) => {
@@ -183,7 +227,7 @@ const Manageproject = (props) => {
                     </thead>
                     <tbody>
                       {datalist.map((item, index) => (
-                        <tr>
+                        <tr key={index}>
                           <td>{item.id}</td>
                           <td>{item.projectname}</td>
                           <td className="text-center">{item.projectid}</td>
@@ -294,11 +338,13 @@ const Manageproject = (props) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body style={{ height: 400 }}>
+          <p id="inserterror"></p>
           <div className="form-group mt-4">
             <label>Project Name</label>
             <input
               type="text"
-              onChange={(e) => setProjectname(e.target.value)}
+              defaultValue={projectname}
+              onChange={(e) => setProjectname1(e.target.value)}
               className="form-control p_input"
             />
           </div>
@@ -306,7 +352,7 @@ const Manageproject = (props) => {
             <label>Project Code</label>
             <input
               type="text"
-              max={4}
+              defaultValue={projectcode}
               onChange={(e) => setProjectcode(e.target.value)}
               className="form-control p_input"
             />
@@ -324,7 +370,7 @@ const Manageproject = (props) => {
           </div>
 
           <div className="form-group mt-3">
-            {modalloadingbtn === true ? (
+            {modalloadingbtn ? (
               <button
                 className="btn btn-success col-lg-4"
                 onClick={insertProject}
@@ -339,116 +385,6 @@ const Manageproject = (props) => {
           </div>
         </Modal.Body>
       </Modal>
-
-      {/* <Modal
-        show={show}
-        onHide={handleClose}
-        backdrop='static'
-        keyboard={false}
-        centered>
-        <Modal.Header closeButton>
-          <Modal.Title>
-            <span style={{ color: '#1d1346', fontSize: 20 }}>
-              Employee Attendance
-            </span>
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body style={{ height: 400 }}>
-          <div className='form-group mt-4'>
-            <span>
-              <h2
-                className='text-center'
-                style={{ color: '#1d1346', fontSize: 20, lineHeight: 0.7 }}>
-                <b>Are You Sure</b>
-              </h2>
-              <h4
-                className='text-center'
-                style={{ color: '#1d1346', fontSize: 16, lineHeight: 0.7 }}>
-                Do you want to Accept / Reject Attendance
-              </h4>
-            </span>
-          </div>
-          <div className='mt-5 px-2'>
-            <div className='row mb-3'>
-              <div className='col-lg-3 col-3'>
-                <span className='invoicelabel font-weight-bold text-muted'>
-                  Date :
-                </span>
-              </div>
-              <div className='col-lg-3 col-3'>
-                <span className='invoicefont'>{modeldata.date}</span>
-              </div>
-              <div className='col-lg-3 col-3'>
-                <span className='invoicelabel font-weight-bold text-muted'>
-                  Employee :
-                </span>
-              </div>
-              <div className='col-lg-3 col-3'>
-                <span className='invoicefont'>{modeldata.name}</span>
-              </div>
-              <div className='col-lg-3 col-3'>
-                <span className='invoicelabel font-weight-bold text-muted'>
-                  Start Time :
-                </span>
-              </div>
-              <div className='col-lg-3 col-3'>
-                <span className='invoicefont'>{modeldata.starttime}</span>
-              </div>
-              <div className='col-lg-3 col-3'>
-                <span className='invoicelabel font-weight-bold text-muted'>
-                  Employee Id :
-                </span>
-              </div>
-              <div className='col-lg-3 col-3'>
-                <span className='invoicefont'>{modeldata.empid}</span>
-              </div>
-            </div>
-          </div>
-          <div
-            className='form-group text-center mt-3 row justify-content-center'
-            style={{ verticalAlign: 'bottom' }}>
-            {acceptbtn === true ? (
-              <>
-                <button
-                  className='btn col-lg-5 mr-2'
-                  name='reject'
-                  style={{
-                    borderRadius: '2rem',
-                    color: '#fff',
-                    backgroundColor: '#9f384d',
-                  }}
-                  onClick={(e) => approveAttendance(2)}>
-                  Reject
-                </button>
-
-                <button
-                  className='btn col-lg-5'
-                  name='accept'
-                  style={{
-                    borderRadius: '2rem',
-                    color: '#fff',
-                    backgroundColor: '#1d1346',
-                  }}
-                  onClick={(e) => approveAttendance(1)}>
-                  Accept
-                </button>
-              </>
-            ) : (
-              <button
-                className='btn col-lg-5'
-                disabled
-                name='accept'
-                style={{
-                  borderRadius: '2rem',
-                  color: '#fff',
-                  backgroundColor: '#1d1346',
-                }}>
-                <i className='fa fa-spin fa-spinner'></i> Please Wait
-              </button>
-            )} 
-          </div>
-        </Modal.Body>
-      </Modal> */}
 
       <Modal
         show={showedit}
@@ -465,12 +401,13 @@ const Manageproject = (props) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body style={{ height: 400 }}>
+          <div id="updateerror"></div>
           <div className="form-group mt-4">
             <label>Project Name</label>
             <input
               type="text"
               defaultValue={editprojectname}
-              onChange={(e) => setEditProjectname(e.target.value)}
+              onChange={(e) => setEditProjectname1(e.target.value)}
               className="form-control p_input"
             />
           </div>
@@ -479,7 +416,6 @@ const Manageproject = (props) => {
             <input
               type="text"
               defaultValue={editprojectcode}
-              max={4}
               onChange={(e) => setEditProjectcode(e.target.value)}
               className="form-control p_input"
             />

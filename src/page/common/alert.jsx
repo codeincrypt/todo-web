@@ -12,4 +12,12 @@ export const showAlert2 = async (type, message) => {
   }
   document.getElementById('error2').innerHTML = `<div class="bs-component"><div class="alert alert-dismissible alert-${type}"><button class="close" type="button" data-dismiss="alert">×</button> ${message} </div></div>`;
   setTimeout(leftur, 3000);
+}
+
+export const dynamicShowAlert = async (id, type, message) => {
+  function leftur() {
+    document.getElementById(id).innerHTML = '';
+  }
+  document.getElementById(id).innerHTML = `<div class="bs-component"><div class="alert alert-dismissible alert-${type}"><button class="close" type="button" data-dismiss="alert">×</button> ${message} </div></div>`;
+  setTimeout(leftur, 3000);
 } 

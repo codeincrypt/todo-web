@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "../../assets/import.css";
 
 import Nodata from "../common/nodata";
@@ -105,7 +106,7 @@ const Project = (props) => {
                             <td>A,B,C,D</td>
                             <td className="text-center">4</td>
                             <td className="text-center">
-                            <button className="btn btn-success" onClick={console.log('hello')}>View</button>
+                              <Link className="btn btn-success" to={`project/${item.projectid}`}> View </Link>
                             </td>
                           </tr>
                         ))}
