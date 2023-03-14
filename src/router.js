@@ -1,5 +1,6 @@
 // AUTH
 import Login from './auth/login';
+import Bugs from './page/bugs/bugs';
 
 // USERS
 import Home from './page/home';
@@ -28,6 +29,11 @@ export const UserRouter = [
   {
     path: '/home',
     component: Home,
+    exact: true,
+  },
+  {
+    path: '/bugs',
+    component: Bugs,
     exact: true,
   },
   {

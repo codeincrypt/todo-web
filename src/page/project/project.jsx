@@ -95,6 +95,7 @@ const Project = (props) => {
                           <th width="40%">PROJECT NAME</th>
                           <th width="20%">TEAM</th>
                           <th width="20%" className="text-center">PENDING TASKS</th>
+                          <th width="20%" className="text-center">PRIORITY TASKS</th>
                           <th width="10%" className="text-center">ACTION</th>
                         </tr>
                       </thead>
@@ -104,7 +105,8 @@ const Project = (props) => {
                             <td>{item.id}</td>
                             <td>{item.projectname}</td>
                             <td>A,B,C,D</td>
-                            <td className="text-center">4</td>
+                            <td className="text-center">{item.pendingtask}</td>
+                            <td className="text-center">{item.prioritytask}</td>
                             <td className="text-center">
                               <Link className="btn btn-success" to={`project/${item.projectid}`}> View </Link>
                             </td>

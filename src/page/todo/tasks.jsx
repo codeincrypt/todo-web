@@ -141,11 +141,11 @@ const Tasks = (props) => {
                     <tr>
                       <th>ID</th>
                       <th>TASK</th>
+                      <th>PROJECT</th>
                       <th>TAG</th>
-                      <th>COMMENTS</th>
                       <th>PRIORITY</th>
-                      <th className="text-center">STATUS</th>
                       <th className="text-center">ASSIGNEE</th>
+                      <th className="text-center">STATUS</th>
                       <th className="text-center">DATE</th>
                     </tr>
                   </thead>

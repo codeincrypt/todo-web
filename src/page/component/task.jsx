@@ -8,8 +8,8 @@ const TasksTable = ({ todolist }) => (
         <td className="align-middle">{item.tasksid}
         </td>
         <td className="align-middle">{item.tasks}</td>
+        <td className="align-middle">{item.projectcode}</td>
         <td className="align-middle">{item.tag}</td>
-        <td className="text-center align-middle">0</td>
         <td className="align-middle ">
           {item.workpriority === "Critical" ? (
             <span className="font-weight-bold text-danger">
@@ -35,7 +35,7 @@ const TasksTable = ({ todolist }) => (
           <div className={`progress-bar ${item.taskstatus === 0 ? 'bg-warning' : item.taskstatus === 2 ? 'bg-danger' : 'bg-success'}`} style={{width: `${item.progress}%`}}></div>
           </div>
         </td> */}
-
+        <td className="text-center align-middle"> {item.assigneename} </td>
         <td className="text-center align-middle">
           {item.taskstatus === 0 ? (
             <span className="badge bg-warning">Working</span>
@@ -45,8 +45,8 @@ const TasksTable = ({ todolist }) => (
             <span className="badge bg-success">Completed</span>
           )}
         </td>
-        <td className="text-center align-middle">{item.assignby}</td>
-        <td className="text-center align-middle" title={`${item.date} | ${item.time}`} >
+        
+        <td className="text-center align-middle" title={`${item.date} / ${item.time}`} >
           {item.date}
         </td>
       </tr>
