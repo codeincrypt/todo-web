@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "../../assets/import.css";
+import "../../../assets/import.css";
 
-import Nodata from "../common/nodata";
-import { GET_PROJECTLIST } from "../../request/apirequest";
-import Loader from "../common/loader";
+import Nodata from "../../common/nodata";
+import { GET_PROJECTLIST } from "../../../request/apirequest";
+import Loader from "../../common/loader";
 
 const Project = (props) => {
   const [loading, setLoading] = useState(true);

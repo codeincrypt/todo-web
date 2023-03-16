@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import "../../assets/import.css";
+import "../../../assets/import.css";
 import { Modal } from "react-bootstrap";
 
-import Nodata from "../common/nodata";
-import Loader from "../common/loader";
-import AccessDenied from "../common/noaccess";
-import { dynamicShowAlert } from "../common/alert";
+import Nodata from "../../common/nodata";
+import Loader from "../../common/loader";
+import AccessDenied from "../../common/noaccess";
+import { dynamicShowAlert } from "../../common/alert";
 
-import { ADD_PROJECT, UPDATE_PROJECT, GET_MANAGEPROJECTLIST } from "../../request/apirequest";
+import { ADD_PROJECT, UPDATE_PROJECT, GET_MANAGEPROJECTLIST } from "../../../request/apirequest";
 
-const Manageproject = (props) => {
+const AdminManageproject = (props) => {
   const [emptype, setEmptype] = useState(0);
   const [loading, setLoading] = useState(true);
   const [datalist, setDatalist] = useState([]);
@@ -452,4 +452,4 @@ const Manageproject = (props) => {
   );
 };
 
-export default Manageproject;
+export default AdminManageproject;

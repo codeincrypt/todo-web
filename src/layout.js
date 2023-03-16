@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 
-import HEADER from "./page/include/header";
-import SIDEBAR from "./page/include/sidebar";
+import HEADER from "./page/employee/include/header";
+import SIDEBAR from "./page/employee/include/sidebar";
 
 import { useHistory } from "react-router-dom";
 import { UserContext } from "./App";
@@ -11,12 +11,14 @@ const Layout = ({ children }) => {
   const history = useHistory();
   const { dispatch } = useContext(UserContext);
 
+  const [usertype, setUsertype] = React.useState("");
   const [profile, setProfile] = React.useState("");
 
   const fetchProfile = async () => {
     GET_PROFILE().then(async (res) => {
       if (res.statuscode === 1) {
         setProfile(res.data);
+        setUsertype(res.data.emptype);
       }
       if (res.statuscode === 2) {
         expireSession()
@@ -49,18 +51,56 @@ const Layout = ({ children }) => {
     // eslint-disable-next-line
   }, []);
 
+  if(usertype === "SUPERADMIN" || usertype === "ADMIN"){
+    return (
+      <>
+        <div className="wrapper">
+        <HEADER profile={profile} />
+        <SIDEBAR profile={profile} />
+          <div className="content-wrapper">
+            {children}
+          </div>
+        </div>
+      </>
+    )
+  }
+
+  if(usertype === "EMPLOYEE"){
+    return (
+      <>
+        <div className="wrapper">
+        <HEADER profile={profile} />
+        <SIDEBAR profile={profile} />
+          <div className="content-wrapper">
+            {children}
+          </div>
+        </div>
+      </>
+    )
+  }
 
   return (
     <>
-      <div className="wrapper">
-      <HEADER profile={profile} />
-      <SIDEBAR profile={profile} />
-        <div className="content-wrapper">
-          {children}
+      <body className="hold-transition login-page">
+        <div className="login-box">
+          <div className="login-logo">
+            <b>Loading...</b> 
+          </div>
         </div>
-      </div>
+      </body>
     </>
   )
+  // return (
+  //   <>
+  //     <div className="wrapper">
+  //     <HEADE profile={profile} />
+  //     <SIDEBAR profile={profile} />
+  //       <div className="content-wrapper">
+  //         {children}
+  //       </div>
+  //     </div>
+  //   </>
+  // )
 };
 
 export default Layout;

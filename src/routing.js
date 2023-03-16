@@ -1,6 +1,6 @@
 import React from "react";
 import { Router, Route, Switch, useHistory } from "react-router-dom";
-import { UserRouter, MainRouter } from "./router";
+import { MainRouter, UserRouter, AdminRouter } from "./router";
 import BackLayout from "./layout";
 import AuthLayout from "./authlayout";
 
@@ -11,6 +11,20 @@ const Navigation = () => {
     <Router history={history}>
       <Switch>
         {UserRouter.map((i, index) => (
+          <Route
+            exact
+            key={index}
+            path={i.path}
+            render={(props) => (
+              <BackLayout history={props.history}>
+                <i.component {...props} />
+              </BackLayout>
+            )}
+          />
+        ))}
+
+        
+        {AdminRouter.map((i, index) => (
           <Route
             exact
             key={index}

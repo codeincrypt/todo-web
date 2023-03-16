@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
-import "../assets/import.css";
-import { GET_DASHTODOLIST } from "../request/apirequest";
-import { GET_PROFILE } from "../request/userrequest";
-import TasksTable from "./component/task";
-import Nodata from "./common/nodata";
+import "../../assets/import.css";
+import { GET_DASHTODOLIST } from "../../request/apirequest";
+import { GET_PROFILE } from "../../request/userrequest";
+import TasksTable from "../component/task";
+import Nodata from "../common/nodata";
 
 moment().format();
 

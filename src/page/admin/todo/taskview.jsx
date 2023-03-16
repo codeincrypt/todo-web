@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import "../../assets/import.css";
-import { GET_TODOVIEW, UPDATE_MARKASDONE } from "../../request/apirequest";
-import Loader from "../common/loader";
-import Nodata from "../common/nodata";
+import "../../../assets/import.css";
+import { GET_TODOVIEW, UPDATE_MARKASDONE } from "../../../request/apirequest";
+import Loader from "../../common/loader";
+import Nodata from "../../common/nodata";
 import Swal from "sweetalert2";
 // import 'sweetalert2/src/sweetalert2.scss'
 

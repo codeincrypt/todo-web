@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
-import "../../assets/import.css";
+import { Link } from "react-router-dom";
+import "../../../assets/import.css";
 
-import { GET_PROJECTTODOLIST } from "../../request/apirequest";
-import TasksTable from "../component/task";
-import Loader from "../common/loader";
-import Nodata from "../common/nodata";
+import { GET_TODOLIST } from "../../../request/apirequest";
+import TasksTable from "../../component/task";
+import Loader from "../../common/loader";
+import Nodata from "../../common/nodata";
 
-const TaskProject = (props) => {
-  const { projectcode } = useParams();
+const Tasks = (props) => {
   const [loading, setLoading] = useState(true);
   const [todolist, setTodolist] = useState([]);
 
@@ -20,15 +19,16 @@ const TaskProject = (props) => {
     Math.ceil(data_count / showPerPage)
   );
 
-  const fetchTodo = async (projectcode, page, showPerPage) => {
+  const fetchTodo = async (page, showPerPage) => {
     setCounter(page);
-    const result = await GET_PROJECTTODOLIST(projectcode, page, showPerPage)
-    if (result.statuscode === 1) {
-      setData_count(result.data.data_count);
-      setTodolist(result.data.data);
-      setNumberOfButoons(Math.ceil(result.data.data_count / showPerPage));
-      setLoading(false);
-    }
+    GET_TODOLIST(page, showPerPage).then(async (result) => {
+      if (result.statuscode === 1) {
+        setData_count(result.data.data_count);
+        setTodolist(result.data.data);
+        setNumberOfButoons(Math.ceil(result.data.data_count / showPerPage));
+        setLoading(false);
+      }
+    });
   };
 
   const changeLimit = (e) => {
@@ -63,7 +63,7 @@ const TaskProject = (props) => {
   };
 
   useEffect(() => {
-    fetchTodo(projectcode, page, showPerPage);
+    fetchTodo(page, showPerPage);
     // eslint-disable-next-line
   }, []);
 
@@ -142,11 +142,11 @@ const TaskProject = (props) => {
                     <tr>
                       <th>ID</th>
                       <th>TASK</th>
+                      <th>PROJECT</th>
                       <th>TAG</th>
-                      <th>COMMENTS</th>
                       <th>PRIORITY</th>
-                      <th className="text-center">STATUS</th>
                       <th className="text-center">ASSIGNEE</th>
+                      <th className="text-center">STATUS</th>
                       <th className="text-center">DATE</th>
                     </tr>
                   </thead>
@@ -223,4 +223,4 @@ const TaskProject = (props) => {
   );
 };
 
-export default TaskProject;
+export default Tasks;

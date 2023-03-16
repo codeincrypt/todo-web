@@ -34,9 +34,15 @@ const Login = (props) => {
       if (res.statuscode === 1) {
         showAlert('success', res.message)
         localStorage.setItem('todoemployee', res.data.token);
+        localStorage.setItem('usertype', res.data.emptype);
         localStorage.setItem('todoemployeedetails', res.data);
         dispatch({ type: 'TODOUSER', payload: res.data.token });
-        window.location.replace('/home')
+        if (res.data.emptype === "EMPLOYEE") {
+          window.location.href = '/emp'
+        }
+        if (res.data.emptype === "SUPERADMIN" || res.data.emptype === "ADMIN") {
+          window.location.href = '/admin'
+        }
       } else {
         showAlert('danger', res.message)
         setOtpbtn(false);
@@ -45,8 +51,11 @@ const Login = (props) => {
   }
 
   useEffect(() => {
-    if (localStorage.getItem("todoemployee")) {
-      window.location.href = '/home'
+    if (localStorage.getItem("todoemployee") || localStorage.getItem("usertype") === "EMPLOYEE") {
+      window.location.href = '/emp'
+    }
+    if (localStorage.getItem("todoemployee") || localStorage.getItem("usertype") === "SUPERADMIN" || localStorage.getItem("usertype") === "ADMIN") {
+      window.location.href = '/admin'
     }
     // eslint-disable-next-line
   }, []);
@@ -56,7 +65,7 @@ const Login = (props) => {
       <body className="hold-transition login-page">
         <div className="login-box">
           <div className="login-logo">
-            <b>Admin </b> <br /> 
+            <b>Microsoft Task </b> <br /> 
           </div>
 
           <div className="card">
