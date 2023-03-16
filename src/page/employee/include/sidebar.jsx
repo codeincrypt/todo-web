@@ -23,7 +23,7 @@ const Header = (props) => {
             />
           </div>
           <div className="info">
-            <Link to="/profile" className="d-block">
+            <Link to="/emp/profile" className="d-block">
               {props.profile.name} <br />
               {props.profile.emptype}
             </Link>
@@ -38,31 +38,31 @@ const Header = (props) => {
             data-accordion="false"
           >
             <li className="nav-item menu-open">
-              <Link to="/" className="nav-link active">
+              <Link to="/emp" className="nav-link active">
                 <i className="far fa-circle nav-icon"></i>
                 <p>Dashboard</p>
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/project" className="nav-link">
+              <Link to="/emp/project" className="nav-link">
                 <i className="fa fa-address-card nav-icon"></i>
                 <p>Project</p>
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/add-task" className="nav-link">
+              <Link to="/emp/add-task" className="nav-link">
                 <i className="fa fa-tasks nav-icon"></i>
                 <p>Add Tasks</p>
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/task" className="nav-link">
+              <Link to="/emp/task" className="nav-link">
                 <i className="fa fa-tasks nav-icon"></i>
                 <p>Tasks</p>
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/bugs" className="nav-link">
+              <Link to="/emp/bugs" className="nav-link">
                 <i className="fa fa-bug nav-icon"></i>
                 <p>Bugs</p>
               </Link>

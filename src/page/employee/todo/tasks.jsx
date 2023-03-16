@@ -100,7 +100,7 @@ const Tasks = (props) => {
                     </div> */}
                   <div className="col-lg-10 form-inline">
                     <Link
-                      to="/add-task"
+                      to="/emp/add-task"
                       title="Add new To-Do"
                       className="btn btn-default"
                     >
@@ -109,10 +109,6 @@ const Tasks = (props) => {
                     <button className="btn btn-muted">
                       {" "}
                       <i className="fa fa-search"></i> Search
-                    </button>
-                    <button className="btn btn-muted">
-                      {" "}
-                      <i className="fa fa-user"></i> Person
                     </button>
                     <button className="btn btn-muted">
                       {" "}

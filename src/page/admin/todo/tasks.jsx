@@ -101,7 +101,7 @@ const Tasks = (props) => {
                     </div> */}
                   <div className="col-lg-10 form-inline">
                     <Link
-                      to="/add-task"
+                      to="/admin/add-task"
                       title="Add new To-Do"
                       className="btn btn-default"
                     >

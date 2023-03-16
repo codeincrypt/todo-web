@@ -7,7 +7,7 @@ const MainLayout = ({ children }) => {
   useEffect(() => {
     const admin = localStorage.getItem("todoemployee");
     if (admin) {
-      history.push("/");
+      history.push("/emp");
     }
     // eslint-disable-next-line
   }, []);

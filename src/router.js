@@ -82,12 +82,12 @@ export const UserRouter = [
 export const AdminRouter = [
   {
     path: '/admin',
-    component: Home,
+    component: AdminHome,
     exact: true,
   },
   {
     path: '/admin/home',
-    component: Home,
+    component: AdminHome,
     exact: true,
   },
   {
@@ -127,7 +127,7 @@ export const AdminRouter = [
   },
   {
     path: '/admin/profile',
-    component: Profile,
+    component: AdminProfile,
     exact: true,
   },
 ];

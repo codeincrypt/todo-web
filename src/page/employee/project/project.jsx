@@ -108,7 +108,7 @@ const Project = (props) => {
                             <td className="text-center">{item.pendingtask}</td>
                             <td className="text-center">{item.prioritytask}</td>
                             <td className="text-center">
-                              <Link className="btn btn-success" to={`project/${item.projectid}`}> View </Link>
+                              <Link className="btn btn-success" to={`/emp/project/${item.projectid}`}> View </Link>
                             </td>
                           </tr>
                         ))}

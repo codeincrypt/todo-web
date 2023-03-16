@@ -57,12 +57,12 @@ const Header = (props) => {
 
         <ul className="navbar-nav ml-auto">
         <li className="nav-item">
-            <Link to="/add-task" title="Add new To-Do" className="nav-link" data-widget="fullscreen">
+            <Link to="/emp/add-task" title="Add new To-Do" className="nav-link" data-widget="fullscreen">
               <i className="fa fa-plus-circle mr-1"></i> Add To Do
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="/profile" title="My Profile" className="nav-link" data-widget="fullscreen">
+            <Link to="/emp/profile" title="My Profile" className="nav-link" data-widget="fullscreen">
               <i className="fas fa-user"></i>
             </Link>
           </li>

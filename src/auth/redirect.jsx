@@ -4,10 +4,10 @@ import "../assets/import.css";
 const Redirect = (props) => {
   
   useEffect(() => {
-    if (localStorage.getItem("todoemployee") || localStorage.getItem("usertype") === "EMPLOYEE") {
+    if (localStorage.getItem("todoemployee") && localStorage.getItem("usertype") === "EMPLOYEE") {
       window.location.href = '/emp'
     }
-    if (localStorage.getItem("todoemployee") || localStorage.getItem("usertype") === "SUPERADMIN" || localStorage.getItem("usertype") === "ADMIN") {
+    if (localStorage.getItem("todoemployee") && (localStorage.getItem("usertype") === "SUPERADMIN" || localStorage.getItem("usertype") === "ADMIN")) {
       window.location.href = '/admin'
     }
     // eslint-disable-next-line

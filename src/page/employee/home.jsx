@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import moment from "moment";
 import "../../assets/import.css";
+
 import { GET_DASHTODOLIST } from "../../request/apirequest";
 import { GET_PROFILE } from "../../request/userrequest";
 import TasksTable from "../component/task";
@@ -36,13 +38,13 @@ const Home = (props) => {
   return (
     <>
       <section className="content-header">
-        <div className="container-fluid">
+        {/* <div className="container-fluid">
           <div className="row mb-2">
             <div className="col-sm-6">
               <h1>Dashboard </h1>
             </div>
           </div>
-        </div>
+        </div> */}
       </section>
 
       <section className="content">
@@ -56,37 +58,25 @@ const Home = (props) => {
             </div>
           </div>
           <div className="row">
-            <div className="col-lg-2">
+            <div className="col-lg-3">
               <div className="callout callout-success p-4">
                 <h1>0</h1>
                 <h5>Pending Tasks</h5>
               </div>
             </div>
-            <div className="col-lg-2">
+            <div className="col-lg-3">
               <div className="callout callout-success p-4">
                 <h1>0</h1>
                 <h5>Priority Tasks</h5>
               </div>
             </div>
-            <div className="col-lg-2">
-              <div className="callout callout-success p-4">
-                <h1>0</h1>
-                <h5>Total Tasks</h5>
-              </div>
-            </div>
-            <div className="col-lg-2">
+            <div className="col-lg-3">
               <div className="callout callout-success p-4">
                 <h1>0</h1>
                 <h5>This Month</h5>
               </div>
             </div>
-            <div className="col-lg-2">
-              <div className="callout callout-info p-4">
-                <h1>0</h1>
-                <h5>Comments</h5>
-              </div>
-            </div>
-            <div className="col-lg-2">
+            <div className="col-lg-3">
               <div className="callout callout-info p-4">
                 <h1>0</h1>
                 <h5>Bugs</h5>
@@ -98,7 +88,8 @@ const Home = (props) => {
         <div className="container-fluid">
           <div className="card">
             <div className="card-header">
-              <h3 className="card-title">To Do Tasks</h3>
+              <h3 className="card-title text-uppercase font-weight-bold">To Do Tasks</h3>
+              <Link to="/" className="btn btn-success btn-sm float-right px-3">View All</Link>
             </div>
 
             <div className="card-body table-responsive p-0">
@@ -127,7 +118,7 @@ const Home = (props) => {
           </div>
         </div>
 
-        <div className="container-fluid">
+        {/* <div className="container-fluid">
           <div className="card">
             <div className="card-header">
               <h3 className="card-title">Portfolio Summary</h3>
@@ -135,7 +126,7 @@ const Home = (props) => {
 
             
           </div>
-        </div>
+        </div> */}
       </section>
     </>
   );

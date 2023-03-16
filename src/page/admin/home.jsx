@@ -8,7 +8,7 @@ import Nodata from "../common/nodata";
 
 moment().format();
 
-const Home = (props) => {
+const AdminHome = (props) => {
   const [profile, setProfile] = useState("");
   const [todolist, setTodolist] = useState([]);
 
@@ -141,4 +141,4 @@ const Home = (props) => {
   );
 };
 
-export default Home;
+export default AdminHome;
