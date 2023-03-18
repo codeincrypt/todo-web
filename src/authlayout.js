@@ -5,9 +5,11 @@ import { useHistory } from "react-router-dom";
 const MainLayout = ({ children }) => {
   const history = useHistory();
   useEffect(() => {
-    const admin = localStorage.getItem("todoemployee");
-    if (admin) {
+    if (localStorage.getItem("todoemployee") && localStorage.getItem("usertype") === "EMPLOYEE") {
       history.push("/emp");
+    }
+    if (localStorage.getItem("todoemployee") && (localStorage.getItem("usertype") === "SUPERADMIN" || localStorage.getItem("usertype") === "ADMIN")) {
+      history.push("/admin");
     }
     // eslint-disable-next-line
   }, []);

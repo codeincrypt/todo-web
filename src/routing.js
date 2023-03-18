@@ -1,7 +1,8 @@
 import React from "react";
 import { Router, Route, Switch, useHistory } from "react-router-dom";
-import { MainRouter, UserRouter, AdminRouter } from "./router";
-import BackLayout from "./layout";
+import { AuthRouter, UserRouter, AdminRouter } from "./router";
+import EmployeeLayout from "./layoutemployee";
+import AdminLayout from "./layoutadmin";
 import AuthLayout from "./authlayout";
 
 const Navigation = () => {
@@ -16,9 +17,9 @@ const Navigation = () => {
             key={index}
             path={i.path}
             render={(props) => (
-              <BackLayout history={props.history}>
+              <EmployeeLayout history={props.history}>
                 <i.component {...props} />
-              </BackLayout>
+              </EmployeeLayout>
             )}
           />
         ))}
@@ -30,14 +31,14 @@ const Navigation = () => {
             key={index}
             path={i.path}
             render={(props) => (
-              <BackLayout history={props.history}>
+              <AdminLayout history={props.history}>
                 <i.component {...props} />
-              </BackLayout>
+              </AdminLayout>
             )}
           />
         ))}
 
-        {MainRouter.map((i, index) => (
+        {AuthRouter.map((i, index) => (
           <Route
             exact
             key={index}

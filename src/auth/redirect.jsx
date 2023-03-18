@@ -15,12 +15,12 @@ const Redirect = (props) => {
 
   return (
     <body className="hold-transition login-page">
-        <div className="login-box">
-          <div className="login-logo">
-            <b>Redirecting ...</b> 
-          </div>
+      <div className="login-box">
+        <div className="login-logo">
+          <b>Redirecting ...</b> 
         </div>
-      </body>
+      </div>
+    </body>
   );
 };
 

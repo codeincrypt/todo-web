@@ -23,7 +23,7 @@ import AdminTasks from './page/admin/todo/tasks';
 import AdminTasksview from './page/admin/todo/taskview';
 
 
-export const MainRouter = [
+export const AuthRouter = [
   {
     path: '/login',
     component: Login,

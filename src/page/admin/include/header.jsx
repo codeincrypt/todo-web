@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { UserContext } from "../../App";
-import "../../assets/import.css";
+import { UserContext } from "../../../App";
+import "../../../assets/import.css";
 import { Link } from "react-router-dom";
 
 const Header = (props) => {
