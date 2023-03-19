@@ -1,8 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../../../assets/import.css";
+import { GET_PROFILE } from "../../../request/apirequest";
 
 const Header = (props) => {
+  const [profile, setProfile] = React.useState({})
+
+  const fetchProfile = async () => {
+    const response = await GET_PROFILE()
+    if (response.statuscode === 1) {
+      setProfile(response.data)
+    }
+  };
+
+  React.useEffect(() => {
+      fetchProfile()
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <aside className="main-sidebar sidebar-dark-primary elevation-4">
       <Link to="/" className="brand-link">
@@ -24,8 +39,8 @@ const Header = (props) => {
           </div>
           <div className="info">
             <Link to="/emp/profile" className="d-block">
-              {props.profile.name} <br />
-              {props.profile.emptype}
+              {profile.name} <br />
+              {profile.emptype}
             </Link>
           </div>
         </div>

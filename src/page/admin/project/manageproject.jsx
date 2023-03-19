@@ -7,7 +7,7 @@ import Loader from "../../common/loader";
 import AccessDenied from "../../common/noaccess";
 import { dynamicShowAlert } from "../../common/alert";
 
-import { ADD_PROJECT, UPDATE_PROJECT, GET_MANAGEPROJECTLIST } from "../../../request/apirequest";
+import { ADD_PROJECT, UPDATE_PROJECT, GET_MANAGEPROJECTLIST } from "../../../request/adminrequest";
 
 const AdminManageproject = (props) => {
   const [emptype, setEmptype] = useState(0);

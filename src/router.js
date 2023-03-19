@@ -102,17 +102,17 @@ export const AdminRouter = [
   },
   {
     path: '/admin/task',
-    component: Tasks,
+    component: AdminTasks,
     exact: true,
   },
   {
     path: '/admin/task/:taskid',
-    component: Tasksview,
+    component: AdminTasksview,
     exact: true,
   },
   {
     path: '/admin/project',
-    component: Project,
+    component: AdminProject,
     exact: true,
   },
   {

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "../../../assets/import.css";
 
 import Nodata from "../../common/nodata";
-import { GET_PROJECTLIST } from "../../../request/apirequest";
+import { GET_PROJECTLIST } from "../../../request/userrequest";
 import Loader from "../../common/loader";
 
 const Project = (props) => {

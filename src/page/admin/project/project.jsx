@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import "../../../assets/import.css";
 
 import Nodata from "../../common/nodata";
-import { GET_PROJECTLIST } from "../../../request/apirequest";
+import { GET_PROJECTLIST } from "../../../request/adminrequest";
 import Loader from "../../common/loader";
 
-const Project = (props) => {
+const AdminProject = (props) => {
   const [loading, setLoading] = useState(true);
   const [datalist, setDatalist] = useState([]);
 
@@ -77,6 +77,9 @@ const Project = (props) => {
             <div className="row mb-2">
               <div className="col-sm-6">
                 <h1>Project</h1>
+              </div>
+              <div className="col-sm-6">
+              <Link className="btn btn-success" to={`/admin/manageproject`}> Manage Project </Link>
               </div>
             </div>
           </div>
@@ -185,4 +188,4 @@ const Project = (props) => {
   );
 };
 
-export default Project;
+export default AdminProject;

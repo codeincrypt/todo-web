@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { UserContext } from "../App";
 import "../assets/import.css";
-import { GET_LOGIN, GET_VERIFYOTP } from "../request/auth";
+import { GET_LOGIN, GET_VERIFYOTP } from "../request/authrequest";
 import { showAlert } from "../page/common/alert";
 import { useHistory } from "react-router-dom";
 
@@ -37,12 +37,10 @@ const Login = (props) => {
       localStorage.setItem("todoemployeedetails", JSON.stringify(res.data));
       dispatch({ type: "TODOUSER", payload: res.data.token });
       if (res.data.emptype === "EMPLOYEE") {
-        // window.location.href = '/emp'
-        history.push("/emp");
+        window.location.href = '/emp'
       }
       if (res.data.emptype === "SUPERADMIN" || res.data.emptype === "ADMIN") {
-        // window.location.href = '/admin'
-        history.push("/admin");
+        window.location.href = '/admin'
       }
     } else {
       showAlert("danger", res.message);
@@ -52,19 +50,13 @@ const Login = (props) => {
 
   useEffect(() => {
     if (
-      localStorage.getItem("todoemployee") ||
+      localStorage.getItem("todoemployee") &&
       localStorage.getItem("usertype") === "EMPLOYEE"
     ) {
-      // window.location.href = '/emp'
-      history.push("/emp");
+      window.location.href = '/emp'
     }
-    if (
-      localStorage.getItem("todoemployee") ||
-      localStorage.getItem("usertype") === "SUPERADMIN" ||
-      localStorage.getItem("usertype") === "ADMIN"
-    ) {
-      // window.location.href = '/admin'
-      history.push("/admin");
+    if (localStorage.getItem("todoemployee") && (localStorage.getItem("usertype") === "SUPERADMIN" || localStorage.getItem("usertype") === "ADMIN")) {
+      window.location.href = '/admin'
     }
     // eslint-disable-next-line
   }, []);

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import "../../../assets/import.css";
-import { GET_TODOVIEW, UPDATE_MARKASDONE } from "../../../request/apirequest";
+import { GET_TODOVIEW, UPDATE_MARKASDONE } from "../../../request/userrequest";
 import Loader from "../../common/loader";
 import Nodata from "../../common/nodata";
 import Swal from "sweetalert2";
@@ -94,7 +94,7 @@ const Tasksview = (props) => {
             <div className="card-header">
               <div className="row">
                 <div className="col-lg-6 form-inline ">
-                <Link to="/task" className="btn btn-secondary"> <i className="fa fa-arrow-left"></i> Go Back</Link>
+                <Link to="/emp/task" className="btn btn-secondary mr-3"> <i className="fa fa-arrow-left"></i> Back</Link>
                   {datalist.taskstatus === 1 ? (
                     <React.Fragment>
                       <button

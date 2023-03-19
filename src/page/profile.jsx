@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../assets/import.css";
-import { GET_PROFILE } from "../request/userrequest";
+import { GET_PROFILE } from "../request/apirequest";
 
 const Profile = (props) => {
   // eslint-disable-next-line

@@ -1,8 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../../../assets/import.css";
+import { GET_PROFILE } from "../../../request/apirequest";
 
 const Header = (props) => {
+  const [profile, setProfile] = React.useState({})
+
+  const fetchProfile = async () => {
+    const response = await GET_PROFILE()
+    if (response.statuscode === 1) {
+      setProfile(response.data)
+    }
+  };
+
+  React.useEffect(() => {
+      fetchProfile()
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <aside className="main-sidebar sidebar-dark-primary elevation-4">
       <Link to="/" className="brand-link">
@@ -24,8 +39,8 @@ const Header = (props) => {
           </div>
           <div className="info">
             <Link to="/admin/profile" className="d-block">
-              {props.profile.name} <br />
-              {props.profile.emptype}
+              {profile.name} <br />
+              {profile.emptype}
             </Link>
           </div>
         </div>
@@ -44,27 +59,33 @@ const Header = (props) => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/admin/project" className="nav-link">
-                <i className="fa fa-address-card nav-icon"></i>
-                <p>Project</p>
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/admin/add-task" className="nav-link">
-                <i className="fa fa-tasks nav-icon"></i>
-                <p>Add Tasks</p>
-              </Link>
-            </li>
-            <li className="nav-item">
               <Link to="/admin/task" className="nav-link">
                 <i className="fa fa-tasks nav-icon"></i>
                 <p>Tasks</p>
               </Link>
             </li>
             <li className="nav-item">
+              <Link to="/admin/add-task" className="nav-link">
+                <i className="fa fa-plus nav-icon"></i>
+                <p>Add Tasks</p>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/admin/project" className="nav-link">
+                <i className="fa fa-address-card nav-icon"></i>
+                <p>Project</p>
+              </Link>
+            </li>
+            <li className="nav-item">
               <Link to="/admin/bugs" className="nav-link">
                 <i className="fa fa-bug nav-icon"></i>
                 <p>Bugs</p>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/admin/employee" className="nav-link">
+                <i className="fa fa-users nav-icon"></i>
+                <p>Employee</p>
               </Link>
             </li>
           </ul>

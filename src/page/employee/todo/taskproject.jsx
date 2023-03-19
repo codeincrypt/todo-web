@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import "../../../assets/import.css";
 
-import { GET_PROJECTTODOLIST } from "../../../request/apirequest";
+import { GET_PROJECTTODOLIST } from "../../../request/userrequest";
 import TasksTable from "../../component/task";
 import Loader from "../../common/loader";
 import Nodata from "../../common/nodata";
@@ -101,7 +101,7 @@ const TaskProject = (props) => {
                     </div> */}
                   <div className="col-lg-10 form-inline">
                     <Link
-                      to="/add-task"
+                      to="/emp/add-task"
                       title="Add new To-Do"
                       className="btn btn-default"
                     >
@@ -110,10 +110,6 @@ const TaskProject = (props) => {
                     <button className="btn btn-muted">
                       {" "}
                       <i className="fa fa-search"></i> Search
-                    </button>
-                    <button className="btn btn-muted">
-                      {" "}
-                      <i className="fa fa-user"></i> Person
                     </button>
                     <button className="btn btn-muted">
                       {" "}

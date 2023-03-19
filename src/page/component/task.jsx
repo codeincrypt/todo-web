@@ -4,7 +4,7 @@ import React from "react";
 const TasksTable = ({ todolist }) => (
   <React.Fragment>
     {todolist.map((item, index) => (
-      <tr key={index} style={{cursor: 'pointer'}} onClick={() => window.location.replace(`/task/${item.tasksid}`) }>
+      <tr key={index} style={{cursor: 'pointer'}} onClick={() => window.location.replace(`/emp/task/${item.tasksid}`) }>
         <td className="align-middle">{item.tasksid}
         </td>
         <td className="align-middle">{item.tasks}</td>

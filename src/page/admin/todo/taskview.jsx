@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import "../../../assets/import.css";
-import { GET_TODOVIEW, UPDATE_MARKASDONE } from "../../../request/apirequest";
+import { GET_TODOVIEW, UPDATE_MARKASDONE } from "../../../request/adminrequest";
 import Loader from "../../common/loader";
 import Nodata from "../../common/nodata";
 import Swal from "sweetalert2";
 // import 'sweetalert2/src/sweetalert2.scss'
 
-const Tasksview = (props) => {
+const AdminTasksview = (props) => {
   const { taskid } = useParams();
 
   const [loading, setLoading] = useState(true);
@@ -277,4 +277,4 @@ const Tasksview = (props) => {
   );
 };
 
-export default Tasksview;
+export default AdminTasksview;

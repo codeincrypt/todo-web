@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import moment from "moment";
 import "../../assets/import.css";
 
-import { GET_DASHTODOLIST } from "../../request/apirequest";
-import { GET_PROFILE } from "../../request/userrequest";
+import { GET_DASHBOARDCOUNT, GET_DASHTODOLIST } from "../../request/userrequest";
+import { GET_PROFILE } from "../../request/apirequest";
 import TasksTable from "../component/task";
 import Nodata from "../common/nodata";
 
@@ -13,13 +13,20 @@ moment().format();
 const Home = (props) => {
   const [profile, setProfile] = useState("");
   const [todolist, setTodolist] = useState([]);
+  const [counts, setCounts] = useState({});
 
   const fetchProfile = async () => {
-    GET_PROFILE().then(async (res) => {
-      if (res.statuscode === 1) {
-        setProfile(res.data);
-      }
-    });
+    const response = await GET_PROFILE()
+    if (response.statuscode === 1) {
+      setProfile(response.data)
+    }
+  };
+
+  const fetchCounts = async () => {
+    const response = await GET_DASHBOARDCOUNT()
+    if (response.statuscode === 1) {
+      setCounts(response.data)
+    }
   };
 
   const fetchTodo = async () => {
@@ -32,6 +39,7 @@ const Home = (props) => {
 
   useEffect(() => {
     fetchProfile();
+    fetchCounts();
     fetchTodo();
     // eslint-disable-next-line
   }, []);
@@ -60,25 +68,25 @@ const Home = (props) => {
           <div className="row">
             <div className="col-lg-3">
               <div className="callout callout-success p-4">
-                <h1>0</h1>
+                <h1>{counts.pending}</h1>
                 <h5>Pending Tasks</h5>
               </div>
             </div>
             <div className="col-lg-3">
               <div className="callout callout-success p-4">
-                <h1>0</h1>
+                <h1>{counts.priority}</h1>
                 <h5>Priority Tasks</h5>
               </div>
             </div>
             <div className="col-lg-3">
               <div className="callout callout-success p-4">
-                <h1>0</h1>
-                <h5>This Month</h5>
+                <h1>{counts.currentmonth}</h1>
+                <h5>Task This Month</h5>
               </div>
             </div>
             <div className="col-lg-3">
               <div className="callout callout-info p-4">
-                <h1>0</h1>
+                <h1>{counts.bugs}</h1>
                 <h5>Bugs</h5>
               </div>
             </div>
@@ -89,7 +97,7 @@ const Home = (props) => {
           <div className="card">
             <div className="card-header">
               <h3 className="card-title text-uppercase font-weight-bold">To Do Tasks</h3>
-              <Link to="/" className="btn btn-success btn-sm float-right px-3">View All</Link>
+              <Link to="/emp/task" className="btn btn-success btn-sm float-right px-3">View All</Link>
             </div>
 
             <div className="card-body table-responsive p-0">

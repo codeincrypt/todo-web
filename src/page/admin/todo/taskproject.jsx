@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import "../../../assets/import.css";
 
-import { GET_PROJECTTODOLIST } from "../../../request/apirequest";
+import { GET_PROJECTTODOLIST } from "../../../request/adminrequest";
 import TasksTable from "../../component/task";
 import Loader from "../../common/loader";
 import Nodata from "../../common/nodata";

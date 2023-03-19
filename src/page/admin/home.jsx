@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
 import "../../assets/import.css";
-import { GET_DASHTODOLIST } from "../../request/apirequest";
-import { GET_PROFILE } from "../../request/userrequest";
+import { GET_DASHTODOLIST } from "../../request/adminrequest";
+import { GET_PROFILE } from "../../request/apirequest";
 import TasksTable from "../component/task";
 import Nodata from "../common/nodata";
 
@@ -11,6 +11,9 @@ moment().format();
 const AdminHome = (props) => {
   const [profile, setProfile] = useState("");
   const [todolist, setTodolist] = useState([]);
+
+  var dt = new Date()
+  const currentmonth = dt.getMonth()
 
   const fetchProfile = async () => {
     GET_PROFILE().then(async (res) => {
@@ -77,13 +80,13 @@ const AdminHome = (props) => {
             <div className="col-lg-2">
               <div className="callout callout-success p-4">
                 <h1>0</h1>
-                <h5>This Month</h5>
+                <h5>Today's Task</h5>
               </div>
             </div>
             <div className="col-lg-2">
               <div className="callout callout-info p-4">
                 <h1>0</h1>
-                <h5>Comments</h5>
+                <h5>{currentmonth} Tasks</h5>
               </div>
             </div>
             <div className="col-lg-2">
