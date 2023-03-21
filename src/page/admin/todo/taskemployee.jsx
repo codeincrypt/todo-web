@@ -7,6 +7,8 @@ import Loader from "../common/loader";
 import Nodata from "../common/nodata";
 
 const TaskEmployee = (props) => {
+  const { empid } = useParams();
+  
   const [loading, setLoading] = useState(true);
   const [todolist, setTodolist] = useState([]);
 
@@ -20,7 +22,7 @@ const TaskEmployee = (props) => {
 
   const fetchTodo = async (page, showPerPage) => {
     setCounter(page);
-    GET_TODOLIST(page, showPerPage).then(async (result) => {
+    GET_TODOLIST(page, showPerPage, empid).then(async (result) => {
       if (result.statuscode === 1) {
         setData_count(result.data.data_count);
         setTodolist(result.data.data);

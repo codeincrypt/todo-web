@@ -113,3 +113,14 @@ export const GET_MANAGEPROJECTLIST = async (page, limit) => {
   const data = await response.json();
   return data;
 };
+
+export const GET_EMPLOYEETODO = async (page, limit) => {
+  const response = await fetch(`${URL_STRING}/api/admin/employeelisttodo`, {
+      headers,
+      method: 'POST',
+      body: JSON.stringify({page, limit}),
+    }
+  );
+  const data = await response.json();
+  return data;
+};

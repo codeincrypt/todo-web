@@ -21,6 +21,7 @@ import AdminAddTask from './page/admin/todo/add-task';
 import AdminTaskProject from './page/admin/todo/taskproject';
 import AdminTasks from './page/admin/todo/tasks';
 import AdminTasksview from './page/admin/todo/taskview';
+import AdminEmployee from './page/admin/employee';
 
 
 export const AuthRouter = [
@@ -128,6 +129,11 @@ export const AdminRouter = [
   {
     path: '/admin/profile',
     component: AdminProfile,
+    exact: true,
+  },
+  {
+    path: '/admin/emp-todo',
+    component: AdminEmployee,
     exact: true,
   },
 ];
