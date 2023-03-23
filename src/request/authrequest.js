@@ -27,3 +27,12 @@ export const GET_VERIFYOTP = async (username, password, otp) => {
     const data = await response.json();
     return data;
 };
+
+export const GET_MAINTANANCE = async () => {
+  const response = await fetch(`${URL_STRING}`, {
+      headers,
+      method: 'GET',
+    }
+  );
+  return response;
+};

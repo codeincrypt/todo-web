@@ -22,6 +22,7 @@ import AdminTaskProject from './page/admin/todo/taskproject';
 import AdminTasks from './page/admin/todo/tasks';
 import AdminTasksview from './page/admin/todo/taskview';
 import AdminEmployee from './page/admin/employee';
+import Maintanance from './auth/maintanance';
 
 
 export const AuthRouter = [
@@ -29,7 +30,7 @@ export const AuthRouter = [
     path: '/login',
     component: Login,
     exact: true,
-  },
+  }
 ];
 
 export const UserRouter = [

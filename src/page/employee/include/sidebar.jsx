@@ -7,10 +7,23 @@ const Header = (props) => {
   const [profile, setProfile] = React.useState({})
 
   const fetchProfile = async () => {
-    const response = await GET_PROFILE()
-    if (response.statuscode === 1) {
-      setProfile(response.data)
-    }
+    console.log('fetchProfile')
+    try {
+      const response = await GET_PROFILE()
+      if (response.statuscode === 1) {
+        setProfile(response.data)
+      }
+      if (!response.ok) {
+        throw new Error(`Error! status: ${response.status}`);
+      }
+    } catch (error) {
+      console.log('error: ' + error)
+      if(error == "TypeError: Failed to fetch") {
+        console.log('seccesss')
+        window.location.href = '/maintanance'
+        // ...do something graceful like show a message or call your reducer
+      }
+   }
   };
 
   React.useEffect(() => {

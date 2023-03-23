@@ -4,6 +4,7 @@ import { AuthRouter, UserRouter, AdminRouter } from "./router";
 import EmployeeLayout from "./layoutemployee";
 import AdminLayout from "./layoutadmin";
 import AuthLayout from "./authlayout";
+import Maintanance from "./auth/maintanance";
 
 const Navigation = () => {
   const history = useHistory();
@@ -24,7 +25,6 @@ const Navigation = () => {
           />
         ))}
 
-        
         {AdminRouter.map((i, index) => (
           <Route
             exact
@@ -50,6 +50,8 @@ const Navigation = () => {
             )}
           />
         ))}
+
+        <Route exact path={"/maintanance"} component={Maintanance} />
       </Switch>
     </Router>
   );
