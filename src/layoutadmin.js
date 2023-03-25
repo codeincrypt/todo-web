@@ -5,7 +5,6 @@ import SIDEBAR from "./page/admin/include/sidebar";
 
 import { useHistory } from "react-router-dom";
 import { UserContext } from "./App";
-import { GET_PROFILE } from "./request/apirequest";
 
 const Layout = ({ children }) => {
   const history = useHistory()

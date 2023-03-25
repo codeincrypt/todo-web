@@ -18,7 +18,7 @@ const Header = (props) => {
       }
     } catch (error) {
       console.log('error: ' + error)
-      if(error == "TypeError: Failed to fetch") {
+      if(error === "TypeError: Failed to fetch") {
         console.log('seccesss')
         window.location.href = '/maintanance'
         // ...do something graceful like show a message or call your reducer

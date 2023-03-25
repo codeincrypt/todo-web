@@ -3,11 +3,9 @@ import { UserContext } from "../App";
 import "../assets/import.css";
 import { GET_LOGIN, GET_VERIFYOTP } from "../request/authrequest";
 import { showAlert } from "../page/common/alert";
-import { useHistory } from "react-router-dom";
 
 const Login = (props) => {
   const { dispatch } = useContext(UserContext);
-  const history = useHistory();
   const [otp, setOtp] = useState("");
   const [email, setUsername] = useState("");
   const [password, setPassword] = useState("");

@@ -17,13 +17,11 @@ import AdminHome from './page/admin/home';
 import AdminProfile from './page/profile';
 import AdminManageproject from './page/admin/project/manageproject';
 import AdminProject from './page/admin/project/project';
-import AdminAddTask from './page/admin/todo/add-task';
-import AdminTaskProject from './page/admin/todo/taskproject';
+// import AdminAddTask from './page/admin/todo/add-task';
+// import AdminTaskProject from './page/admin/todo/taskproject';
 import AdminTasks from './page/admin/todo/tasks';
 import AdminTasksview from './page/admin/todo/taskview';
 import AdminEmployee from './page/admin/employee';
-import Maintanance from './auth/maintanance';
-
 
 export const AuthRouter = [
   {
