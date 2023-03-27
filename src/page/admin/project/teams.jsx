@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import "../../assets/import.css";
+import { Link, useParams } from "react-router-dom";
+import "../../../assets/import.css";
 
-import Nodata from "../common/nodata";
-import { GET_EMPLOYEETODO } from "../../request/adminrequest";
-import Loader from "../common/loader";
+import Nodata from "../../common/nodata";
+import { GET_PROJECTTEAMS } from "../../../request/adminrequest";
+import Loader from "../../common/loader";
 
-const AdminEmployee = (props) => {
+const AdminProjectTeams = (props) => {
+  const { projectcode } = useParams();
   const [loading, setLoading] = useState(true);
   const [datalist, setDatalist] = useState([]);
 
@@ -21,7 +22,7 @@ const AdminEmployee = (props) => {
 
   const fetchData = async (page, showPerPage) => {
     setCounter(page);
-    const response = await GET_EMPLOYEETODO(page, showPerPage);
+    const response = await GET_PROJECTTEAMS(projectcode, page, showPerPage);
     if (response.statuscode === 1) {
       setData_count(response.data.data_count);
       setDatalist(response.data.data);
@@ -58,8 +59,7 @@ const AdminEmployee = (props) => {
 
   useEffect(() => {
     fetchData(page, showPerPage);
-    // eslint-disable-next-line
-  }, []);
+  }, [page, showPerPage]);
 
   if (loading === true) {
     return (
@@ -76,10 +76,10 @@ const AdminEmployee = (props) => {
           <div className="container-fluid">
             <div className="row mb-2">
               <div className="col-sm-6">
-                <h1>Project</h1>
+                <h1>Project Teams</h1>
               </div>
               <div className="col-sm-6 text-right">
-              <Link className="btn btn-secondary " to={`/admin/employee`}> <i className="fa fa-users"></i> Manage Employee </Link>
+                <Link className="btn btn-dark" to={`/admin/project`}> Go Back </Link>
               </div>
             </div>
           </div>
@@ -94,27 +94,33 @@ const AdminEmployee = (props) => {
                     <table className="table table-hover text-nowrap">
                       <thead>
                         <tr>
-                          <th width="20%">EMPLOYEE</th>
-                          <th width="20%">DESIGNATION</th>
-                          <th width="15%" className="text-center">PENDING TASKS</th>
-                          <th width="15%" className="text-center">PRIORITY TASKS</th>
-                          <th width="10%" className="text-center">ACTION</th>
+                          <th width="5%">ID</th>
+                          <th width="40%">EMPLOYEE</th>
+                          <th className="text-center" width="10%">STATUS</th>
+                          <th className="text-center" width="10%">ASSIGN DATE</th>
+                          <th className="text-center" width="10%">REMOVE DATE</th>
+                          <th className="text-center" width="10%">ACTION</th>
                         </tr>
                       </thead>
                       <tbody>
                         {datalist.map((item, index) => (
                           <tr>
-                            <td>{item.name} <br />
-                              <span className="small">{item.empid}</span>
+                            <td>{item.id}</td>
+                            <td>
+                              <span className="float-left mr-3"> <img className="tableimg" src={item.empprofileimg} alt={item.empname} /> </span>
+                              {item.empname}
                             </td>
-                            <td>{item.designation}
-                              <br />
-                              <span className="small">{item.department}</span>
-                            </td>
-                            <td className="text-center">{item.pendingtask}</td>
-                            <td className="text-center">{item.prioritytask}</td>
                             <td className="text-center">
-                              <Link className="btn btn-success" to={`emp-todo/${item.uuid}`}> View </Link>
+                              {item.status === 0 ? (
+                                <span className="badge bg-danger">REMOVED</span>
+                              ) : (
+                                <span className="badge bg-success">WORKING</span>
+                              )}
+                            </td>
+                            <td className="text-center">{item.assigndate}</td>
+                            <td className="text-center">{item.removedate}</td>
+                            <td className="text-center">
+                              <Link className="ml-1 btn btn-sm btn-warning" to={`/admin/teams/${item.projectid}`}> Edit </Link>
                             </td>
                           </tr>
                         ))}
@@ -191,4 +197,4 @@ const AdminEmployee = (props) => {
   );
 };
 
-export default AdminEmployee;
+export default AdminProjectTeams;

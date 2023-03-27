@@ -21,7 +21,8 @@ import AdminProject from './page/admin/project/project';
 // import AdminTaskProject from './page/admin/todo/taskproject';
 import AdminTasks from './page/admin/todo/tasks';
 import AdminTasksview from './page/admin/todo/taskview';
-import AdminEmployee from './page/admin/employee';
+import AdminEmployee from './page/admin/employee/employee';
+import AdminProjectTeams from './page/admin/project/teams';
 
 export const AuthRouter = [
   {
@@ -121,6 +122,11 @@ export const AdminRouter = [
     exact: true,
   },
   {
+    path: '/admin/teams/:projectcode',
+    component: AdminProjectTeams,
+    exact: true,
+  },
+  {
     path: '/admin/manageproject',
     component: AdminManageproject,
     exact: true,
@@ -128,6 +134,11 @@ export const AdminRouter = [
   {
     path: '/admin/profile',
     component: AdminProfile,
+    exact: true,
+  },
+  {
+    path: '/admin/employee',
+    component: AdminEmployee,
     exact: true,
   },
   {

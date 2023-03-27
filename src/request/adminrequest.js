@@ -81,6 +81,18 @@ export const GET_PROJECTLIST = async (page, limit) => {
   return data;
 };
 
+// get all the employee list who work in a project
+export const GET_PROJECTTEAMS = async (projectid, page, limit) => {
+  const response = await fetch(`${URL_STRING}/api/admin/teams`, {
+      headers,
+      method: 'POST',
+      body: JSON.stringify({projectid, page, limit}),
+    }
+  );
+  const data = await response.json();
+  return data;
+};
+
 export const ADD_PROJECT = async (projectname, projectcode, status) => {
   const response = await fetch(`${URL_STRING}/api/admin/addproject`, {
       headers,
@@ -119,6 +131,16 @@ export const GET_EMPLOYEETODO = async (page, limit) => {
       headers,
       method: 'POST',
       body: JSON.stringify({page, limit}),
+    }
+  );
+  const data = await response.json();
+  return data;
+};
+
+export const GET_EMPLOYEELIST = async (page, limit) => {
+  const response = await fetch(`${URL_STRING}/api/admin/employee`, {
+      headers,
+      method: 'GET',
     }
   );
   const data = await response.json();
