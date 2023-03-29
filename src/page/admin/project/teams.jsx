@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import { Modal } from "react-bootstrap";
 import "../../../assets/import.css";
+import Select from "react-select";
+import Swal from "sweetalert2";
 
 import Nodata from "../../common/nodata";
-import { GET_PROJECTTEAMS } from "../../../request/adminrequest";
+import {
+  GET_PROJECTTEAMS,
+  GET_EMPLOYEELIST,
+  INSERT_EMPPROJECT,
+} from "../../../request/adminrequest";
 import Loader from "../../common/loader";
 
 const AdminProjectTeams = (props) => {
@@ -20,16 +27,60 @@ const AdminProjectTeams = (props) => {
     Math.ceil(data_count / showPerPage)
   );
 
+  const [projectdetails, setProjectdetails] = useState({});
+  const [empdatalist, setEmpDatalist] = useState([]);
+  const [modalloadingbtn, setModalloadingbtn] = useState(true);
+  const [show, setShow] = useState(false);
+  const [projectstatus, setProjectstatus] = useState(0);
+  const [projectemployee, setProjectemp] = useState("");
+  const [projectid, setProjectid] = useState("");
+
+  const handleClose = () => setShow(false);
+
   const fetchData = async (page, showPerPage) => {
     setCounter(page);
     const response = await GET_PROJECTTEAMS(projectcode, page, showPerPage);
     if (response.statuscode === 1) {
       setData_count(response.data.data_count);
       setDatalist(response.data.data);
+      setProjectdetails(response.data.details);
       setNumberOfButoons(Math.ceil(response.data.data_count / showPerPage));
       setLoading(false);
     } else {
       setLoading(false);
+    }
+  };
+
+  const fetchEmpData = async () => {
+    setCounter(page);
+    const response = await GET_EMPLOYEELIST();
+    if (response.statuscode === 1) {
+      let output = [];
+      response.data.data.map((item, index) =>
+        output.push({ value: item.empid, label: item.name })
+      );
+      setEmpDatalist(output);
+      setLoading(false);
+    } else {
+      setLoading(false);
+    }
+  };
+
+  const openModel = () => {
+    fetchEmpData();
+    setShow(true);
+  };
+
+  const insertEmpProject = async () => {
+    const response = await INSERT_EMPPROJECT(
+      projectid,
+      projectemployee.value,
+      projectstatus
+    );
+    if (response.statuscode === 1) {
+      fetchData(page, showPerPage);
+      setShow(false);
+      Swal.fire("success!", `${response.message}`, "success");
     }
   };
 
@@ -76,10 +127,15 @@ const AdminProjectTeams = (props) => {
           <div className="container-fluid">
             <div className="row mb-2">
               <div className="col-sm-6">
-                <h1>Project Teams</h1>
+                <h1>Project : {projectdetails.projectname}</h1>
               </div>
               <div className="col-sm-6 text-right">
-                <Link className="btn btn-dark" to={`/admin/project`}> Go Back </Link>
+                <button className="btn btn-dark ml-1" onClick={openModel}>
+                  Assign Project
+                </button>
+                <Link className="btn btn-dark ml-1" to={`/admin/project`}>
+                  Go Back
+                </Link>
               </div>
             </div>
           </div>
@@ -96,10 +152,18 @@ const AdminProjectTeams = (props) => {
                         <tr>
                           <th width="5%">ID</th>
                           <th width="40%">EMPLOYEE</th>
-                          <th className="text-center" width="10%">STATUS</th>
-                          <th className="text-center" width="10%">ASSIGN DATE</th>
-                          <th className="text-center" width="10%">REMOVE DATE</th>
-                          <th className="text-center" width="10%">ACTION</th>
+                          <th className="text-center" width="10%">
+                            STATUS
+                          </th>
+                          <th className="text-center" width="10%">
+                            ASSIGN DATE
+                          </th>
+                          <th className="text-center" width="10%">
+                            REMOVE DATE
+                          </th>
+                          <th className="text-center" width="10%">
+                            ACTION
+                          </th>
                         </tr>
                       </thead>
                       <tbody>
@@ -107,20 +171,33 @@ const AdminProjectTeams = (props) => {
                           <tr>
                             <td>{item.id}</td>
                             <td>
-                              <span className="float-left mr-3"> <img className="tableimg" src={item.empprofileimg} alt={item.empname} /> </span>
+                              <span className="float-left mr-3">
+                                <img
+                                  className="tableimg"
+                                  src={item.empprofileimg}
+                                  alt={item.empname}
+                                />
+                              </span>
                               {item.empname}
                             </td>
                             <td className="text-center">
                               {item.status === 0 ? (
                                 <span className="badge bg-danger">REMOVED</span>
                               ) : (
-                                <span className="badge bg-success">WORKING</span>
+                                <span className="badge bg-success">
+                                  WORKING
+                                </span>
                               )}
                             </td>
                             <td className="text-center">{item.assigndate}</td>
                             <td className="text-center">{item.removedate}</td>
                             <td className="text-center">
-                              <Link className="ml-1 btn btn-sm btn-warning" to={`/admin/teams/${item.projectid}`}> Edit </Link>
+                              <Link
+                                className="ml-1 btn btn-sm btn-warning"
+                                to={`/admin/teams/${item.projectid}`}
+                              >
+                                Edit{" "}
+                              </Link>
                             </td>
                           </tr>
                         ))}
@@ -174,13 +251,18 @@ const AdminProjectTeams = (props) => {
                       </div>
                       <div className="col-lg-4">
                         <p className="text-right pr-3">
-                          Showing  <span className="font-weight-bold"> 
+                          Showing{" "}
+                          <span className="font-weight-bold">
                             {showPerPage * counter > data_count
                               ? data_count
-                              : showPerPage * counter} 
-                          </span> 
-                          of 
-                          <span className="font-weight-bold"> {data_count} </span> data
+                              : showPerPage * counter}
+                          </span>
+                          of
+                          <span className="font-weight-bold">
+                            {" "}
+                            {data_count}{" "}
+                          </span>{" "}
+                          data
                         </p>
                       </div>
                     </div>
@@ -193,6 +275,57 @@ const AdminProjectTeams = (props) => {
           </div>
         </section>
       </div>
+
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>
+            <span style={{ color: "#1d1346", fontSize: 20 }}>
+            Assign Project to your employee
+            </span>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{ height: 400 }}>
+          <p id="inserterror"></p>
+
+          <div className="form-group">
+            <label>Select Employee</label>
+            <Select options={empdatalist} onChange={(e) => setProjectemp(e)} />
+          </div>
+
+          <div className="form-group">
+            <label>Project Status</label>
+            <select
+              className="form-control"
+              defaultValue={projectstatus}
+              onChange={(e) => setProjectstatus(e.target.value)}
+            >
+              <option value="1">Active</option>
+              <option value="0">Inactive</option>
+            </select>
+          </div>
+
+          <div className="form-group mt-3">
+            {modalloadingbtn ? (
+              <button
+                className="btn btn-success col-lg-4"
+                onClick={insertEmpProject}
+              >
+                Add New
+              </button>
+            ) : (
+              <button className="btn btn-secondary col-lg-4" disabled>
+                <i className="fa fa-spin fa-spinner"></i> Please Wait
+              </button>
+            )}
+          </div>
+        </Modal.Body>
+      </Modal>
     </>
   );
 };

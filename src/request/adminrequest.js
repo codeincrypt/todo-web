@@ -93,6 +93,18 @@ export const GET_PROJECTTEAMS = async (projectid, page, limit) => {
   return data;
 };
 
+// ASSIGN PROJECT TO EMPLOYEE
+export const INSERT_EMPPROJECT = async (projectid, empid, status) => {
+  const response = await fetch(`${URL_STRING}/api/admin/addempproject`, {
+      headers,
+      method: 'POST',
+      body: JSON.stringify({projectid, empid, status}),
+    }
+  );
+  const data = await response.json();
+  return data;
+};
+
 export const ADD_PROJECT = async (projectname, projectcode, status) => {
   const response = await fetch(`${URL_STRING}/api/admin/addproject`, {
       headers,
@@ -138,7 +150,7 @@ export const GET_EMPLOYEETODO = async (page, limit) => {
 };
 
 export const GET_EMPLOYEELIST = async (page, limit) => {
-  const response = await fetch(`${URL_STRING}/api/admin/employee`, {
+  const response = await fetch(`${URL_STRING}/api/admin/employeeoptions`, {
       headers,
       method: 'GET',
     }
