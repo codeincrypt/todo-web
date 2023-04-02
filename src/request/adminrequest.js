@@ -105,6 +105,18 @@ export const INSERT_EMPPROJECT = async (projectid, empid, status) => {
   return data;
 };
 
+// ASSIGN PROJECT TO EMPLOYEE
+export const UPDATE_EMPPROJECT = async (projectid, empid, status) => {
+  const response = await fetch(`${URL_STRING}/api/admin/updateempproject`, {
+      headers,
+      method: 'POST',
+      body: JSON.stringify({projectid, empid, status}),
+    }
+  );
+  const data = await response.json();
+  return data;
+};
+
 export const ADD_PROJECT = async (projectname, projectcode, status) => {
   const response = await fetch(`${URL_STRING}/api/admin/addproject`, {
       headers,

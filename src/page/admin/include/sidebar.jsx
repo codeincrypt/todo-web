@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import "../../../assets/import.css";
 import { GET_PROFILE } from "../../../request/apirequest";
+import { UserContext } from "../../../App";
 
 const Header = (props) => {
+  const history = useHistory();
+  const { dispatch } = useContext(UserContext);
   const [profile, setProfile] = React.useState({})
 
   const fetchProfile = async () => {
@@ -11,9 +15,14 @@ const Header = (props) => {
     if (response.statuscode === 1) {
       setProfile(response.data)
     }
+    if (response.statuscode === 2) {
+      dispatch({ type: "CLEAR" });
+      history.push("/login")
+      localStorage.clear()
+    }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
       fetchProfile()
     // eslint-disable-next-line
   }, []);

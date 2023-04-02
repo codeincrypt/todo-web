@@ -10,6 +10,7 @@ import {
   GET_PROJECTTEAMS,
   GET_EMPLOYEELIST,
   INSERT_EMPPROJECT,
+  UPDATE_EMPPROJECT,
 } from "../../../request/adminrequest";
 import Loader from "../../common/loader";
 
@@ -33,7 +34,12 @@ const AdminProjectTeams = (props) => {
   const [show, setShow] = useState(false);
   const [projectstatus, setProjectstatus] = useState(0);
   const [projectemployee, setProjectemp] = useState("");
-  const [projectid, setProjectid] = useState("");
+
+  const [updateProject, setUpdateProject] = useState({
+    projectid: "",
+    empid: "",
+    status: "",
+  });
 
   const handleClose = () => setShow(false);
 
@@ -71,16 +77,40 @@ const AdminProjectTeams = (props) => {
     setShow(true);
   };
 
+  // const updateProjectStatus = (e) => {
+  //   const new_obj = { ...updateProject, status: e };
+  //   setUpdateProject(new_obj);
+  // };
+
   const insertEmpProject = async () => {
     const response = await INSERT_EMPPROJECT(
-      projectid,
+      projectcode,
       projectemployee.value,
       projectstatus
     );
+    if (response.statuscode === 1 && response.state === true) {
+      fetchData(page, showPerPage);
+      setShow(false);
+      Swal.fire("Success !", `${response.message}`, "success");
+    }
+    if (response.statuscode === 1 && response.state === false) {
+      setShow(false);
+      Swal.fire("Alert !", `${response.message}`, "info");
+    }
+    if (response.statuscode !== 1) {
+      Swal.fire("Fail !", `${response.message}`, "error");
+    }
+  };
+
+  const updateEmpProject = async (empid, status) => {
+    const response = await UPDATE_EMPPROJECT(projectcode, empid, status);
     if (response.statuscode === 1) {
       fetchData(page, showPerPage);
       setShow(false);
-      Swal.fire("success!", `${response.message}`, "success");
+      Swal.fire("Success !", `${response.message}`, "success");
+    }
+    else {
+      Swal.fire("Fail !", `${response.message}`, "error");
     }
   };
 
@@ -192,12 +222,22 @@ const AdminProjectTeams = (props) => {
                             <td className="text-center">{item.assigndate}</td>
                             <td className="text-center">{item.removedate}</td>
                             <td className="text-center">
-                              <Link
-                                className="ml-1 btn btn-sm btn-warning"
-                                to={`/admin/teams/${item.projectid}`}
-                              >
-                                Edit{" "}
-                              </Link>
+                              {item.status === 0 ? (
+                                <button
+                                  className="ml-1 btn btn-sm btn-warning"
+                                  onClick={(e) => updateEmpProject(item.empid, 1)}
+                                >
+                                  Assign
+                                </button>
+                              ) : (
+                                <button
+                                  className="ml-1 btn btn-sm btn-warning"
+                                  onClick={(e) => updateEmpProject(item.id, 0)}
+                                >
+                                  Remove
+                                </button>
+                              )}
+                              
                             </td>
                           </tr>
                         ))}
@@ -286,7 +326,7 @@ const AdminProjectTeams = (props) => {
         <Modal.Header closeButton>
           <Modal.Title>
             <span style={{ color: "#1d1346", fontSize: 20 }}>
-            Assign Project to your employee
+              Assign Project to your employee
             </span>
           </Modal.Title>
         </Modal.Header>
@@ -326,6 +366,7 @@ const AdminProjectTeams = (props) => {
           </div>
         </Modal.Body>
       </Modal>
+
     </>
   );
 };

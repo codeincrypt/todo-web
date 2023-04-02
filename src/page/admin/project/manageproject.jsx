@@ -37,6 +37,11 @@ const AdminManageproject = (props) => {
   const [editprojectname, setEditProjectname] = useState("");
   const [editprojectcode, setEditProjectcode] = useState("");
   const [editprojectstatus, setEditProjectstatus] = useState("");
+
+  const [editprojectdata, setEditProjectdata] = useState({
+    projectname:"", projectcode:"", status:"", id:""
+  });
+
   const [editmodalloadingbtn, setEditModalloadingbtn] = useState(true);
 
   const handleClose = () => setShow(false);
@@ -74,17 +79,17 @@ const AdminManageproject = (props) => {
   const openEditModel = (e) => {
     handleOpenedit()
     const getdata = datalist.find(elem => elem.id === e)
-    setEditProjectname(getdata.projectname);
-    setEditProjectcode(getdata.projectid);
-    setEditProjectstatus(getdata.status);
-    setEditProjectid(getdata.id);
+    const new_obj = { ...editprojectdata, projectname:getdata.projectname, projectcode:getdata.projectid, status:getdata.status, id:getdata.id };
+    setEditProjectdata(new_obj)
   };
 
   const setEditProjectname1 = (e) => {
-    setEditProjectname(e)
+    // setEditProjectname(e)
     let trimval = e.toString().replace(/\s/g, "")
     let newval = trimval.toString().length > 8 ? trimval.toUpperCase().substr(0,8) : trimval.toUpperCase()
-    setEditProjectcode(newval)
+    let new_obj = { ...editprojectdata, projectname: e,projectcode : newval}
+    console.log(new_obj)
+    setEditProjectdata(new_obj)
   }
 
   const updateProject = async () => {
@@ -396,7 +401,7 @@ const AdminManageproject = (props) => {
         <Modal.Header closeButton>
           <Modal.Title>
             <span style={{ color: "#1d1346", fontSize: 20 }}>
-              Update Project
+              Update Project {JSON.stringify(editprojectdata)}
             </span>
           </Modal.Title>
         </Modal.Header>
@@ -406,7 +411,7 @@ const AdminManageproject = (props) => {
             <label>Project Name</label>
             <input
               type="text"
-              defaultValue={editprojectname}
+              defaultValue={editprojectdata.projectname}
               onChange={(e) => setEditProjectname1(e.target.value)}
               className="form-control p_input"
             />
@@ -415,8 +420,9 @@ const AdminManageproject = (props) => {
             <label>Project Code</label>
             <input
               type="text"
-              defaultValue={editprojectcode}
-              onChange={(e) => setEditProjectcode(e.target.value)}
+              defaultValue={editprojectdata.projectcode}
+              // onChange={(e) => setEditProjectcode(e.target.value)}
+              onChange={(e) => setEditProjectdata({ ...editprojectdata, projectcode:e.target.value})}
               className="form-control p_input"
             />
           </div>
@@ -424,8 +430,9 @@ const AdminManageproject = (props) => {
             <label>Project Status</label>
             <select
               className="form-control"
-              defaultValue={editprojectstatus}
-              onChange={(e) => setEditProjectstatus(e.target.value)}
+              defaultValue={editprojectdata.status}
+              onChange={(e) => setEditProjectdata({ ...editprojectdata, status:e.target.value})}
+              // onChange={(e) => setEditProjectstatus(e.target.value)}
             >
               <option value="1">Active</option>
               <option value="0">Inactive</option>

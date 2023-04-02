@@ -18,7 +18,7 @@ const AdminTasksview = (props) => {
   const [markasdon, setMarkasdone] = useState(0);
   // eslint-disable-next-line
   const [updateprogress, setUpdateprogress] = useState(0);
-
+  // https://github.com/codeincrypt/todo-web/security/dependabot
   const fetchData = async () => {
     const response = await GET_TODOVIEW(taskid);
     if (response.statuscode === 1) {
