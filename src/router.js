@@ -18,11 +18,11 @@ import AdminProfile from './page/profile';
 import AdminManageproject from './page/admin/project/manageproject';
 import AdminProject from './page/admin/project/project';
 // import AdminAddTask from './page/admin/todo/add-task';
-// import AdminTaskProject from './page/admin/todo/taskproject';
 import AdminTasks from './page/admin/todo/tasks';
 import AdminTasksview from './page/admin/todo/taskview';
 import AdminEmployee from './page/admin/employee/employee';
 import AdminProjectTeams from './page/admin/project/teams';
+import AdminTaskProject from './page/admin/todo/taskproject';
 
 export const AuthRouter = [
   {
@@ -118,7 +118,7 @@ export const AdminRouter = [
   },
   {
     path: '/admin/project/:projectcode',
-    component: TaskProject,
+    component: AdminTaskProject,
     exact: true,
   },
   {

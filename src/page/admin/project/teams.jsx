@@ -157,7 +157,7 @@ const AdminProjectTeams = (props) => {
           <div className="container-fluid">
             <div className="row mb-2">
               <div className="col-sm-6">
-                <h1>Project : {projectdetails.projectname}</h1>
+                <h1>Project : <b>{projectdetails.projectname}</b> Teams</h1>
               </div>
               <div className="col-sm-6 text-right">
                 <button className="btn btn-dark ml-1" onClick={openModel}>

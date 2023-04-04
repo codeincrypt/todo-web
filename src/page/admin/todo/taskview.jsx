@@ -94,7 +94,7 @@ const AdminTasksview = (props) => {
             <div className="card-header">
               <div className="row">
                 <div className="col-lg-6 form-inline ">
-                <Link to="/task" className="btn btn-secondary"> <i className="fa fa-arrow-left"></i> Go Back</Link>
+                <Link to="/admin/task" className="btn btn-secondary"> <i className="fa fa-arrow-left"></i> Go Back</Link>
                   {datalist.taskstatus === 1 ? (
                     <React.Fragment>
                       <button

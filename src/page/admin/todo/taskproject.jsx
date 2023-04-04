@@ -3,11 +3,10 @@ import { Link, useParams } from "react-router-dom";
 import "../../../assets/import.css";
 
 import { GET_PROJECTTODOLIST } from "../../../request/adminrequest";
-import TasksTable from "../../component/task";
 import Loader from "../../common/loader";
 import Nodata from "../../common/nodata";
 
-const TaskProject = (props) => {
+const AdminTaskProject = (props) => {
   const { projectcode } = useParams();
   const [loading, setLoading] = useState(true);
   const [todolist, setTodolist] = useState([]);
@@ -81,7 +80,7 @@ const TaskProject = (props) => {
         <div className="container-fluid">
           <div className="row mb-2">
             <div className="col-sm-6">
-              <h1>To Do List</h1>
+              <h1>Project : <b>{projectcode}</b> Tasks</h1>
             </div>
           </div>
         </div>
@@ -151,7 +150,64 @@ const TaskProject = (props) => {
                     </tr>
                   </thead>
                   <tbody>
-                    <TasksTable todolist={todolist} />
+                    {/* <TasksTable todolist={todolist} /> */}
+                    {todolist.map((item, index) => (
+                      <tr
+                        key={index}
+                        style={{ cursor: "pointer" }}
+                        onClick={() =>
+                          window.location.replace(`/admin/task/${item.tasksid}`)
+                        }
+                      >
+                        <td className="align-middle">{item.tasksid}</td>
+                        <td className="align-middle">{item.tasks}</td>
+                        <td className="align-middle">{item.projectcode}</td>
+                        <td className="align-middle">{item.tag}</td>
+                        <td className="align-middle ">
+                          {item.workpriority === "Critical" ? (
+                            <span className="font-weight-bold text-danger">
+                              <i className="mr-2 fa fa-fire-alt"></i>{" "}
+                              {item.workpriority}
+                            </span>
+                          ) : item.workpriority === "High" ? (
+                            <span className="font-weight-bold text-warning">
+                              <i className="mr-2 fa fa-arrow-up"></i>{" "}
+                              {item.workpriority}
+                            </span>
+                          ) : item.workpriority === "Medium" ? (
+                            <span className="font-weight-bold text-dark">
+                              <i className="mr-2 fa fa-minus"></i>{" "}
+                              {item.workpriority}
+                            </span>
+                          ) : (
+                            <span className="font-weight-bold text-dark">
+                              <i className="mr-2 fa fa-arrow-down"></i>{" "}
+                              {item.workpriority}
+                            </span>
+                          )}
+                        </td>
+                        <td className="text-center align-middle">
+                          {" "}
+                          {item.assigneename}{" "}
+                        </td>
+                        <td className="text-center align-middle">
+                          {item.taskstatus === 0 ? (
+                            <span className="badge bg-warning">Working</span>
+                          ) : item.taskstatus === 2 ? (
+                            <span className="badge bg-danger">Pending</span>
+                          ) : (
+                            <span className="badge bg-success">Completed</span>
+                          )}
+                        </td>
+
+                        <td
+                          className="text-center align-middle"
+                          title={`${item.date} / ${item.time}`}
+                        >
+                          {item.date}
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
 
@@ -223,4 +279,4 @@ const TaskProject = (props) => {
   );
 };
 
-export default TaskProject;
+export default AdminTaskProject;

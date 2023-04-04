@@ -180,7 +180,7 @@ const AdminManageproject = (props) => {
           <div className="container-fluid">
             <div className="row mb-2">
               <div className="col-sm-6">
-                <h1>Project</h1>
+                <h1>Manage Project</h1>
               </div>
             </div>
           </div>
