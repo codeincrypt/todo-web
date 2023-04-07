@@ -141,11 +141,21 @@ const AdminTasksview = (props) => {
             </div>
             <div className="card-body">
               <div className="row">
-                <div className="col-md-8">
+                <div className="col-md-4 ">
+                  <div className="title">Employee</div>
+                  <div className="title-value">{datalist.empname}</div>
+                </div>
+                <div className="col-md-4 ">
+                  <div className="title">Employee ID</div>
+                  <div className="title-value">{datalist.empid}</div>
+                </div>
+                <div className="col-md-4"></div>
+
+                <div className="col-md-8 mt-4">
                   <div className="title">Tasks</div>
                   <div className="title-value">{datalist.tasks}</div>
                 </div>
-                <div className="col-md-4">
+                <div className="col-md-4 mt-4">
                   <div className="title">Status</div>
                   <div className="title-value">
                     {datalist.taskstatus === 0 ? (

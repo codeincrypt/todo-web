@@ -107,19 +107,15 @@ const AdminTaskProject = (props) => {
                       <i className="fa fa-plus-circle mr-1"></i> Add To Do
                     </Link>
                     <button className="btn btn-muted">
-                      {" "}
                       <i className="fa fa-search"></i> Search
                     </button>
                     <button className="btn btn-muted">
-                      {" "}
                       <i className="fa fa-user"></i> Person
                     </button>
                     <button className="btn btn-muted">
-                      {" "}
                       <i className="fa fa-filter"></i> Filter
                     </button>
                     <button className="btn btn-muted">
-                      {" "}
                       <i className="fa fa-sort"></i> Sort
                     </button>
                   </div>
@@ -141,8 +137,8 @@ const AdminTaskProject = (props) => {
                     <tr>
                       <th>ID</th>
                       <th>TASK</th>
-                      <th>TAG</th>
-                      <th>COMMENTS</th>
+                      <th className="text-center">EMPLOYEE</th>
+                      {/* <th>COMMENTS</th> */}
                       <th>PRIORITY</th>
                       <th className="text-center">STATUS</th>
                       <th className="text-center">ASSIGNEE</th>
@@ -161,8 +157,13 @@ const AdminTaskProject = (props) => {
                       >
                         <td className="align-middle">{item.tasksid}</td>
                         <td className="align-middle">{item.tasks}</td>
-                        <td className="align-middle">{item.projectcode}</td>
-                        <td className="align-middle">{item.tag}</td>
+                        
+                        <td className="text-center align-middle">
+                          {item.empname}
+                          {/* <br />
+                          {item.empid} */}
+                        </td>
+                        {/* <td className="align-middle">{item.tag}</td> */}
                         <td className="align-middle ">
                           {item.workpriority === "Critical" ? (
                             <span className="font-weight-bold text-danger">
@@ -187,10 +188,6 @@ const AdminTaskProject = (props) => {
                           )}
                         </td>
                         <td className="text-center align-middle">
-                          {" "}
-                          {item.assigneename}{" "}
-                        </td>
-                        <td className="text-center align-middle">
                           {item.taskstatus === 0 ? (
                             <span className="badge bg-warning">Working</span>
                           ) : item.taskstatus === 2 ? (
@@ -198,6 +195,11 @@ const AdminTaskProject = (props) => {
                           ) : (
                             <span className="badge bg-success">Completed</span>
                           )}
+                        </td>
+                        <td className="text-center align-middle">
+                          {item.assigneename}
+                          {/* <br />
+                          {item.assignby} */}
                         </td>
 
                         <td

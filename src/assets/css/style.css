@@ -89,6 +89,10 @@ body > iframe[style*='2147483647']{
   display: none;
 }
 
+table > tbody > tr > td {
+  font-size: 15px;
+}
+
 .transparent {
   background-color: #00000000;
 }

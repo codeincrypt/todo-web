@@ -108,25 +108,22 @@ const AdminTasks = (props) => {
                       <i className="fa fa-plus-circle mr-1"></i> Add To Do
                     </Link>
                     <button className="btn btn-muted">
-                      {" "}
                       <i className="fa fa-search"></i> Search
                     </button>
                     <button className="btn btn-muted">
-                      {" "}
                       <i className="fa fa-user"></i> Person
                     </button>
                     <button className="btn btn-muted">
-                      {" "}
                       <i className="fa fa-filter"></i> Filter
                     </button>
                     <button className="btn btn-muted">
-                      {" "}
                       <i className="fa fa-sort"></i> Sort
                     </button>
                   </div>
                   <div className="col-lg-2">
                     <select
                       className="form-control"
+                      defaultValue={showPerPage}
                       onChange={(e) => changeLimit(e.target.value)}
                     >
                       <option value="10">10</option>

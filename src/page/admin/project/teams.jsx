@@ -114,6 +114,28 @@ const AdminProjectTeams = (props) => {
     }
   };
 
+  const doAction = async (empid, status) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "want to update the employee project status!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Update",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const result = await updateEmpProject(empid, status);
+        if (result.statuscode === 1) {
+          fetchData();
+          Swal.fire("success!", `${result.message}`, "success");
+        } else {
+          Swal.fire("Fail !", `${result.message}`, "error");
+        }
+      }
+    });
+  }
+
   const onButtonClick = (type) => {
     if (type === "prev") {
       if (counter === 1) {
@@ -186,10 +208,7 @@ const AdminProjectTeams = (props) => {
                             STATUS
                           </th>
                           <th className="text-center" width="10%">
-                            ASSIGN DATE
-                          </th>
-                          <th className="text-center" width="10%">
-                            REMOVE DATE
+                            DATE
                           </th>
                           <th className="text-center" width="10%">
                             ACTION
@@ -220,19 +239,18 @@ const AdminProjectTeams = (props) => {
                               )}
                             </td>
                             <td className="text-center">{item.assigndate}</td>
-                            <td className="text-center">{item.removedate}</td>
                             <td className="text-center">
                               {item.status === 0 ? (
                                 <button
                                   className="ml-1 btn btn-sm btn-warning"
-                                  onClick={(e) => updateEmpProject(item.empid, 1)}
+                                  onClick={(e) => doAction(item.empid, 1)}
                                 >
                                   Assign
                                 </button>
                               ) : (
                                 <button
                                   className="ml-1 btn btn-sm btn-warning"
-                                  onClick={(e) => updateEmpProject(item.id, 0)}
+                                  onClick={(e) => doAction(item.empid, 0)}
                                 >
                                   Remove
                                 </button>
