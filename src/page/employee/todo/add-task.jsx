@@ -65,13 +65,6 @@ const AddTask = (props) => {
     ]);
   };
 
-  const fetchData = async (page, showPerPage) => {
-    const response = await GET_PROJECTLIST(page, showPerPage);
-    if (response.statuscode === 1) {
-      setProjectlist(response.data.data);
-    }
-  };
-
   const submitTaskData = () => {
     for (let i = 0; i < inputList.length; i++) {
       if(inputList[i].tasks === ""){
@@ -105,8 +98,15 @@ const AddTask = (props) => {
     ));
   };
 
+  const fetchProjectData = async () => {
+    const response = await GET_PROJECTLIST(1, 1000);
+    if (response.statuscode === 1) {
+      setProjectlist(response.data.data);
+    }
+  }
+
   useEffect(() => {
-    fetchData(1, 1000);
+    fetchProjectData();
     // eslint-disable-next-line
   }, []);
 

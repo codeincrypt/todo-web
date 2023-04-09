@@ -93,7 +93,6 @@ const Project = (props) => {
                         <tr>
                           <th width="5%">ID</th>
                           <th width="40%">PROJECT NAME</th>
-                          <th width="20%">TEAM</th>
                           <th width="20%" className="text-center">PENDING TASKS</th>
                           <th width="20%" className="text-center">PRIORITY TASKS</th>
                           <th width="10%" className="text-center">ACTION</th>
@@ -102,9 +101,8 @@ const Project = (props) => {
                       <tbody>
                         {datalist.map((item, index) => (
                           <tr>
-                            <td>{item.id}</td>
+                            <td>{index+1}</td>
                             <td>{item.projectname}</td>
-                            <td>A,B,C,D</td>
                             <td className="text-center">{item.pendingtask}</td>
                             <td className="text-center">{item.prioritytask}</td>
                             <td className="text-center">

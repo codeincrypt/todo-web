@@ -96,6 +96,7 @@ const AdminEmployee = (props) => {
                         <tr>
                           <th width="20%">EMPLOYEE</th>
                           <th width="20%">DESIGNATION</th>
+                          <th width="20%">WORKING</th>
                           <th width="15%" className="text-center">PENDING TASKS</th>
                           <th width="15%" className="text-center">PRIORITY TASKS</th>
                           <th width="10%" className="text-center">ACTION</th>
@@ -111,6 +112,7 @@ const AdminEmployee = (props) => {
                               <br />
                               <span className="small">{item.department}</span>
                             </td>
+                            <td className="text-center">{item.working}</td>
                             <td className="text-center">{item.pendingtask}</td>
                             <td className="text-center">{item.prioritytask}</td>
                             <td className="text-center">
